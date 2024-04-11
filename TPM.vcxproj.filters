@@ -23,5 +23,11 @@
     <ClCompile Include="TPM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NIAnalogOutputPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NIDigitalOutputPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
