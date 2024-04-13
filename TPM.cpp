@@ -35,7 +35,7 @@ const int ERR_INVALID_REQUEST = 2008;
 
 MODULE_API void InitializeModuleData()
 {
-    RegisterDevice(g_DeviceNameNIDAQHub, MM::SignalIODevice, "NIDAQHub");
+    RegisterDevice(g_DeviceNameNIDAQHub, MM::HubDevice, "NIDAQHub");
     RegisterDevice(g_HubDeviceName, MM::HubDevice, "TPM");
 }
 
@@ -1262,7 +1262,10 @@ template class NIDAQDOHub<uInt32>;
 int TPM::Initialize()
 {
     initialized_ = true;
-
+    CPropertyAction* pAct = new CPropertyAction(this, &TPM::OnTriggerAOSequence);
+    CreateProperty("TriggerAOSequence", "Off", MM::String, false, pAct);
+    AddAllowedValue("TriggerAOSequence", "Off");
+    AddAllowedValue("TriggerAOSequence", "On");
     return DEVICE_OK;
 }
 
@@ -1282,6 +1285,9 @@ int TPM::DetectInstalledDevices()
         if (success && (strcmp(hubName, deviceName) != 0))
         {
             MM::Device* pDev = CreateDevice(deviceName);
+            if (strcmp(deviceName, g_DeviceNameNIDAQHub) == 0) {
+                SetNIDAQHub(static_cast<NIDAQHub*>(pDev));  // 设置NIDAQHub指针
+            }
             AddInstalledDevice(pDev);
         }
     }
@@ -1291,4 +1297,37 @@ int TPM::DetectInstalledDevices()
 void TPM::GetName(char* pName) const
 {
     CDeviceUtils::CopyLimitedString(pName, g_HubDeviceName);
+}
+
+int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        // 可以提供一些状态信息
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        return TriggerAOSequence();
+    }
+    return DEVICE_OK;
+}
+
+int TPM::TriggerAOSequence() {
+    NIDAQHub* nidaqHub = GetNIDAQHub();
+    if (nidaqHub) {
+        std::vector<double> sequence = { -1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
+    -0.36, -0.32, -0.28, -0.24, -0.2, -0.16, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28,
+    0.32, 0.36, 0.4, 0.44, 0.48, 0.52, 0.56, 0.6, 0.64, 0.68, 0.72, 0.76, 0.8, 0.84, 0.88, 0.92, 0.96, 1.0,
+    0.96, 0.92, 0.88, 0.84, 0.8, 0.76, 0.72, 0.68, 0.64, 0.6, 0.56, 0.52, 0.48, 0.44, 0.4, 0.36, 0.32, 0.28,
+    0.24, 0.2, 0.16, 0.12, 0.08, 0.04, 0.0, -0.04, -0.08, -0.12, -0.16, -0.2, -0.24, -0.28, -0.32, -0.36, -0.4,
+    -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96};
+        std::string portName = "Dev1/ao0";
+        int result = nidaqHub->StartAOSequenceForPort(portName, sequence);
+        if (result != DEVICE_OK) {
+            // 处理错误
+            std::cerr << "Error starting AO sequence on port " << portName << std::endl;
+            return result;
+        };
+        return DEVICE_OK;
+    }
 }

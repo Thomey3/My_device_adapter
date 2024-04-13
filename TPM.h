@@ -36,37 +36,12 @@
 
 
 
+
+
+
 //////////////////////////////////////////////////////////////////////////////
-// CREATE HUB
+// NIDAQ HUB
 //
-
-class TPM : public HubBase<TPM>
-{
-public:
-    TPM() :
-        initialized_(false),
-        busy_(false)
-    {}
-    ~TPM() {}
-
-    // Device API
-    // ---------
-    int Initialize();
-    int Shutdown() { return DEVICE_OK; };
-    void GetName(char* pName) const;
-    bool Busy() { return busy_; };
-
-    // HUB api
-    int DetectInstalledDevices();
-
-private:
-    void GetPeripheralInventory();
-
-    std::vector<std::string> peripherals_;
-    bool initialized_;
-    bool busy_;
-};
-
 
 extern const char* g_DeviceNameNIDAQHub;
 extern const char* g_DeviceNameNIDAQAOPortPrefix;
@@ -420,4 +395,46 @@ private:
     std::vector<uInt32> sequence32_;
 
     TaskHandle task_;
+};
+
+//////////////////////////////////////////////////////////////////////////////
+// CREATE HUB
+//
+
+class TPM : public HubBase<TPM>
+{
+public:
+    TPM() :
+        initialized_(false),
+        busy_(false),
+        nidaqHub_(nullptr)
+    {}
+    ~TPM() {}
+
+    // Device API
+    // ---------
+    int Initialize();
+    int Shutdown() { return DEVICE_OK; };
+    void GetName(char* pName) const;
+    bool Busy() { return busy_; };
+
+    // HUB api
+    int DetectInstalledDevices();
+
+    int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+    // 设置NIDAQHub设备的函数
+    void SetNIDAQHub(NIDAQHub* hub) { nidaqHub_ = hub; }
+    NIDAQHub* GetNIDAQHub() const { return nidaqHub_; }
+
+private:
+    NIDAQHub* nidaqHub_;
+
+    int TriggerAOSequence();
+
+    void GetPeripheralInventory();
+
+    std::vector<std::string> peripherals_;
+    bool initialized_;
+    bool busy_;
 };
