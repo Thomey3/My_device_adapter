@@ -133,6 +133,7 @@ NIDAQHub::NIDAQHub() :
     pAct = new CPropertyAction(this, &NIDAQHub::OnMaxSequenceLength);
     err = CreateIntegerProperty("MaxSequenceLength",
         static_cast<long>(maxSequenceLength_), false, pAct, true);
+    Initialize();
 }
 
 
@@ -1266,6 +1267,18 @@ int TPM::Initialize()
     CreateProperty("TriggerAOSequence", "Off", MM::String, false, pAct);
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
+
+    NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
+    if (hub) {
+        SetNIDAQHub(hub);
+    }
+    else {
+        // 处理错误: NIDAQHub 未找到或未正确初始化
+        return DEVICE_ERR;
+    }
+
+    // ... 其它初始化代码 ...
+
     return DEVICE_OK;
 }
 
