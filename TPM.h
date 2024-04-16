@@ -33,12 +33,6 @@
 #define ERR_STAGE_MOVING         106
 #define HUB_NOT_AVAILABLE        107
 
-
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////
 // NIDAQ HUB
 //
@@ -63,7 +57,6 @@ extern const int ERR_NONUNIFORM_CHANNEL_VOLTAGE_RANGES;
 extern const int ERR_VOLTAGE_RANGE_EXCEEDS_DEVICE_LIMITS;
 extern const int ERR_UNKNOWN_PINS_PER_PORT;
 
-
 inline std::string GetNIError(int32 nierr)
 {
     char buf[1024];
@@ -72,7 +65,6 @@ inline std::string GetNIError(int32 nierr)
     return buf;
 }
 
-
 inline std::string GetNIDetailedErrorForMostRecentCall()
 {
     char buf[1024];
@@ -80,7 +72,6 @@ inline std::string GetNIDetailedErrorForMostRecentCall()
         return "[failed to get DAQmx extended error info]";
     return buf;
 }
-
 
 // Mix-in class for error code handling.
 template <typename TDevice>
@@ -121,7 +112,6 @@ private:
 };
 
 class NIDAQHub;
-
 
 /**
  * Helper class for NIDAQHub using templates to deal with 8 pin and 32 pin DO ports without
@@ -398,6 +388,14 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////
+// DAQ
+//
+class DAQAnalogInputPort : public CSignalIOBase<DAQAnalogInputPort>
+{
+
+};
+
+//////////////////////////////////////////////////////////////////////////////
 // CREATE HUB
 //
 
@@ -406,8 +404,7 @@ class TPM : public HubBase<TPM>
 public:
     TPM() :
         initialized_(false),
-        busy_(false),
-        nidaqHub_(nullptr)
+        busy_(false)
     {}
     ~TPM() {}
 
@@ -421,16 +418,18 @@ public:
     // HUB api
     int DetectInstalledDevices();
 
-    int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct);
+    void SetPortName(const std::string& portName) { portName_ = portName; }
+    void GetPortName(std::string& portName) const { portName = portName_; }
 
-    // 设置NIDAQHub设备的函数
-    void SetNIDAQHub(NIDAQHub* hub) { nidaqHub_ = hub; }
-    NIDAQHub* GetNIDAQHub() const { return nidaqHub_; }
+    int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
+    NIDAQHub* GetNIDAQHubSafe();
 
 private:
-    NIDAQHub* nidaqHub_;
+    std::string portName_;  // 用于存储端口名
 
     int TriggerAOSequence();
+    int StopAOSequence();
 
     void GetPeripheralInventory();
 

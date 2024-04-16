@@ -1256,19 +1256,32 @@ int NIDAQDOHub<uInt32>::DaqmxWriteDigital(TaskHandle doTask, int32 samplesPerCha
 template class NIDAQDOHub<uInt8>;
 template class NIDAQDOHub<uInt16>;
 template class NIDAQDOHub<uInt32>;
+
+///////////////////////////////////////////////////////////////////////////////////
+///   DAQ 
+///
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///   TPM 
 ///
 
 int TPM::Initialize()
 {
+    // 输出AOSequence的测试属性
     initialized_ = true;
     CPropertyAction* pAct = new CPropertyAction(this, &TPM::OnTriggerAOSequence);
     CreateProperty("TriggerAOSequence", "Off", MM::String, false, pAct);
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
 
-
+    // 添加 portName 属性
+    CPropertyAction* pActPort = new CPropertyAction(this, &TPM::OnPortName);
+    CreateProperty("PortName", "Dev2/ao0", MM::String, false, pActPort);
+    AddAllowedValue("PortName", "Dev2/ao0");
+    AddAllowedValue("PortName", "Dev2/ao1");
+    AddAllowedValue("PortName", "Dev2/ao2");  // 根据实际端口进行添加
 
     // ... 其它初始化代码 ...
 
@@ -1291,9 +1304,6 @@ int TPM::DetectInstalledDevices()
         if (success && (strcmp(hubName, deviceName) != 0))
         {
             MM::Device* pDev = CreateDevice(deviceName);
-            if (strcmp(deviceName, g_DeviceNameNIDAQHub) == 0) {
-                SetNIDAQHub(static_cast<NIDAQHub*>(pDev));  // 设置NIDAQHub指针
-            }
             AddInstalledDevice(pDev);
         }
     }
@@ -1305,6 +1315,32 @@ void TPM::GetName(char* pName) const
     CDeviceUtils::CopyLimitedString(pName, g_HubDeviceName);
 }
 
+NIDAQHub* TPM::GetNIDAQHubSafe() {
+    NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
+    if (!hub) {
+        std::cerr << "Error: NIDAQHub not found or not properly initialized." << std::endl;
+        return nullptr; // 或处理错误的其他方式
+    }
+    return hub;
+}
+
+int TPM::OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        std::string portName;
+        GetPortName(portName);  // 获取当前设置的端口名
+        pProp->Set(portName.c_str());
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        std::string portName;
+        pProp->Get(portName);
+        SetPortName(portName);  // 保存新设置的端口名
+    }
+    return DEVICE_OK;
+}
+
 int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::BeforeGet)
@@ -1313,21 +1349,25 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
     }
     else if (eAct == MM::AfterSet)
     {
-        return TriggerAOSequence();
+        std::string value;
+        pProp->Get(value); // 获取当前属性的值
+
+        if (value == "On")
+        {
+            return TriggerAOSequence(); // 如果是"On"，则执行TriggerAOSequence
+        }
+        else if (value == "Off")
+        {
+            return StopAOSequence(); // 如果是"Off"，则执行StopAOSequence或其他你希望的函数
+        }
     }
     return DEVICE_OK;
 }
 
 int TPM::TriggerAOSequence() {
-    NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
-    if (hub) {
-        SetNIDAQHub(hub);
-    }
-    else {
-        // 处理错误: NIDAQHub 未找到或未正确初始化
-        return DEVICE_ERR;
-    }
-    NIDAQHub* nidaqHub = GetNIDAQHub();
+    std::string portName;
+    GetPortName(portName);  // 获取当前设置的端口名
+    NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         std::vector<double> sequence = {-1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
     -0.36, -0.32, -0.28, -0.24, -0.2, -0.16, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28,
@@ -1335,7 +1375,6 @@ int TPM::TriggerAOSequence() {
     0.96, 0.92, 0.88, 0.84, 0.8, 0.76, 0.72, 0.68, 0.64, 0.6, 0.56, 0.52, 0.48, 0.44, 0.4, 0.36, 0.32, 0.28,
     0.24, 0.2, 0.16, 0.12, 0.08, 0.04, 0.0, -0.04, -0.08, -0.12, -0.16, -0.2, -0.24, -0.28, -0.32, -0.36, -0.4,
     -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96};
-        std::string portName = "Dev2/ao0";
         int result = nidaqHub->StartAOSequenceForPort(portName, sequence);
         if (result != DEVICE_OK) {
             // 处理错误
@@ -1344,4 +1383,19 @@ int TPM::TriggerAOSequence() {
         };
         return DEVICE_OK;
     }
+}
+
+int TPM::StopAOSequence() {
+    std::string portName;
+    GetPortName(portName);  // 获取当前设置的端口名
+    NIDAQHub* nidaqHub = GetNIDAQHubSafe();
+    if (nidaqHub) {
+        int result = nidaqHub->StopAOSequenceForPort(portName);
+        if (result != DEVICE_OK) {
+            std::cerr << "Error starting AO sequence on port " << portName << std::endl;
+            return result;
+        }
+        return DEVICE_OK;
+    }
+    return DEVICE_ERR;
 }
