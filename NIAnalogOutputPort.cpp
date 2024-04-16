@@ -389,7 +389,7 @@ int NIAnalogOutputPort::StartOnDemandTask(double voltage)
    float64 samples[1];
    samples[0] = voltage;
    int32 numWritten = 0;
-   nierr = DAQmxWriteAnalogF64(task_, 1,
+   nierr = DAQmxWriteAnalogF64(task_, 1,//tag1
       true, DAQmx_Val_WaitInfinitely, DAQmx_Val_GroupByChannel,
       samples, &numWritten, NULL);
    if (nierr != 0)

@@ -1268,14 +1268,7 @@ int TPM::Initialize()
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
 
-    NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
-    if (hub) {
-        SetNIDAQHub(hub);
-    }
-    else {
-        // 处理错误: NIDAQHub 未找到或未正确初始化
-        return DEVICE_ERR;
-    }
+
 
     // ... 其它初始化代码 ...
 
@@ -1326,15 +1319,23 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 }
 
 int TPM::TriggerAOSequence() {
+    NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
+    if (hub) {
+        SetNIDAQHub(hub);
+    }
+    else {
+        // 处理错误: NIDAQHub 未找到或未正确初始化
+        return DEVICE_ERR;
+    }
     NIDAQHub* nidaqHub = GetNIDAQHub();
     if (nidaqHub) {
-        std::vector<double> sequence = { -1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
+        std::vector<double> sequence = {-1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
     -0.36, -0.32, -0.28, -0.24, -0.2, -0.16, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28,
     0.32, 0.36, 0.4, 0.44, 0.48, 0.52, 0.56, 0.6, 0.64, 0.68, 0.72, 0.76, 0.8, 0.84, 0.88, 0.92, 0.96, 1.0,
     0.96, 0.92, 0.88, 0.84, 0.8, 0.76, 0.72, 0.68, 0.64, 0.6, 0.56, 0.52, 0.48, 0.44, 0.4, 0.36, 0.32, 0.28,
     0.24, 0.2, 0.16, 0.12, 0.08, 0.04, 0.0, -0.04, -0.08, -0.12, -0.16, -0.2, -0.24, -0.28, -0.32, -0.36, -0.4,
     -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96};
-        std::string portName = "Dev1/ao0";
+        std::string portName = "Dev2/ao0";
         int result = nidaqHub->StartAOSequenceForPort(portName, sequence);
         if (result != DEVICE_OK) {
             // 处理错误
