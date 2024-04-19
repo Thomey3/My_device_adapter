@@ -1,0 +1,137 @@
+﻿G:\vs2017\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中间目录(x64\Release\)包含从另一个项目(pingpong_example.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  databuffer.cpp
+  fifo_multi.cpp
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(32): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1469): note: 参见“vsprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(139): warning C4477: “scanf”: 格式字符串“%d”需要类型“int *”的参数，但可变参数 1 拥有了类型“uint64_t *”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(139): note: 请考虑在格式字符串中使用“%lld”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(139): note: 请考虑在格式字符串中使用“%Id”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(139): note: 请考虑在格式字符串中使用“%I64d”
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(140): warning C4244: “参数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(247): warning C4244: “=”: 从“double”转换到“uint64_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(270): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“uint64_t”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(270): note: 请考虑在格式字符串中使用“%lld”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(270): note: 请考虑在格式字符串中使用“%Id”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(270): note: 请考虑在格式字符串中使用“%I64d”
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(280): warning C4244: “=”: 从“uint64_t”转换到“double”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(284): warning C4244: “=”: 从“uint64_t”转换到“double”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(332): warning C4244: “=”: 从“double”转换到“uint64_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(354): warning C4244: “参数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(355): warning C4244: “初始化”: 从“uint64_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(75): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(124): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(130): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(139): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(156): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(172): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(174): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(197): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(208): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(214): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(221): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(228): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(240): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(302): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(404): warning C4102: “EXIT”: 未引用的标签
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(449): warning C4102: “EXIT”: 未引用的标签
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(502): warning C4244: “参数”: 从“int64_t”转换到“unsigned int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(505): warning C4244: “+=”: 从“int64_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(571): warning C4244: “参数”: 从“int64_t”转换到“unsigned int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(575): warning C4244: “+=”: 从“int64_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\fifo_multi.cpp(603): warning C4102: “EXIT”: 未引用的标签
+  MutexWin.cpp
+  pingpong_function.cpp
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(21): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(23): warning C4244: “初始化”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(24): warning C4244: “初始化”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(25): warning C4244: “初始化”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(31): warning C4477: “printf”: 格式字符串“%#x”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“uint64_t”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(31): note: 请考虑在格式字符串中使用“%llx”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(31): note: 请考虑在格式字符串中使用“%Ix”
+  c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\pingpong_function.cpp(31): note: 请考虑在格式字符串中使用“%I64x”
+  pub.cpp
+  qtxdmaapiinterface.cpp
+  ThreadFileToDisk.cpp
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(193): warning C4267: “return”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(198): warning C4267: “return”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(203): warning C4267: “return”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(230): warning C4312: “类型强制转换”: 从“int”转换到更大的“LPVOID”
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(255): warning C4312: “类型强制转换”: 从“int”转换到更大的“LPVOID”
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(428): warning C4311: “类型强制转换”: 从“LPVOID”到“int”的指针截断
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(428): warning C4302: “类型强制转换”: 从“LPVOID”到“int”截断
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(438): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(496): warning C4311: “类型强制转换”: 从“LPVOID”到“int”的指针截断
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(496): warning C4302: “类型强制转换”: 从“LPVOID”到“int”截断
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(513): warning C4244: “初始化”: 从“time_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(559): warning C4244: “初始化”: 从“time_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(499): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(504): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\string.h(182): note: 参见“strerror”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(591): warning C4311: “类型强制转换”: 从“LPVOID”到“int”的指针截断
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(591): warning C4302: “类型强制转换”: 从“LPVOID”到“int”截断
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(603): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\threadfiletodisk.cpp(605): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+  TraceLog.cpp
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(47): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(73): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(85): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(108): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(170): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(184): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(194): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(210): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(251): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(265): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(275): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(291): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(329): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 参见“fopen”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(364): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(386): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(410): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(414): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(418): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 参见“sprintf”的声明
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(487): warning C4244: “=”: 从“intptr_t”转换到“long”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\12135ac\c&c++\fifo_multi\fifo_multi\tracelog.cpp(466): warning C4996: '_splitpath': This function or variable may be unsafe. Consider using _splitpath_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(1112): note: 参见“_splitpath”的声明
+  正在生成代码
+  All 452 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  fifo_multi.vcxproj -> C:\Users\Administrator\Desktop\生产发货资料\12135AC\C&C++\fifo_multi\x64\Release\fifo_multi.exe

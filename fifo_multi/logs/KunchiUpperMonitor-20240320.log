@@ -1,0 +1,2227 @@
+[03-20 10:05:27.703][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 0
+[03-20 10:05:27.717][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 1
+[03-20 10:05:27.728][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 2
+[03-20 10:05:27.739][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 3
+[03-20 10:05:27.753][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 4
+[03-20 10:05:27.766][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 5
+[03-20 10:05:27.781][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 6
+[03-20 10:05:27.795][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 7
+[03-20 10:05:27.805][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 8
+[03-20 10:05:27.818][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 9
+[03-20 10:05:27.832][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 10
+[03-20 10:05:27.844][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 11
+[03-20 10:05:27.855][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 12
+[03-20 10:05:27.867][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 13
+[03-20 10:05:27.880][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 14
+[03-20 10:05:27.892][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 15
+[03-20 10:05:27.903][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 16
+[03-20 10:05:27.913][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 17
+[03-20 10:05:27.923][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 18
+[03-20 10:05:27.934][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 19
+[03-20 10:05:27.944][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 20
+[03-20 10:05:27.954][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 21
+[03-20 10:05:27.964][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 22
+[03-20 10:05:27.975][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 23
+[03-20 10:05:27.985][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 24
+[03-20 10:05:27.995][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 25
+[03-20 10:05:28.005][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 26
+[03-20 10:05:28.015][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 27
+[03-20 10:05:28.025][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 28
+[03-20 10:05:28.036][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 29
+[03-20 10:05:28.046][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 30
+[03-20 10:05:28.058][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 31
+[03-20 10:05:28.069][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 32
+[03-20 10:05:28.080][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 33
+[03-20 10:05:28.091][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 34
+[03-20 10:05:28.102][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 35
+[03-20 10:05:28.116][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 36
+[03-20 10:05:28.134][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 37
+[03-20 10:05:28.149][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 38
+[03-20 10:05:28.160][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 39
+[03-20 10:05:28.171][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 40
+[03-20 10:05:28.182][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 41
+[03-20 10:05:28.193][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 42
+[03-20 10:05:28.204][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 43
+[03-20 10:05:28.218][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 44
+[03-20 10:05:28.235][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 45
+[03-20 10:05:28.246][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 46
+[03-20 10:05:28.258][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 47
+[03-20 10:05:28.268][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 48
+[03-20 10:05:28.279][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 49
+[03-20 10:05:28.291][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 50
+[03-20 10:05:28.302][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 51
+[03-20 10:05:28.313][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 52
+[03-20 10:05:28.324][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 53
+[03-20 10:05:28.336][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 54
+[03-20 10:05:28.347][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 55
+[03-20 10:05:28.359][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 56
+[03-20 10:05:28.369][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 57
+[03-20 10:05:28.380][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 58
+[03-20 10:05:28.391][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 59
+[03-20 10:05:28.401][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 60
+[03-20 10:05:28.412][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 61
+[03-20 10:05:28.422][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 62
+[03-20 10:05:28.433][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 63
+[03-20 10:05:28.444][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 64
+[03-20 10:05:28.453][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 65
+[03-20 10:05:28.465][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 66
+[03-20 10:05:28.476][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 67
+[03-20 10:05:28.486][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 68
+[03-20 10:05:28.497][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 69
+[03-20 10:05:28.507][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 70
+[03-20 10:05:28.518][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 71
+[03-20 10:05:28.528][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 72
+[03-20 10:05:28.539][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 73
+[03-20 10:05:28.550][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 74
+[03-20 10:05:28.560][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 75
+[03-20 10:05:28.571][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 76
+[03-20 10:05:28.582][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 77
+[03-20 10:05:28.592][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 78
+[03-20 10:05:28.603][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 79
+[03-20 10:05:28.613][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 80
+[03-20 10:05:28.623][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 81
+[03-20 10:05:28.634][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 82
+[03-20 10:05:28.644][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 83
+[03-20 10:05:28.656][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 84
+[03-20 10:05:28.667][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 85
+[03-20 10:05:28.678][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 86
+[03-20 10:05:28.689][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 87
+[03-20 10:05:28.700][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 88
+[03-20 10:05:28.710][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 89
+[03-20 10:05:28.720][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 90
+[03-20 10:05:28.732][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 91
+[03-20 10:05:28.742][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 92
+[03-20 10:05:28.752][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 93
+[03-20 10:05:28.763][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 94
+[03-20 10:05:28.773][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 95
+[03-20 10:05:28.784][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 96
+[03-20 10:05:28.795][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 97
+[03-20 10:05:28.805][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 98
+[03-20 10:05:28.815][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 99
+[03-20 10:05:28.829][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 100
+[03-20 10:05:28.840][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 101
+[03-20 10:05:28.851][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 102
+[03-20 10:05:28.862][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 103
+[03-20 10:05:28.873][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 104
+[03-20 10:05:28.884][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 105
+[03-20 10:05:28.898][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 106
+[03-20 10:05:28.914][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 107
+[03-20 10:05:28.929][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 108
+[03-20 10:05:28.941][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 109
+[03-20 10:05:28.954][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 110
+[03-20 10:05:28.966][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 111
+[03-20 10:05:28.978][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 112
+[03-20 10:05:28.989][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 113
+[03-20 10:05:29.000][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 114
+[03-20 10:05:29.011][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 115
+[03-20 10:05:29.022][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 116
+[03-20 10:05:29.033][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 117
+[03-20 10:05:29.044][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 118
+[03-20 10:05:29.055][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 119
+[03-20 10:05:29.065][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 120
+[03-20 10:05:29.076][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 121
+[03-20 10:05:29.087][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 122
+[03-20 10:05:29.097][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 123
+[03-20 10:05:29.108][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 124
+[03-20 10:05:29.119][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 125
+[03-20 10:05:29.129][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 126
+[03-20 10:05:29.140][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 127
+[03-20 10:05:29.151][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 128
+[03-20 10:05:29.161][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 129
+[03-20 10:05:29.175][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 130
+[03-20 10:05:29.192][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 131
+[03-20 10:05:29.218][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 132
+[03-20 10:05:29.234][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 133
+[03-20 10:05:29.250][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 134
+[03-20 10:05:29.265][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 135
+[03-20 10:05:29.278][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 136
+[03-20 10:05:29.293][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 137
+[03-20 10:05:29.308][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 138
+[03-20 10:05:29.323][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 139
+[03-20 10:05:29.338][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 140
+[03-20 10:05:29.356][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 141
+[03-20 10:05:29.370][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 142
+[03-20 10:05:29.384][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 143
+[03-20 10:05:29.398][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 144
+[03-20 10:05:29.411][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 145
+[03-20 10:05:29.425][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 146
+[03-20 10:05:29.438][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 147
+[03-20 10:05:29.453][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 148
+[03-20 10:05:29.466][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 149
+[03-20 10:05:29.482][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 150
+[03-20 10:05:29.502][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 151
+[03-20 10:05:29.524][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 152
+[03-20 10:05:29.546][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 153
+[03-20 10:05:29.567][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 154
+[03-20 10:05:29.588][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 155
+[03-20 10:05:29.608][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 156
+[03-20 10:05:29.628][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 157
+[03-20 10:05:29.646][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 158
+[03-20 10:05:29.666][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 159
+[03-20 10:05:29.688][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 160
+[03-20 10:05:29.709][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 161
+[03-20 10:05:29.730][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 162
+[03-20 10:05:29.751][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 163
+[03-20 10:05:29.775][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 164
+[03-20 10:05:29.795][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 165
+[03-20 10:05:29.814][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 166
+[03-20 10:05:29.834][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 167
+[03-20 10:05:29.854][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 168
+[03-20 10:05:29.874][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 169
+[03-20 10:05:29.894][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 170
+[03-20 10:05:29.913][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 171
+[03-20 10:05:29.933][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 172
+[03-20 10:05:29.951][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 173
+[03-20 10:05:29.968][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 174
+[03-20 10:05:29.986][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 175
+[03-20 10:05:30.004][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 176
+[03-20 10:05:30.022][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 177
+[03-20 10:05:30.042][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 178
+[03-20 10:05:30.061][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 179
+[03-20 10:05:30.079][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 180
+[03-20 10:05:30.098][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 181
+[03-20 10:05:30.117][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 182
+[03-20 10:05:30.134][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 183
+[03-20 10:05:30.148][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 184
+[03-20 10:05:30.172][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 185
+[03-20 10:05:30.190][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 186
+[03-20 10:05:30.210][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 187
+[03-20 10:05:30.232][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 188
+[03-20 10:05:30.254][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 189
+[03-20 10:05:30.273][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 190
+[03-20 10:05:30.294][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 191
+[03-20 10:05:30.314][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 192
+[03-20 10:05:30.335][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 193
+[03-20 10:05:30.354][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 194
+[03-20 10:05:30.374][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 195
+[03-20 10:05:30.392][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 196
+[03-20 10:05:30.411][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 197
+[03-20 10:05:30.432][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 198
+[03-20 10:05:30.451][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 199
+[03-20 10:05:50.883]break 
+[03-20 10:05:50.902]written = 20480512
+
+[03-20 10:05:50.909][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata0.bin
+[03-20 10:05:51.900]written = 20480512
+
+[03-20 10:05:51.907][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata1.bin
+[03-20 10:05:52.882]break 
+[03-20 10:05:52.903]written = 20480512
+
+[03-20 10:05:52.909][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata2.bin
+[03-20 10:05:53.896]written = 20480512
+
+[03-20 10:05:53.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata3.bin
+[03-20 10:05:54.882]break 
+[03-20 10:05:54.893]written = 20480512
+
+[03-20 10:05:54.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata4.bin
+[03-20 10:05:55.895]written = 20480512
+
+[03-20 10:05:55.897][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata5.bin
+[03-20 10:05:56.882]break 
+[03-20 10:05:56.894]written = 20480512
+
+[03-20 10:05:56.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata6.bin
+[03-20 10:05:57.890]written = 20480512
+
+[03-20 10:05:57.892][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata7.bin
+[03-20 10:05:58.882]break 
+[03-20 10:05:58.888]written = 20480512
+
+[03-20 10:05:58.890][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata8.bin
+[03-20 10:05:59.887]written = 20480512
+
+[03-20 10:05:59.889][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata9.bin
+[03-20 10:06:00.882]break 
+[03-20 10:06:00.891]written = 20480512
+
+[03-20 10:06:00.893][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata10.bin
+[03-20 10:06:01.899]written = 20480512
+
+[03-20 10:06:01.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata11.bin
+[03-20 10:06:02.883]break 
+[03-20 10:06:02.897]written = 20480512
+
+[03-20 10:06:02.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata12.bin
+[03-20 10:06:03.900]written = 20480512
+
+[03-20 10:06:03.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata13.bin
+[03-20 10:06:04.882]break 
+[03-20 10:06:04.902]written = 20480512
+
+[03-20 10:06:04.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata14.bin
+[03-20 10:06:05.901]written = 20480512
+
+[03-20 10:06:05.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata15.bin
+[03-20 10:06:06.882]break 
+[03-20 10:06:06.898]written = 20480512
+
+[03-20 10:06:06.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata16.bin
+[03-20 10:06:07.897]written = 20480512
+
+[03-20 10:06:07.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata17.bin
+[03-20 10:06:08.882]break 
+[03-20 10:06:08.899]written = 20480512
+
+[03-20 10:06:08.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata18.bin
+[03-20 10:06:09.894]written = 20480512
+
+[03-20 10:06:09.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata19.bin
+[03-20 10:06:10.882]break 
+[03-20 10:06:10.892]written = 20480512
+
+[03-20 10:06:10.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata20.bin
+[03-20 10:06:11.895]written = 20480512
+
+[03-20 10:06:11.897][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata21.bin
+[03-20 10:06:12.882]break 
+[03-20 10:06:12.894]written = 20480512
+
+[03-20 10:06:12.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata22.bin
+[03-20 10:06:13.894]written = 20480512
+
+[03-20 10:06:13.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata23.bin
+[03-20 10:06:14.881]break 
+[03-20 10:06:14.894]written = 20480512
+
+[03-20 10:06:14.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata24.bin
+[03-20 10:06:15.893]written = 20480512
+
+[03-20 10:06:15.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata25.bin
+[03-20 10:06:16.881]break 
+[03-20 10:06:16.900]written = 20480512
+
+[03-20 10:06:16.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata26.bin
+[03-20 10:06:17.901]written = 20480512
+
+[03-20 10:06:17.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata27.bin
+[03-20 10:06:18.882]break 
+[03-20 10:06:18.899]written = 20480512
+
+[03-20 10:06:18.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata28.bin
+[03-20 10:06:19.902]written = 20480512
+
+[03-20 10:06:19.904][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata29.bin
+[03-20 10:06:20.882]break 
+[03-20 10:06:20.898]written = 20480512
+
+[03-20 10:06:20.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata30.bin
+[03-20 10:06:21.891]written = 20480512
+
+[03-20 10:06:21.893][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata31.bin
+[03-20 10:06:22.882]break 
+[03-20 10:06:22.890]written = 20480512
+
+[03-20 10:06:22.892][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata32.bin
+[03-20 10:06:23.900]written = 20480512
+
+[03-20 10:06:23.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata33.bin
+[03-20 10:06:24.882]break 
+[03-20 10:06:24.899]written = 20480512
+
+[03-20 10:06:24.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata34.bin
+[03-20 10:06:25.901]written = 20480512
+
+[03-20 10:06:25.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata35.bin
+[03-20 10:06:26.881]break 
+[03-20 10:06:26.888]written = 20480512
+
+[03-20 10:06:26.890][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata36.bin
+[03-20 10:06:27.902]written = 20480512
+
+[03-20 10:06:27.904][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata37.bin
+[03-20 10:06:28.882]break 
+[03-20 10:06:28.900]written = 20480512
+
+[03-20 10:06:28.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata38.bin
+[03-20 10:06:29.887]written = 20480512
+
+[03-20 10:06:29.889][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata39.bin
+[03-20 10:06:30.882]break 
+[03-20 10:06:30.897]written = 20480512
+
+[03-20 10:06:30.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata40.bin
+[03-20 10:06:31.897]written = 20480512
+
+[03-20 10:06:31.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata41.bin
+[03-20 10:06:32.882]break 
+[03-20 10:06:32.898]written = 20480512
+
+[03-20 10:06:32.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata42.bin
+[03-20 10:06:33.899]written = 20480512
+
+[03-20 10:06:33.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata43.bin
+[03-20 10:06:34.883]break 
+[03-20 10:06:34.897]written = 20480512
+
+[03-20 10:06:34.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata44.bin
+[03-20 10:06:35.895]written = 20480512
+
+[03-20 10:06:35.897][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata45.bin
+[03-20 10:06:36.882]break 
+[03-20 10:06:36.893]written = 20480512
+
+[03-20 10:06:36.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata46.bin
+[03-20 10:06:37.898]written = 20480512
+
+[03-20 10:06:37.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata47.bin
+[03-20 10:06:38.882]break 
+[03-20 10:06:38.892]written = 20480512
+
+[03-20 10:06:38.893][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata48.bin
+[03-20 10:06:39.888]written = 20480512
+
+[03-20 10:06:39.890][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata49.bin
+[03-20 10:06:40.882]break 
+[03-20 10:06:40.889]written = 20480512
+
+[03-20 10:06:40.891][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata50.bin
+[03-20 10:06:41.892]written = 20480512
+
+[03-20 10:06:41.897][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata51.bin
+[03-20 10:06:42.883]break 
+[03-20 10:06:42.899]written = 20480512
+
+[03-20 10:06:42.905][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata52.bin
+[03-20 10:06:43.896]written = 20480512
+
+[03-20 10:06:43.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata53.bin
+[03-20 10:06:44.882]break 
+[03-20 10:06:44.896]written = 20480512
+
+[03-20 10:06:44.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata54.bin
+[03-20 10:06:45.896]written = 20480512
+
+[03-20 10:06:45.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata55.bin
+[03-20 10:06:46.882]break 
+[03-20 10:06:46.894]written = 20480512
+
+[03-20 10:06:46.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata56.bin
+[03-20 10:06:47.899]written = 20480512
+
+[03-20 10:06:47.905][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata57.bin
+[03-20 10:06:48.883]break 
+[03-20 10:06:48.894]written = 20480512
+
+[03-20 10:06:48.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata58.bin
+[03-20 10:06:49.897]written = 20480512
+
+[03-20 10:06:49.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata59.bin
+[03-20 10:06:50.882]break 
+[03-20 10:06:50.896]written = 20480512
+
+[03-20 10:06:50.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata60.bin
+[03-20 10:06:51.892]written = 20480512
+
+[03-20 10:06:51.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata61.bin
+[03-20 10:06:52.882]break 
+[03-20 10:06:52.900]written = 20480512
+
+[03-20 10:06:52.906][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata62.bin
+[03-20 10:06:53.900]written = 20480512
+
+[03-20 10:06:53.906][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata63.bin
+[03-20 10:06:54.883]break 
+[03-20 10:06:54.893]written = 20480512
+
+[03-20 10:06:54.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata64.bin
+[03-20 10:06:55.893]written = 20480512
+
+[03-20 10:06:55.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata65.bin
+[03-20 10:06:56.883]break 
+[03-20 10:06:56.891]written = 20480512
+
+[03-20 10:06:56.893][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata66.bin
+[03-20 10:06:57.896]written = 20480512
+
+[03-20 10:06:57.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata67.bin
+[03-20 10:06:58.882]break 
+[03-20 10:06:58.897]written = 20480512
+
+[03-20 10:06:58.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata68.bin
+[03-20 10:06:59.896]written = 20480512
+
+[03-20 10:06:59.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata69.bin
+[03-20 10:07:00.882]break 
+[03-20 10:07:00.893]written = 20480512
+
+[03-20 10:07:00.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata70.bin
+[03-20 10:07:01.898]written = 20480512
+
+[03-20 10:07:01.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata71.bin
+[03-20 10:07:02.883]break 
+[03-20 10:07:02.893]written = 20480512
+
+[03-20 10:07:02.894][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata72.bin
+[03-20 10:07:03.901]written = 20480512
+
+[03-20 10:07:03.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata73.bin
+[03-20 10:07:04.882]break 
+[03-20 10:07:04.901]written = 20480512
+
+[03-20 10:07:04.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata74.bin
+[03-20 10:07:05.899]written = 20480512
+
+[03-20 10:07:05.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata75.bin
+[03-20 10:07:06.883]break 
+[03-20 10:07:06.896]written = 20480512
+
+[03-20 10:07:06.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata76.bin
+[03-20 10:07:07.896]written = 20480512
+
+[03-20 10:07:07.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata77.bin
+[03-20 10:07:08.882]break 
+[03-20 10:07:08.897]written = 20480512
+
+[03-20 10:07:08.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata78.bin
+[03-20 10:07:09.897]written = 20480512
+
+[03-20 10:07:09.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata79.bin
+[03-20 10:07:10.883]break 
+[03-20 10:07:10.897]written = 20480512
+
+[03-20 10:07:10.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata80.bin
+[03-20 10:07:11.897]written = 20480512
+
+[03-20 10:07:11.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata81.bin
+[03-20 10:07:12.883]break 
+[03-20 10:07:12.891]written = 20480512
+
+[03-20 10:07:12.894][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata82.bin
+[03-20 10:07:13.897]written = 20480512
+
+[03-20 10:07:13.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata83.bin
+[03-20 10:07:14.883]break 
+[03-20 10:07:14.898]written = 20480512
+
+[03-20 10:07:14.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata84.bin
+[03-20 10:07:15.895]written = 20480512
+
+[03-20 10:07:15.897][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata85.bin
+[03-20 10:07:16.883]break 
+[03-20 10:07:16.898]written = 20480512
+
+[03-20 10:07:16.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata86.bin
+[03-20 10:07:17.900]written = 20480512
+
+[03-20 10:07:17.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata87.bin
+[03-20 10:07:18.882]break 
+[03-20 10:07:18.901]written = 20480512
+
+[03-20 10:07:18.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata88.bin
+[03-20 10:07:19.894]written = 20480512
+
+[03-20 10:07:19.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata89.bin
+[03-20 10:07:20.882]break 
+[03-20 10:07:20.893]written = 20480512
+
+[03-20 10:07:20.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata90.bin
+[03-20 10:07:21.892]written = 20480512
+
+[03-20 10:07:21.894][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata91.bin
+[03-20 10:07:22.883]break 
+[03-20 10:07:22.893]written = 20480512
+
+[03-20 10:07:22.895][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata92.bin
+[03-20 10:07:23.898]written = 20480512
+
+[03-20 10:07:23.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata93.bin
+[03-20 10:07:24.883]break 
+[03-20 10:07:24.896]written = 20480512
+
+[03-20 10:07:24.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata94.bin
+[03-20 10:07:25.894]written = 20480512
+
+[03-20 10:07:25.896][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata95.bin
+[03-20 10:07:26.883]break 
+[03-20 10:07:26.897]written = 20480512
+
+[03-20 10:07:26.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata96.bin
+[03-20 10:07:27.896]written = 20480512
+
+[03-20 10:07:27.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata97.bin
+[03-20 10:07:28.883]break 
+[03-20 10:07:28.896]written = 20480512
+
+[03-20 10:07:28.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata98.bin
+[03-20 10:07:29.903]written = 20480512
+
+[03-20 10:07:29.904][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata99.bin
+[03-20 10:07:30.883]break 
+[03-20 10:07:30.902]written = 20480512
+
+[03-20 10:07:30.904][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata100.bin
+[03-20 10:07:31.900]written = 20480512
+
+[03-20 10:07:31.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata101.bin
+[03-20 10:07:32.883]break 
+[03-20 10:07:32.899]written = 20480512
+
+[03-20 10:07:32.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata102.bin
+[03-20 10:17:10.074][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 0
+[03-20 10:17:10.088][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 1
+[03-20 10:17:10.101][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 2
+[03-20 10:17:10.115][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 3
+[03-20 10:17:10.129][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 4
+[03-20 10:17:10.139][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 5
+[03-20 10:17:10.151][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 6
+[03-20 10:17:10.164][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 7
+[03-20 10:17:10.174][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 8
+[03-20 10:17:10.186][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 9
+[03-20 10:17:10.198][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 10
+[03-20 10:17:10.208][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 11
+[03-20 10:17:10.220][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 12
+[03-20 10:17:10.232][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 13
+[03-20 10:17:10.245][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 14
+[03-20 10:17:10.256][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 15
+[03-20 10:17:10.268][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 16
+[03-20 10:17:10.279][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 17
+[03-20 10:17:10.290][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 18
+[03-20 10:17:10.300][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 19
+[03-20 10:17:10.310][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 20
+[03-20 10:17:10.320][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 21
+[03-20 10:17:10.331][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 22
+[03-20 10:17:10.341][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 23
+[03-20 10:17:10.351][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 24
+[03-20 10:17:10.362][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 25
+[03-20 10:17:10.372][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 26
+[03-20 10:17:10.382][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 27
+[03-20 10:17:10.394][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 28
+[03-20 10:17:10.404][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 29
+[03-20 10:17:10.414][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 30
+[03-20 10:17:10.425][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 31
+[03-20 10:17:10.446][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 32
+[03-20 10:17:10.457][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 33
+[03-20 10:17:10.468][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 34
+[03-20 10:17:10.478][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 35
+[03-20 10:17:10.488][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 36
+[03-20 10:17:10.498][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 37
+[03-20 10:17:10.509][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 38
+[03-20 10:17:10.519][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 39
+[03-20 10:17:10.529][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 40
+[03-20 10:17:10.540][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 41
+[03-20 10:17:10.552][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 42
+[03-20 10:17:10.562][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 43
+[03-20 10:17:10.573][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 44
+[03-20 10:17:10.587][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 45
+[03-20 10:17:10.602][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 46
+[03-20 10:17:10.616][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 47
+[03-20 10:17:10.626][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 48
+[03-20 10:17:10.636][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 49
+[03-20 10:17:10.646][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 50
+[03-20 10:17:10.656][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 51
+[03-20 10:17:10.667][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 52
+[03-20 10:17:10.677][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 53
+[03-20 10:17:10.687][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 54
+[03-20 10:17:10.697][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 55
+[03-20 10:17:10.708][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 56
+[03-20 10:17:10.718][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 57
+[03-20 10:17:10.729][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 58
+[03-20 10:17:10.739][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 59
+[03-20 10:17:10.749][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 60
+[03-20 10:17:10.760][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 61
+[03-20 10:17:10.770][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 62
+[03-20 10:17:10.780][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 63
+[03-20 10:17:10.790][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 64
+[03-20 10:17:10.801][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 65
+[03-20 10:17:10.812][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 66
+[03-20 10:17:10.821][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 67
+[03-20 10:17:10.831][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 68
+[03-20 10:17:10.841][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 69
+[03-20 10:17:10.851][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 70
+[03-20 10:17:10.862][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 71
+[03-20 10:17:10.873][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 72
+[03-20 10:17:10.883][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 73
+[03-20 10:17:10.894][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 74
+[03-20 10:17:10.904][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 75
+[03-20 10:17:10.915][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 76
+[03-20 10:17:10.925][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 77
+[03-20 10:17:10.935][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 78
+[03-20 10:17:10.945][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 79
+[03-20 10:17:10.955][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 80
+[03-20 10:17:10.966][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 81
+[03-20 10:17:10.976][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 82
+[03-20 10:17:10.986][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 83
+[03-20 10:17:10.996][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 84
+[03-20 10:17:11.006][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 85
+[03-20 10:17:11.017][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 86
+[03-20 10:17:11.027][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 87
+[03-20 10:17:11.037][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 88
+[03-20 10:17:11.047][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 89
+[03-20 10:17:11.057][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 90
+[03-20 10:17:11.067][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 91
+[03-20 10:17:11.078][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 92
+[03-20 10:17:11.088][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 93
+[03-20 10:17:11.099][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 94
+[03-20 10:17:11.109][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 95
+[03-20 10:17:11.119][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 96
+[03-20 10:17:11.129][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 97
+[03-20 10:17:11.140][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 98
+[03-20 10:17:11.150][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 99
+[03-20 10:17:11.161][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 100
+[03-20 10:17:11.172][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 101
+[03-20 10:17:11.182][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 102
+[03-20 10:17:11.193][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 103
+[03-20 10:17:11.203][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 104
+[03-20 10:17:11.212][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 105
+[03-20 10:17:11.223][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 106
+[03-20 10:17:11.233][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 107
+[03-20 10:17:11.243][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 108
+[03-20 10:17:11.254][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 109
+[03-20 10:17:11.264][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 110
+[03-20 10:17:11.274][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 111
+[03-20 10:17:11.285][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 112
+[03-20 10:17:11.295][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 113
+[03-20 10:17:11.305][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 114
+[03-20 10:17:11.315][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 115
+[03-20 10:17:11.325][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 116
+[03-20 10:17:11.336][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 117
+[03-20 10:17:11.347][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 118
+[03-20 10:17:11.357][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 119
+[03-20 10:17:11.368][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 120
+[03-20 10:17:11.380][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 121
+[03-20 10:17:11.390][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 122
+[03-20 10:17:11.401][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 123
+[03-20 10:17:11.411][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 124
+[03-20 10:17:11.421][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 125
+[03-20 10:17:11.452][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 126
+[03-20 10:17:11.463][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 127
+[03-20 10:17:11.473][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 128
+[03-20 10:17:11.483][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 129
+[03-20 10:17:11.493][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 130
+[03-20 10:17:11.504][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 131
+[03-20 10:17:11.514][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 132
+[03-20 10:17:11.524][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 133
+[03-20 10:17:11.534][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 134
+[03-20 10:17:11.544][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 135
+[03-20 10:17:11.554][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 136
+[03-20 10:17:11.564][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 137
+[03-20 10:17:11.573][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 138
+[03-20 10:17:11.583][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 139
+[03-20 10:17:11.593][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 140
+[03-20 10:17:11.604][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 141
+[03-20 10:17:11.615][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 142
+[03-20 10:17:11.625][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 143
+[03-20 10:17:11.635][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 144
+[03-20 10:17:11.645][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 145
+[03-20 10:17:11.655][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 146
+[03-20 10:17:11.666][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 147
+[03-20 10:17:11.676][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 148
+[03-20 10:17:11.686][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 149
+[03-20 10:17:11.697][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 150
+[03-20 10:17:11.708][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 151
+[03-20 10:17:11.718][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 152
+[03-20 10:17:11.728][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 153
+[03-20 10:17:11.738][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 154
+[03-20 10:17:11.748][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 155
+[03-20 10:17:11.758][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 156
+[03-20 10:17:11.768][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 157
+[03-20 10:17:11.778][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 158
+[03-20 10:17:11.788][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 159
+[03-20 10:17:11.798][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 160
+[03-20 10:17:11.809][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 161
+[03-20 10:17:11.819][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 162
+[03-20 10:17:11.829][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 163
+[03-20 10:17:11.839][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 164
+[03-20 10:17:11.849][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 165
+[03-20 10:17:11.859][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 166
+[03-20 10:17:11.868][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 167
+[03-20 10:17:11.878][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 168
+[03-20 10:17:11.888][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 169
+[03-20 10:17:11.898][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 170
+[03-20 10:17:11.908][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 171
+[03-20 10:17:11.919][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 172
+[03-20 10:17:11.931][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 173
+[03-20 10:17:11.940][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 174
+[03-20 10:17:11.949][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 175
+[03-20 10:17:11.959][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 176
+[03-20 10:17:11.969][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 177
+[03-20 10:17:11.979][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 178
+[03-20 10:17:11.989][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 179
+[03-20 10:17:11.999][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 180
+[03-20 10:17:12.008][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 181
+[03-20 10:17:12.018][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 182
+[03-20 10:17:12.027][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 183
+[03-20 10:17:12.037][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 184
+[03-20 10:17:12.047][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 185
+[03-20 10:17:12.056][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 186
+[03-20 10:17:12.080][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 187
+[03-20 10:17:12.090][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 188
+[03-20 10:17:12.099][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 189
+[03-20 10:17:12.110][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 190
+[03-20 10:17:12.120][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 191
+[03-20 10:17:12.131][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 192
+[03-20 10:17:12.145][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 193
+[03-20 10:17:12.159][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 194
+[03-20 10:17:12.172][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 195
+[03-20 10:17:12.186][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 196
+[03-20 10:17:12.198][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 197
+[03-20 10:17:12.209][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 198
+[03-20 10:17:12.221][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 199
+[03-20 10:17:24.389]break 
+[03-20 10:17:24.402]written = 20480512
+
+[03-20 10:17:24.404][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata0.bin
+[03-20 10:17:25.405]written = 20480512
+
+[03-20 10:17:25.407][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata1.bin
+[03-20 10:17:26.387]break 
+[03-20 10:17:26.402]written = 20480512
+
+[03-20 10:17:26.404][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata2.bin
+[03-20 10:17:27.406]written = 20480512
+
+[03-20 10:17:27.408][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata3.bin
+[03-20 10:17:28.388]break 
+[03-20 10:17:28.408]written = 20480512
+
+[03-20 10:17:28.410][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata4.bin
+[03-20 10:17:29.397]written = 20480512
+
+[03-20 10:17:29.398][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata5.bin
+[03-20 10:17:30.387]break 
+[03-20 10:17:30.401]written = 20480512
+
+[03-20 10:17:30.403][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata6.bin
+[03-20 10:17:31.393]written = 20480512
+
+[03-20 10:17:31.397][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata7.bin
+[03-20 10:17:32.388]break 
+[03-20 10:17:32.405]written = 20480512
+
+[03-20 10:17:32.406][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata8.bin
+[03-20 10:17:33.404]written = 20480512
+
+[03-20 10:17:33.405][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata9.bin
+[03-20 10:17:34.388]break 
+[03-20 10:17:34.396]written = 20480512
+
+[03-20 10:17:34.398][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata10.bin
+[03-20 10:17:35.396]written = 20480512
+
+[03-20 10:17:35.398][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata11.bin
+[03-20 10:17:36.388]break 
+[03-20 10:17:36.396]written = 20480512
+
+[03-20 10:17:36.398][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata12.bin
+[03-20 10:17:37.401]written = 20480512
+
+[03-20 10:17:37.403][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata13.bin
+[03-20 10:17:38.389]break 
+[03-20 10:17:38.408]written = 20480512
+
+[03-20 10:17:38.410][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata14.bin
+[03-20 10:17:39.394]written = 20480512
+
+[03-20 10:17:39.396][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata15.bin
+[03-20 10:17:40.389]break 
+[03-20 10:17:40.408]written = 20480512
+
+[03-20 10:17:40.410][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata16.bin
+[03-20 10:17:41.410]written = 20480512
+
+[03-20 10:17:41.412][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata17.bin
+[03-20 10:17:42.388]break 
+[03-20 10:17:42.399]written = 20480512
+
+[03-20 10:17:42.401][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata18.bin
+[03-20 10:17:43.406]written = 20480512
+
+[03-20 10:17:43.408][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata19.bin
+[03-20 10:17:44.388]break 
+[03-20 10:17:44.393]written = 20480512
+
+[03-20 10:17:44.395][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata20.bin
+[03-20 10:17:45.406]written = 20480512
+
+[03-20 10:17:45.409][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata21.bin
+[03-20 10:17:46.388]break 
+[03-20 10:17:46.409]written = 20480512
+
+[03-20 10:17:46.411][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata22.bin
+[03-20 10:17:47.408]written = 20480512
+
+[03-20 10:17:47.410][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata23.bin
+[03-20 10:21:13.442][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 0
+[03-20 10:21:13.456][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 1
+[03-20 10:21:13.467][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 2
+[03-20 10:21:13.480][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 3
+[03-20 10:21:13.493][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 4
+[03-20 10:21:13.506][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 5
+[03-20 10:21:13.518][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 6
+[03-20 10:21:13.531][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 7
+[03-20 10:21:13.545][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 8
+[03-20 10:21:13.560][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 9
+[03-20 10:21:13.574][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 10
+[03-20 10:21:13.587][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 11
+[03-20 10:21:13.598][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 12
+[03-20 10:21:13.610][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 13
+[03-20 10:21:13.620][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 14
+[03-20 10:21:13.630][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 15
+[03-20 10:21:13.641][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 16
+[03-20 10:21:13.662][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 17
+[03-20 10:21:13.673][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 18
+[03-20 10:21:13.684][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 19
+[03-20 10:21:13.694][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 20
+[03-20 10:21:13.704][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 21
+[03-20 10:21:13.715][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 22
+[03-20 10:21:13.725][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 23
+[03-20 10:21:13.735][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 24
+[03-20 10:21:13.746][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 25
+[03-20 10:21:13.756][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 26
+[03-20 10:21:13.766][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 27
+[03-20 10:21:13.786][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 28
+[03-20 10:21:13.819][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 29
+[03-20 10:21:13.829][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 30
+[03-20 10:21:13.852][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 31
+[03-20 10:21:13.863][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 32
+[03-20 10:21:13.877][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 33
+[03-20 10:21:13.889][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 34
+[03-20 10:21:13.900][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 35
+[03-20 10:21:13.910][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 36
+[03-20 10:21:13.920][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 37
+[03-20 10:21:13.931][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 38
+[03-20 10:21:13.941][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 39
+[03-20 10:21:13.951][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 40
+[03-20 10:21:13.963][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 41
+[03-20 10:21:13.975][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 42
+[03-20 10:21:13.986][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 43
+[03-20 10:21:13.996][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 44
+[03-20 10:21:14.008][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 45
+[03-20 10:21:14.018][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 46
+[03-20 10:21:14.040][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 47
+[03-20 10:21:14.051][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 48
+[03-20 10:21:14.061][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 49
+[03-20 10:21:14.072][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 50
+[03-20 10:21:14.082][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 51
+[03-20 10:21:14.093][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 52
+[03-20 10:21:14.104][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 53
+[03-20 10:21:14.114][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 54
+[03-20 10:21:14.125][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 55
+[03-20 10:21:14.136][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 56
+[03-20 10:21:14.145][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 57
+[03-20 10:21:14.156][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 58
+[03-20 10:21:14.167][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 59
+[03-20 10:21:14.177][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 60
+[03-20 10:21:14.188][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 61
+[03-20 10:21:14.198][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 62
+[03-20 10:21:14.209][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 63
+[03-20 10:21:14.219][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 64
+[03-20 10:21:14.229][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 65
+[03-20 10:21:14.239][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 66
+[03-20 10:21:14.262][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 67
+[03-20 10:21:14.272][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 68
+[03-20 10:21:14.283][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 69
+[03-20 10:21:14.294][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 70
+[03-20 10:21:14.304][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 71
+[03-20 10:21:14.315][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 72
+[03-20 10:21:14.327][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 73
+[03-20 10:21:14.338][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 74
+[03-20 10:21:14.350][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 75
+[03-20 10:21:14.362][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 76
+[03-20 10:21:14.373][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 77
+[03-20 10:21:14.387][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 78
+[03-20 10:21:14.404][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 79
+[03-20 10:21:14.418][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 80
+[03-20 10:21:14.429][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 81
+[03-20 10:21:14.440][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 82
+[03-20 10:21:14.450][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 83
+[03-20 10:21:14.461][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 84
+[03-20 10:21:14.472][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 85
+[03-20 10:21:14.482][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 86
+[03-20 10:21:14.493][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 87
+[03-20 10:21:14.503][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 88
+[03-20 10:21:14.514][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 89
+[03-20 10:21:14.525][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 90
+[03-20 10:21:14.535][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 91
+[03-20 10:21:14.547][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 92
+[03-20 10:21:14.557][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 93
+[03-20 10:21:14.568][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 94
+[03-20 10:21:14.579][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 95
+[03-20 10:21:14.590][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 96
+[03-20 10:21:14.601][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 97
+[03-20 10:21:14.612][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 98
+[03-20 10:21:14.623][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 99
+[03-20 10:21:14.633][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 100
+[03-20 10:21:14.645][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 101
+[03-20 10:21:14.655][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 102
+[03-20 10:21:14.667][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 103
+[03-20 10:21:14.678][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 104
+[03-20 10:21:14.689][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 105
+[03-20 10:21:14.700][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 106
+[03-20 10:21:14.711][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 107
+[03-20 10:21:14.722][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 108
+[03-20 10:21:14.732][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 109
+[03-20 10:21:14.743][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 110
+[03-20 10:21:14.754][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 111
+[03-20 10:21:14.765][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 112
+[03-20 10:21:14.776][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 113
+[03-20 10:21:14.788][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 114
+[03-20 10:21:14.800][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 115
+[03-20 10:21:14.812][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 116
+[03-20 10:21:14.823][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 117
+[03-20 10:21:14.835][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 118
+[03-20 10:21:14.846][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 119
+[03-20 10:21:14.857][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 120
+[03-20 10:21:14.869][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 121
+[03-20 10:21:14.880][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 122
+[03-20 10:21:14.896][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 123
+[03-20 10:21:14.907][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 124
+[03-20 10:21:14.919][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 125
+[03-20 10:21:14.930][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 126
+[03-20 10:21:14.941][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 127
+[03-20 10:21:14.954][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 128
+[03-20 10:21:14.972][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 129
+[03-20 10:21:14.988][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 130
+[03-20 10:21:15.001][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 131
+[03-20 10:21:15.014][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 132
+[03-20 10:21:15.028][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 133
+[03-20 10:21:15.041][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 134
+[03-20 10:21:15.053][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 135
+[03-20 10:21:15.065][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 136
+[03-20 10:21:15.076][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 137
+[03-20 10:21:15.088][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 138
+[03-20 10:21:15.099][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 139
+[03-20 10:21:15.119][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 140
+[03-20 10:21:15.129][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 141
+[03-20 10:21:15.141][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 142
+[03-20 10:21:15.152][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 143
+[03-20 10:21:15.166][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 144
+[03-20 10:21:15.185][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 145
+[03-20 10:21:15.196][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 146
+[03-20 10:21:15.207][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 147
+[03-20 10:21:15.217][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 148
+[03-20 10:21:15.228][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 149
+[03-20 10:21:15.239][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 150
+[03-20 10:21:15.249][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 151
+[03-20 10:21:15.260][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 152
+[03-20 10:21:15.270][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 153
+[03-20 10:21:15.281][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 154
+[03-20 10:21:15.294][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 155
+[03-20 10:21:15.310][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 156
+[03-20 10:21:15.320][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 157
+[03-20 10:21:15.330][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 158
+[03-20 10:21:15.341][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 159
+[03-20 10:21:15.351][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 160
+[03-20 10:21:15.362][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 161
+[03-20 10:21:15.373][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 162
+[03-20 10:21:15.384][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 163
+[03-20 10:21:15.395][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 164
+[03-20 10:21:15.417][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 165
+[03-20 10:21:15.427][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 166
+[03-20 10:21:15.440][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 167
+[03-20 10:21:15.451][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 168
+[03-20 10:21:15.461][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 169
+[03-20 10:21:15.472][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 170
+[03-20 10:21:15.481][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 171
+[03-20 10:21:15.491][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 172
+[03-20 10:21:15.501][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 173
+[03-20 10:21:15.511][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 174
+[03-20 10:21:15.521][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 175
+[03-20 10:21:15.531][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 176
+[03-20 10:21:15.541][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 177
+[03-20 10:21:15.552][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 178
+[03-20 10:21:21.873][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 0
+[03-20 10:21:21.885][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 1
+[03-20 10:21:21.898][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 2
+[03-20 10:21:21.908][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 3
+[03-20 10:21:21.920][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 4
+[03-20 10:21:21.932][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 5
+[03-20 10:21:21.942][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 6
+[03-20 10:21:21.952][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 7
+[03-20 10:21:21.964][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 8
+[03-20 10:21:21.975][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 9
+[03-20 10:21:21.988][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 10
+[03-20 10:21:22.001][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 11
+[03-20 10:21:22.013][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 12
+[03-20 10:21:22.023][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 13
+[03-20 10:21:22.047][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 14
+[03-20 10:21:22.058][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 15
+[03-20 10:21:22.070][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 16
+[03-20 10:21:22.083][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 17
+[03-20 10:21:22.096][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 18
+[03-20 10:21:22.108][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 19
+[03-20 10:21:22.124][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 20
+[03-20 10:21:22.143][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 21
+[03-20 10:21:22.154][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 22
+[03-20 10:21:22.165][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 23
+[03-20 10:21:22.176][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 24
+[03-20 10:21:22.186][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 25
+[03-20 10:21:22.197][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 26
+[03-20 10:21:22.208][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 27
+[03-20 10:21:22.218][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 28
+[03-20 10:21:22.229][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 29
+[03-20 10:21:22.239][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 30
+[03-20 10:21:22.250][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 31
+[03-20 10:21:22.260][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 32
+[03-20 10:21:22.270][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 33
+[03-20 10:21:22.280][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 34
+[03-20 10:21:22.291][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 35
+[03-20 10:21:22.301][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 36
+[03-20 10:21:22.310][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 37
+[03-20 10:21:22.320][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 38
+[03-20 10:21:22.331][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 39
+[03-20 10:21:22.341][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 40
+[03-20 10:21:22.363][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 41
+[03-20 10:21:22.374][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 42
+[03-20 10:21:22.384][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 43
+[03-20 10:21:22.396][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 44
+[03-20 10:21:22.407][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 45
+[03-20 10:21:22.417][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 46
+[03-20 10:21:22.428][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 47
+[03-20 10:21:22.439][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 48
+[03-20 10:21:22.450][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 49
+[03-20 10:21:22.460][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 50
+[03-20 10:21:22.471][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 51
+[03-20 10:21:22.481][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 52
+[03-20 10:21:22.492][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 53
+[03-20 10:21:22.502][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 54
+[03-20 10:21:22.512][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 55
+[03-20 10:21:22.523][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 56
+[03-20 10:21:22.533][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 57
+[03-20 10:21:22.544][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 58
+[03-20 10:21:22.554][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 59
+[03-20 10:21:22.563][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 60
+[03-20 10:21:22.574][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 61
+[03-20 10:21:22.585][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 62
+[03-20 10:21:22.596][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 63
+[03-20 10:21:22.605][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 64
+[03-20 10:21:22.616][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 65
+[03-20 10:21:22.626][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 66
+[03-20 10:21:22.636][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 67
+[03-20 10:21:22.648][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 68
+[03-20 10:21:22.657][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 69
+[03-20 10:21:22.668][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 70
+[03-20 10:21:22.679][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 71
+[03-20 10:21:22.689][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 72
+[03-20 10:21:22.699][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 73
+[03-20 10:21:22.710][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 74
+[03-20 10:21:22.720][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 75
+[03-20 10:21:22.732][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 76
+[03-20 10:21:22.742][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 77
+[03-20 10:21:22.753][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 78
+[03-20 10:21:22.764][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 79
+[03-20 10:21:22.775][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 80
+[03-20 10:21:22.787][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 81
+[03-20 10:21:22.798][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 82
+[03-20 10:21:22.808][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 83
+[03-20 10:21:22.819][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 84
+[03-20 10:21:22.830][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 85
+[03-20 10:21:22.852][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 86
+[03-20 10:21:22.862][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 87
+[03-20 10:21:22.884][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 88
+[03-20 10:21:22.894][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 89
+[03-20 10:21:22.915][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 90
+[03-20 10:21:22.925][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 91
+[03-20 10:21:22.935][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 92
+[03-20 10:21:22.946][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 93
+[03-20 10:21:22.956][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 94
+[03-20 10:21:22.966][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 95
+[03-20 10:21:22.977][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 96
+[03-20 10:21:22.987][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 97
+[03-20 10:21:22.998][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 98
+[03-20 10:21:23.010][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 99
+[03-20 10:21:23.031][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 100
+[03-20 10:21:23.041][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 101
+[03-20 10:21:23.051][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 102
+[03-20 10:21:23.062][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 103
+[03-20 10:21:23.072][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 104
+[03-20 10:21:23.083][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 105
+[03-20 10:21:23.094][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 106
+[03-20 10:21:23.105][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 107
+[03-20 10:21:23.115][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 108
+[03-20 10:21:23.126][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 109
+[03-20 10:21:23.137][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 110
+[03-20 10:21:23.149][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 111
+[03-20 10:21:23.170][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 112
+[03-20 10:21:23.180][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 113
+[03-20 10:21:23.191][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 114
+[03-20 10:21:23.202][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 115
+[03-20 10:21:23.213][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 116
+[03-20 10:21:23.225][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 117
+[03-20 10:21:23.236][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 118
+[03-20 10:21:23.246][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 119
+[03-20 10:21:23.256][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 120
+[03-20 10:21:23.267][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 121
+[03-20 10:21:23.278][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 122
+[03-20 10:21:23.288][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 123
+[03-20 10:21:23.299][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 124
+[03-20 10:21:23.310][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 125
+[03-20 10:21:23.320][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 126
+[03-20 10:21:23.331][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 127
+[03-20 10:21:23.341][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 128
+[03-20 10:21:23.351][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 129
+[03-20 10:21:23.362][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 130
+[03-20 10:21:23.372][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 131
+[03-20 10:21:23.382][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 132
+[03-20 10:21:23.394][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 133
+[03-20 10:21:23.410][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 134
+[03-20 10:21:23.425][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 135
+[03-20 10:21:23.436][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 136
+[03-20 10:21:23.446][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 137
+[03-20 10:21:23.457][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 138
+[03-20 10:21:23.467][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 139
+[03-20 10:21:23.477][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 140
+[03-20 10:21:23.487][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 141
+[03-20 10:21:23.498][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 142
+[03-20 10:21:23.508][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 143
+[03-20 10:21:23.518][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 144
+[03-20 10:21:23.529][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 145
+[03-20 10:21:23.539][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 146
+[03-20 10:21:23.549][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 147
+[03-20 10:21:23.559][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 148
+[03-20 10:21:23.569][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 149
+[03-20 10:21:23.579][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 150
+[03-20 10:21:23.589][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 151
+[03-20 10:21:23.600][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 152
+[03-20 10:21:23.610][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 153
+[03-20 10:21:23.619][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 154
+[03-20 10:21:23.629][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 155
+[03-20 10:21:23.638][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 156
+[03-20 10:21:23.648][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 157
+[03-20 10:21:23.658][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 158
+[03-20 10:21:23.668][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 159
+[03-20 10:21:23.678][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 160
+[03-20 10:21:23.688][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 161
+[03-20 10:21:23.699][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 162
+[03-20 10:21:23.709][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 163
+[03-20 10:21:23.719][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 164
+[03-20 10:21:23.730][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 165
+[03-20 10:21:23.740][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 166
+[03-20 10:21:23.749][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 167
+[03-20 10:21:23.759][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 168
+[03-20 10:21:23.769][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 169
+[03-20 10:21:23.778][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 170
+[03-20 10:21:23.790][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 171
+[03-20 10:21:23.801][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 172
+[03-20 10:21:23.811][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 173
+[03-20 10:21:23.820][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 174
+[03-20 10:21:23.830][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 175
+[03-20 10:21:23.841][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 176
+[03-20 10:21:23.851][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 177
+[03-20 10:21:23.861][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 178
+[03-20 10:21:23.871][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 179
+[03-20 10:21:23.881][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 180
+[03-20 10:21:23.890][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 181
+[03-20 10:21:23.900][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 182
+[03-20 10:21:23.910][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 183
+[03-20 10:21:23.919][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 184
+[03-20 10:21:23.929][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 185
+[03-20 10:21:23.939][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 186
+[03-20 10:21:23.949][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 187
+[03-20 10:21:23.959][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 188
+[03-20 10:21:23.969][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 189
+[03-20 10:21:23.979][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 190
+[03-20 10:21:23.988][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 191
+[03-20 10:21:23.998][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 192
+[03-20 10:21:24.007][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 193
+[03-20 10:21:24.016][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 194
+[03-20 10:21:24.026][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 195
+[03-20 10:21:24.036][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 196
+[03-20 10:21:24.046][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 197
+[03-20 10:21:24.056][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 198
+[03-20 10:21:24.069][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 199
+[03-20 10:21:37.892]break 
+[03-20 10:21:37.909]written = 20480000
+
+[03-20 10:21:37.911][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata0.bin
+[03-20 10:21:38.895]written = 20480000
+
+[03-20 10:21:38.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata1.bin
+[03-20 10:21:39.890]break 
+[03-20 10:21:39.910]written = 20480000
+
+[03-20 10:21:39.912][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata2.bin
+[03-20 10:21:40.908]written = 20480000
+
+[03-20 10:21:40.910][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata3.bin
+[03-20 10:21:41.890]break 
+[03-20 10:21:41.909]written = 20480000
+
+[03-20 10:21:41.911][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata4.bin
+[03-20 10:21:42.902]written = 20480000
+
+[03-20 10:21:42.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata5.bin
+[03-20 10:21:43.890]break 
+[03-20 10:21:43.899]written = 20480000
+
+[03-20 10:21:43.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata6.bin
+[03-20 10:21:44.900]written = 20480000
+
+[03-20 10:21:44.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata7.bin
+[03-20 10:21:45.890]break 
+[03-20 10:21:45.897]written = 20480000
+
+[03-20 10:21:45.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata8.bin
+[03-20 10:21:46.901]written = 20480000
+
+[03-20 10:21:46.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata9.bin
+[03-20 10:21:47.890]break 
+[03-20 10:21:47.905]written = 20480000
+
+[03-20 10:21:47.907][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata10.bin
+[03-20 10:21:48.905]written = 20480000
+
+[03-20 10:21:48.907][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata11.bin
+[03-20 10:21:49.890]break 
+[03-20 10:21:49.904]written = 20480000
+
+[03-20 10:21:49.906][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata12.bin
+[03-20 10:21:50.907]written = 20480000
+
+[03-20 10:21:50.909][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata13.bin
+[03-20 10:21:51.890]break 
+[03-20 10:21:51.905]written = 20480000
+
+[03-20 10:21:51.907][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata14.bin
+[03-20 10:21:52.898]written = 20480000
+
+[03-20 10:21:52.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata15.bin
+[03-20 10:21:53.890]break 
+[03-20 10:21:53.896]written = 20480000
+
+[03-20 10:21:53.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata16.bin
+[03-20 10:21:54.898]written = 20480000
+
+[03-20 10:21:54.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata17.bin
+[03-20 10:21:55.890]break 
+[03-20 10:21:55.898]written = 20480000
+
+[03-20 10:21:55.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata18.bin
+[03-20 10:21:56.896]written = 20480000
+
+[03-20 10:21:56.898][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata19.bin
+[03-20 10:21:57.890]break 
+[03-20 10:21:57.899]written = 20480000
+
+[03-20 10:21:57.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata20.bin
+[03-20 10:21:58.900]written = 20480000
+
+[03-20 10:21:58.902][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata21.bin
+[03-20 10:21:59.890]break 
+[03-20 10:21:59.898]written = 20480000
+
+[03-20 10:21:59.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata22.bin
+[03-20 10:22:00.897]written = 20480000
+
+[03-20 10:22:00.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata23.bin
+[03-20 10:22:01.890]break 
+[03-20 10:22:01.910]written = 20480000
+
+[03-20 10:22:01.912][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata24.bin
+[03-20 10:22:02.897]written = 20480000
+
+[03-20 10:22:02.899][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata25.bin
+[03-20 10:22:03.890]break 
+[03-20 10:22:03.902]written = 20480000
+
+[03-20 10:22:03.904][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata26.bin
+[03-20 10:22:04.901]written = 20480000
+
+[03-20 10:22:04.903][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata27.bin
+[03-20 10:22:05.890]break 
+[03-20 10:22:05.898]written = 20480000
+
+[03-20 10:22:05.900][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata28.bin
+[03-20 10:22:06.899]written = 20480000
+
+[03-20 10:22:06.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata29.bin
+[03-20 10:22:07.890]break 
+[03-20 10:22:07.899]written = 20480000
+
+[03-20 10:22:07.901][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata30.bin
+[03-20 10:22:08.904]written = 20480000
+
+[03-20 10:22:08.906][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata31.bin
+[03-20 10:22:09.890]break 
+[03-20 10:22:09.908]written = 20480000
+
+[03-20 10:22:09.910][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata32.bin
+[03-20 10:22:10.909]written = 20480000
+
+[03-20 10:22:10.911][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata33.bin
+[03-20 10:22:11.890]break 
+[03-20 10:22:11.907]written = 20480000
+
+[03-20 10:22:11.909][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata34.bin
+[03-20 10:22:12.907]written = 20480000
+
+[03-20 10:22:12.909][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata35.bin
+[03-20 10:23:12.465][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 0
+[03-20 10:23:12.478][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 1
+[03-20 10:23:12.490][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 2
+[03-20 10:23:12.501][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 3
+[03-20 10:23:12.513][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 4
+[03-20 10:23:12.523][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 5
+[03-20 10:23:12.535][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 6
+[03-20 10:23:12.548][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 7
+[03-20 10:23:12.560][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 8
+[03-20 10:23:12.572][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 9
+[03-20 10:23:12.591][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 10
+[03-20 10:23:12.606][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 11
+[03-20 10:23:12.617][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 12
+[03-20 10:23:12.629][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 13
+[03-20 10:23:12.640][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 14
+[03-20 10:23:12.651][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 15
+[03-20 10:23:12.663][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 16
+[03-20 10:23:12.675][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 17
+[03-20 10:23:12.685][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 18
+[03-20 10:23:12.697][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 19
+[03-20 10:23:12.708][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 20
+[03-20 10:23:12.719][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 21
+[03-20 10:23:12.729][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 22
+[03-20 10:23:12.739][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 23
+[03-20 10:23:12.749][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 24
+[03-20 10:23:12.759][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 25
+[03-20 10:23:12.771][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 26
+[03-20 10:23:12.782][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 27
+[03-20 10:23:12.794][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 28
+[03-20 10:23:12.805][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 29
+[03-20 10:23:12.815][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 30
+[03-20 10:23:12.826][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 31
+[03-20 10:23:12.836][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 32
+[03-20 10:23:12.846][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 33
+[03-20 10:23:12.859][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 34
+[03-20 10:23:12.869][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 35
+[03-20 10:23:12.879][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 36
+[03-20 10:23:12.900][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 37
+[03-20 10:23:12.910][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 38
+[03-20 10:23:12.920][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 39
+[03-20 10:23:12.930][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 40
+[03-20 10:23:12.941][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 41
+[03-20 10:23:12.962][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 42
+[03-20 10:23:12.972][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 43
+[03-20 10:23:12.984][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 44
+[03-20 10:23:12.994][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 45
+[03-20 10:23:13.004][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 46
+[03-20 10:23:13.014][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 47
+[03-20 10:23:13.024][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 48
+[03-20 10:23:13.034][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 49
+[03-20 10:23:13.045][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 50
+[03-20 10:23:13.055][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 51
+[03-20 10:23:13.065][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 52
+[03-20 10:23:13.075][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 53
+[03-20 10:23:13.086][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 54
+[03-20 10:23:13.096][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 55
+[03-20 10:23:13.106][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 56
+[03-20 10:23:13.116][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 57
+[03-20 10:23:13.127][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 58
+[03-20 10:23:13.137][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 59
+[03-20 10:23:13.147][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 60
+[03-20 10:23:13.157][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 61
+[03-20 10:23:13.167][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 62
+[03-20 10:23:13.178][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 63
+[03-20 10:23:13.189][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 64
+[03-20 10:23:13.199][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 65
+[03-20 10:23:13.209][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 66
+[03-20 10:23:13.219][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 67
+[03-20 10:23:13.229][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 68
+[03-20 10:23:13.240][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 69
+[03-20 10:23:13.250][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 70
+[03-20 10:23:13.260][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 71
+[03-20 10:23:13.270][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 72
+[03-20 10:23:13.281][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 73
+[03-20 10:23:13.291][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 74
+[03-20 10:23:13.301][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 75
+[03-20 10:23:13.311][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 76
+[03-20 10:23:13.321][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 77
+[03-20 10:23:13.332][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 78
+[03-20 10:23:13.341][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 79
+[03-20 10:23:13.352][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 80
+[03-20 10:23:13.362][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 81
+[03-20 10:23:13.372][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 82
+[03-20 10:23:13.382][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 83
+[03-20 10:23:13.394][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 84
+[03-20 10:23:13.404][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 85
+[03-20 10:23:13.419][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 86
+[03-20 10:23:13.432][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 87
+[03-20 10:23:13.446][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 88
+[03-20 10:23:13.457][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 89
+[03-20 10:23:13.467][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 90
+[03-20 10:23:13.478][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 91
+[03-20 10:23:13.489][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 92
+[03-20 10:23:13.499][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 93
+[03-20 10:23:13.510][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 94
+[03-20 10:23:13.520][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 95
+[03-20 10:23:13.530][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 96
+[03-20 10:23:13.540][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 97
+[03-20 10:23:13.551][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 98
+[03-20 10:23:13.561][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 99
+[03-20 10:23:13.571][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 100
+[03-20 10:23:13.581][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 101
+[03-20 10:23:13.592][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 102
+[03-20 10:23:13.602][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 103
+[03-20 10:23:13.612][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 104
+[03-20 10:23:13.623][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 105
+[03-20 10:23:13.633][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 106
+[03-20 10:23:13.643][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 107
+[03-20 10:23:13.653][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 108
+[03-20 10:23:13.664][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 109
+[03-20 10:23:13.674][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 110
+[03-20 10:23:13.684][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 111
+[03-20 10:23:13.695][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 112
+[03-20 10:23:13.705][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 113
+[03-20 10:23:13.715][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 114
+[03-20 10:23:13.725][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 115
+[03-20 10:23:13.735][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 116
+[03-20 10:23:13.745][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 117
+[03-20 10:23:13.755][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 118
+[03-20 10:23:13.765][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 119
+[03-20 10:23:13.776][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 120
+[03-20 10:23:13.788][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 121
+[03-20 10:23:13.798][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 122
+[03-20 10:23:13.808][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 123
+[03-20 10:23:13.819][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 124
+[03-20 10:23:13.830][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 125
+[03-20 10:23:13.840][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 126
+[03-20 10:23:13.850][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 127
+[03-20 10:23:13.861][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 128
+[03-20 10:23:13.871][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 129
+[03-20 10:23:13.881][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 130
+[03-20 10:23:13.892][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 131
+[03-20 10:23:13.902][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 132
+[03-20 10:23:13.912][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 133
+[03-20 10:23:13.921][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 134
+[03-20 10:23:13.931][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 135
+[03-20 10:23:13.941][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 136
+[03-20 10:23:13.952][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 137
+[03-20 10:23:13.962][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 138
+[03-20 10:23:13.972][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 139
+[03-20 10:23:13.982][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 140
+[03-20 10:23:13.993][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 141
+[03-20 10:23:14.004][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 142
+[03-20 10:23:14.014][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 143
+[03-20 10:23:14.024][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 144
+[03-20 10:23:14.034][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 145
+[03-20 10:23:14.044][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 146
+[03-20 10:23:14.054][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 147
+[03-20 10:23:14.064][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 148
+[03-20 10:23:14.075][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 149
+[03-20 10:23:14.085][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 150
+[03-20 10:23:14.095][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 151
+[03-20 10:23:14.105][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 152
+[03-20 10:23:14.115][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 153
+[03-20 10:23:14.125][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 154
+[03-20 10:23:14.135][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 155
+[03-20 10:23:14.145][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 156
+[03-20 10:23:14.155][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 157
+[03-20 10:23:14.165][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 158
+[03-20 10:23:14.175][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 159
+[03-20 10:23:14.185][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 160
+[03-20 10:23:14.195][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 161
+[03-20 10:23:14.207][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 162
+[03-20 10:23:14.216][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 163
+[03-20 10:23:14.226][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 164
+[03-20 10:23:14.236][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 165
+[03-20 10:23:14.246][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 166
+[03-20 10:23:14.256][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 167
+[03-20 10:23:14.265][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 168
+[03-20 10:23:14.275][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 169
+[03-20 10:23:14.285][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 170
+[03-20 10:23:14.294][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 171
+[03-20 10:23:14.303][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 172
+[03-20 10:23:14.313][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 173
+[03-20 10:23:14.323][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 174
+[03-20 10:23:14.333][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 175
+[03-20 10:23:14.342][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 176
+[03-20 10:23:14.352][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 177
+[03-20 10:23:14.362][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 178
+[03-20 10:23:14.372][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 179
+[03-20 10:23:14.381][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 180
+[03-20 10:23:14.391][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 181
+[03-20 10:23:14.403][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 182
+[03-20 10:23:14.412][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 183
+[03-20 10:23:14.422][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 184
+[03-20 10:23:14.433][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 185
+[03-20 10:23:14.445][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 186
+[03-20 10:23:14.455][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 187
+[03-20 10:23:14.465][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 188
+[03-20 10:23:14.475][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 189
+[03-20 10:23:14.484][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 190
+[03-20 10:23:14.495][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 191
+[03-20 10:23:14.505][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 192
+[03-20 10:23:14.515][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 193
+[03-20 10:23:14.526][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 194
+[03-20 10:23:14.536][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 195
+[03-20 10:23:14.546][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 196
+[03-20 10:23:14.557][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 197
+[03-20 10:23:14.567][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 198
+[03-20 10:23:14.577][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 199
+[03-20 10:23:35.488]break 
+[03-20 10:23:35.502]written = 2048000
+
+[03-20 10:23:35.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata0.bin
+[03-20 10:23:36.488]written = 2048000
+
+[03-20 10:23:36.490][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata1.bin
+[03-20 10:23:37.488]break 
+[03-20 10:23:37.498]written = 2048000
+
+[03-20 10:23:37.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata2.bin
+[03-20 10:23:38.498]written = 2048000
+
+[03-20 10:23:38.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata3.bin
+[03-20 10:23:39.488]break 
+[03-20 10:23:39.500]written = 2048000
+
+[03-20 10:23:39.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata4.bin
+[03-20 10:23:40.503]written = 2048000
+
+[03-20 10:23:40.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata5.bin
+[03-20 10:23:41.488]break 
+[03-20 10:23:41.490]written = 2048000
+
+[03-20 10:23:41.492][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata6.bin
+[03-20 10:23:42.497]written = 2048000
+
+[03-20 10:23:42.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata7.bin
+[03-20 10:23:43.488]break 
+[03-20 10:23:43.497]written = 2048000
+
+[03-20 10:23:43.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata8.bin
+[03-20 10:23:44.496]written = 2048000
+
+[03-20 10:23:44.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata9.bin
+[03-20 10:23:45.487]break 
+[03-20 10:23:45.494]written = 2048000
+
+[03-20 10:23:45.495][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata10.bin
+[03-20 10:23:46.493]written = 2048000
+
+[03-20 10:23:46.495][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata11.bin
+[03-20 10:23:47.487]break 
+[03-20 10:23:47.499]written = 2048000
+
+[03-20 10:23:47.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata12.bin
+[03-20 10:23:48.500]written = 2048000
+
+[03-20 10:23:48.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata13.bin
+[03-20 10:23:49.488]break 
+[03-20 10:23:49.502]written = 2048000
+
+[03-20 10:23:49.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata14.bin
+[03-20 10:23:50.501]written = 2048000
+
+[03-20 10:23:50.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata15.bin
+[03-20 10:23:51.488]break 
+[03-20 10:23:51.500]written = 2048000
+
+[03-20 10:23:51.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata16.bin
+[03-20 10:23:52.504]written = 2048000
+
+[03-20 10:23:52.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata17.bin
+[03-20 10:23:53.488]break 
+[03-20 10:23:53.503]written = 2048000
+
+[03-20 10:23:53.505][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata18.bin
+[03-20 10:23:54.500]written = 2048000
+
+[03-20 10:23:54.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata19.bin
+[03-20 10:23:55.487]break 
+[03-20 10:23:55.498]written = 2048000
+
+[03-20 10:23:55.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata20.bin
+[03-20 10:23:56.498]written = 2048000
+
+[03-20 10:23:56.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata21.bin
+[03-20 10:23:57.488]break 
+[03-20 10:23:57.491]written = 2048000
+
+[03-20 10:23:57.494][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata22.bin
+[03-20 10:23:58.493]written = 2048000
+
+[03-20 10:23:58.495][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata23.bin
+[03-20 10:23:59.488]break 
+[03-20 10:23:59.503]written = 2048000
+
+[03-20 10:23:59.505][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata24.bin
+[03-20 10:24:00.504]written = 2048000
+
+[03-20 10:24:00.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata25.bin
+[03-20 10:24:01.488]break 
+[03-20 10:24:01.494]written = 2048000
+
+[03-20 10:24:01.496][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata26.bin
+[03-20 10:24:02.493]written = 2048000
+
+[03-20 10:24:02.496][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata27.bin
+[03-20 10:24:03.488]break 
+[03-20 10:24:03.495]written = 2048000
+
+[03-20 10:24:03.496][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata28.bin
+[03-20 10:24:04.495]written = 2048000
+
+[03-20 10:24:04.497][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata29.bin
+[03-20 10:24:05.488]break 
+[03-20 10:24:05.495]written = 2048000
+
+[03-20 10:24:05.497][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata30.bin
+[03-20 10:24:06.492]written = 2048000
+
+[03-20 10:24:06.494][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata31.bin
+[03-20 10:24:07.488]break 
+[03-20 10:24:07.491]written = 2048000
+
+[03-20 10:24:07.493][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata32.bin
+[03-20 10:24:08.501]written = 2048000
+
+[03-20 10:24:08.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata33.bin
+[03-20 10:24:09.488]break 
+[03-20 10:24:09.500]written = 2048000
+
+[03-20 10:24:09.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata34.bin
+[03-20 10:24:10.499]written = 2048000
+
+[03-20 10:24:10.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata35.bin
+[03-20 10:24:11.488]break 
+[03-20 10:24:11.499]written = 2048000
+
+[03-20 10:24:11.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata36.bin
+[03-20 10:24:12.498]written = 2048000
+
+[03-20 10:24:12.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata37.bin
+[03-20 10:24:13.488]break 
+[03-20 10:24:13.504]written = 2048000
+
+[03-20 10:24:13.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata38.bin
+[03-20 10:24:14.500]written = 2048000
+
+[03-20 10:24:14.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata39.bin
+[03-20 10:24:15.488]break 
+[03-20 10:24:15.501]written = 2048000
+
+[03-20 10:24:15.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata40.bin
+[03-20 10:24:16.501]written = 2048000
+
+[03-20 10:24:16.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata41.bin
+[03-20 10:24:17.488]break 
+[03-20 10:24:17.500]written = 2048000
+
+[03-20 10:24:17.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata42.bin
+[03-20 10:24:18.503]written = 2048000
+
+[03-20 10:24:18.505][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata43.bin
+[03-20 10:24:19.488]break 
+[03-20 10:24:19.504]written = 2048000
+
+[03-20 10:24:19.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata44.bin
+[03-20 10:24:20.502]written = 2048000
+
+[03-20 10:24:20.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata45.bin
+[03-20 10:24:21.488]break 
+[03-20 10:24:21.502]written = 2048000
+
+[03-20 10:24:21.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata46.bin
+[03-20 10:24:22.501]written = 2048000
+
+[03-20 10:24:22.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata47.bin
+[03-20 10:24:23.488]break 
+[03-20 10:24:23.494]written = 2048000
+
+[03-20 10:24:23.496][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata48.bin
+[03-20 10:24:24.493]written = 2048000
+
+[03-20 10:24:24.494][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata49.bin
+[03-20 10:24:25.488]break 
+[03-20 10:24:25.497]written = 2048000
+
+[03-20 10:24:25.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata50.bin
+[03-20 10:29:21.814][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 0
+[03-20 10:29:21.825][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 1
+[03-20 10:29:21.835][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 2
+[03-20 10:29:21.846][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 3
+[03-20 10:29:21.858][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 4
+[03-20 10:29:21.870][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 5
+[03-20 10:29:21.881][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 6
+[03-20 10:29:21.892][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 7
+[03-20 10:29:21.905][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 8
+[03-20 10:29:21.917][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 9
+[03-20 10:29:21.930][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 10
+[03-20 10:29:21.947][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 11
+[03-20 10:29:21.959][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 12
+[03-20 10:29:21.972][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 13
+[03-20 10:29:21.984][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 14
+[03-20 10:29:21.997][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 15
+[03-20 10:29:22.010][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 16
+[03-20 10:29:22.022][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 17
+[03-20 10:29:22.033][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 18
+[03-20 10:29:22.056][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 19
+[03-20 10:29:22.065][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 20
+[03-20 10:29:22.076][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 21
+[03-20 10:29:22.087][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 22
+[03-20 10:29:22.099][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 23
+[03-20 10:29:22.111][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 24
+[03-20 10:29:22.123][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 25
+[03-20 10:29:22.136][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 26
+[03-20 10:29:22.147][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 27
+[03-20 10:29:22.158][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 28
+[03-20 10:29:22.171][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 29
+[03-20 10:29:22.188][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 30
+[03-20 10:29:22.203][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 31
+[03-20 10:29:22.216][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 32
+[03-20 10:29:22.227][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 33
+[03-20 10:29:22.240][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 34
+[03-20 10:29:22.252][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 35
+[03-20 10:29:22.263][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 36
+[03-20 10:29:22.276][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 37
+[03-20 10:29:22.287][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 38
+[03-20 10:29:22.301][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 39
+[03-20 10:29:22.316][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 40
+[03-20 10:29:22.328][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 41
+[03-20 10:29:22.340][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 42
+[03-20 10:29:22.354][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 43
+[03-20 10:29:22.369][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 44
+[03-20 10:29:22.384][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 45
+[03-20 10:29:22.400][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 46
+[03-20 10:29:22.417][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 47
+[03-20 10:29:22.435][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 48
+[03-20 10:29:22.469][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 49
+[03-20 10:29:22.490][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 50
+[03-20 10:29:22.509][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 51
+[03-20 10:29:22.525][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 52
+[03-20 10:29:22.540][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 53
+[03-20 10:29:22.556][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 54
+[03-20 10:29:22.570][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 55
+[03-20 10:29:22.583][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 56
+[03-20 10:29:22.596][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 57
+[03-20 10:29:22.609][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 58
+[03-20 10:29:22.621][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 59
+[03-20 10:29:22.634][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 60
+[03-20 10:29:22.647][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 61
+[03-20 10:29:22.663][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 62
+[03-20 10:29:22.678][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 63
+[03-20 10:29:22.701][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 64
+[03-20 10:29:22.716][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 65
+[03-20 10:29:22.731][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 66
+[03-20 10:29:22.745][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 67
+[03-20 10:29:22.762][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 68
+[03-20 10:29:22.785][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 69
+[03-20 10:29:22.809][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 70
+[03-20 10:29:22.837][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 71
+[03-20 10:29:22.860][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 72
+[03-20 10:29:22.873][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 73
+[03-20 10:29:22.886][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 74
+[03-20 10:29:22.898][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 75
+[03-20 10:29:22.912][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 76
+[03-20 10:29:22.930][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 77
+[03-20 10:29:22.946][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 78
+[03-20 10:29:22.959][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 79
+[03-20 10:29:22.971][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 80
+[03-20 10:29:22.984][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 81
+[03-20 10:29:22.997][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 82
+[03-20 10:29:23.011][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 83
+[03-20 10:29:23.021][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 84
+[03-20 10:29:23.034][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 85
+[03-20 10:29:23.045][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 86
+[03-20 10:29:23.058][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 87
+[03-20 10:29:23.068][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 88
+[03-20 10:29:23.082][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 89
+[03-20 10:29:23.093][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 90
+[03-20 10:29:23.105][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 91
+[03-20 10:29:23.116][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 92
+[03-20 10:29:23.128][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 93
+[03-20 10:29:23.140][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 94
+[03-20 10:29:23.153][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 95
+[03-20 10:29:23.165][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 96
+[03-20 10:29:23.177][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 97
+[03-20 10:29:23.187][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 98
+[03-20 10:29:23.200][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 99
+[03-20 10:29:23.214][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 100
+[03-20 10:29:23.227][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 101
+[03-20 10:29:23.246][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 102
+[03-20 10:29:23.258][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 103
+[03-20 10:29:23.270][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 104
+[03-20 10:29:23.282][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 105
+[03-20 10:29:23.293][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 106
+[03-20 10:29:23.305][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 107
+[03-20 10:29:23.319][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 108
+[03-20 10:29:23.335][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 109
+[03-20 10:29:23.347][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 110
+[03-20 10:29:23.360][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 111
+[03-20 10:29:23.371][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 112
+[03-20 10:29:23.382][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 113
+[03-20 10:29:23.393][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 114
+[03-20 10:29:23.408][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 115
+[03-20 10:29:23.420][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 116
+[03-20 10:29:23.433][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 117
+[03-20 10:29:23.447][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 118
+[03-20 10:29:23.459][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 119
+[03-20 10:29:23.468][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 120
+[03-20 10:29:23.479][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 121
+[03-20 10:29:23.491][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 122
+[03-20 10:29:23.503][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 123
+[03-20 10:29:23.515][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 124
+[03-20 10:29:23.527][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 125
+[03-20 10:29:23.539][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 126
+[03-20 10:29:23.551][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 127
+[03-20 10:29:23.564][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 128
+[03-20 10:29:23.576][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 129
+[03-20 10:29:23.588][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 130
+[03-20 10:29:23.599][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 131
+[03-20 10:29:23.611][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 132
+[03-20 10:29:23.623][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 133
+[03-20 10:29:23.636][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 134
+[03-20 10:29:23.650][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 135
+[03-20 10:29:23.663][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 136
+[03-20 10:29:23.675][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 137
+[03-20 10:29:23.686][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 138
+[03-20 10:29:23.700][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 139
+[03-20 10:29:23.711][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 140
+[03-20 10:29:23.722][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 141
+[03-20 10:29:23.734][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 142
+[03-20 10:29:23.744][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 143
+[03-20 10:29:23.755][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 144
+[03-20 10:29:23.765][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 145
+[03-20 10:29:23.776][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 146
+[03-20 10:29:23.786][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 147
+[03-20 10:29:23.797][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 148
+[03-20 10:29:23.807][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 149
+[03-20 10:29:23.817][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 150
+[03-20 10:29:23.827][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 151
+[03-20 10:29:23.837][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 152
+[03-20 10:29:23.847][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 153
+[03-20 10:29:23.857][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 154
+[03-20 10:29:23.866][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 155
+[03-20 10:29:23.877][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 156
+[03-20 10:29:23.887][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 157
+[03-20 10:29:23.897][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 158
+[03-20 10:29:23.907][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 159
+[03-20 10:29:23.917][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 160
+[03-20 10:29:23.929][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 161
+[03-20 10:29:23.939][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 162
+[03-20 10:29:23.951][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 163
+[03-20 10:29:23.967][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 164
+[03-20 10:29:23.977][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 165
+[03-20 10:29:23.988][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 166
+[03-20 10:29:23.999][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 167
+[03-20 10:29:24.009][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 168
+[03-20 10:29:24.019][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 169
+[03-20 10:29:24.029][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 170
+[03-20 10:29:24.040][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 171
+[03-20 10:29:24.050][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 172
+[03-20 10:29:24.060][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 173
+[03-20 10:29:24.070][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 174
+[03-20 10:29:24.080][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 175
+[03-20 10:29:24.090][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 176
+[03-20 10:29:24.100][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 177
+[03-20 10:29:24.110][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 178
+[03-20 10:29:24.120][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 179
+[03-20 10:29:24.130][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 180
+[03-20 10:29:24.140][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 181
+[03-20 10:29:24.150][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 182
+[03-20 10:29:24.161][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 183
+[03-20 10:29:24.172][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 184
+[03-20 10:29:24.182][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 185
+[03-20 10:29:24.193][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 186
+[03-20 10:29:24.203][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 187
+[03-20 10:29:24.213][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 188
+[03-20 10:29:24.223][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 189
+[03-20 10:29:24.232][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 190
+[03-20 10:29:24.242][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 191
+[03-20 10:29:24.255][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 192
+[03-20 10:29:24.270][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 193
+[03-20 10:29:24.282][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 194
+[03-20 10:29:24.293][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 195
+[03-20 10:29:24.305][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 196
+[03-20 10:29:24.323][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 197
+[03-20 10:29:24.343][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 198
+[03-20 10:29:24.361][ThreadFileToDisk::PushFreeToList], push free buffer...m_freeList size is 199
+[03-20 10:29:40.492]break 
+[03-20 10:29:40.495]written = 10240000
+
+[03-20 10:29:40.497][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata0.bin
+[03-20 10:29:41.495]written = 10240000
+
+[03-20 10:29:41.497][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata1.bin
+[03-20 10:29:42.493]break 
+[03-20 10:29:42.501]written = 10240000
+
+[03-20 10:29:42.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata2.bin
+[03-20 10:29:43.508]written = 10240000
+
+[03-20 10:29:43.510][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata3.bin
+[03-20 10:29:44.493]break 
+[03-20 10:29:44.510]written = 10240000
+
+[03-20 10:29:44.512][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata4.bin
+[03-20 10:29:45.496]written = 10240000
+
+[03-20 10:29:45.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata5.bin
+[03-20 10:29:46.493]break 
+[03-20 10:29:46.506]written = 10240000
+
+[03-20 10:29:46.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata6.bin
+[03-20 10:29:47.506]written = 10240000
+
+[03-20 10:29:47.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata7.bin
+[03-20 10:29:48.492]break 
+[03-20 10:29:48.507]written = 10240000
+
+[03-20 10:29:48.509][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata8.bin
+[03-20 10:29:49.509]written = 10240000
+
+[03-20 10:29:49.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata9.bin
+[03-20 10:29:50.492]break 
+[03-20 10:29:50.506]written = 10240000
+
+[03-20 10:29:50.509][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata10.bin
+[03-20 10:29:51.499]written = 10240000
+
+[03-20 10:29:51.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata11.bin
+[03-20 10:29:52.493]break 
+[03-20 10:29:52.503]written = 10240000
+
+[03-20 10:29:52.505][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata12.bin
+[03-20 10:29:53.497]written = 10240000
+
+[03-20 10:29:53.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata13.bin
+[03-20 10:29:54.492]break 
+[03-20 10:29:54.496]written = 10240000
+
+[03-20 10:29:54.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata14.bin
+[03-20 10:29:55.510]written = 10240000
+
+[03-20 10:29:55.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata15.bin
+[03-20 10:29:56.492]break 
+[03-20 10:29:56.501]written = 10240000
+
+[03-20 10:29:56.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata16.bin
+[03-20 10:29:57.509]written = 10240000
+
+[03-20 10:29:57.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata17.bin
+[03-20 10:29:58.493]break 
+[03-20 10:29:58.499]written = 10240000
+
+[03-20 10:29:58.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata18.bin
+[03-20 10:29:59.504]written = 10240000
+
+[03-20 10:29:59.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata19.bin
+[03-20 10:30:00.493]break 
+[03-20 10:30:00.506]written = 10240000
+
+[03-20 10:30:00.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata20.bin
+[03-20 10:30:01.496]written = 10240000
+
+[03-20 10:30:01.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata21.bin
+[03-20 10:30:02.492]break 
+[03-20 10:30:02.505]written = 10240000
+
+[03-20 10:30:02.507][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata22.bin
+[03-20 10:30:03.509]written = 10240000
+
+[03-20 10:30:03.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata23.bin
+[03-20 10:30:04.493]break 
+[03-20 10:30:04.506]written = 10240000
+
+[03-20 10:30:04.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata24.bin
+[03-20 10:30:05.509]written = 10240000
+
+[03-20 10:30:05.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata25.bin
+[03-20 10:30:06.492]break 
+[03-20 10:30:06.503]written = 10240000
+
+[03-20 10:30:06.509][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata26.bin
+[03-20 10:30:07.508]written = 10240000
+
+[03-20 10:30:07.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata27.bin
+[03-20 10:30:08.493]break 
+[03-20 10:30:08.497]written = 10240000
+
+[03-20 10:30:08.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata28.bin
+[03-20 10:30:09.500]written = 10240000
+
+[03-20 10:30:09.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata29.bin
+[03-20 10:30:10.493]break 
+[03-20 10:30:10.502]written = 10240000
+
+[03-20 10:30:10.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata30.bin
+[03-20 10:30:11.501]written = 10240000
+
+[03-20 10:30:11.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata31.bin
+[03-20 10:30:12.493]break 
+[03-20 10:30:12.506]written = 10240000
+
+[03-20 10:30:12.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata32.bin
+[03-20 10:30:13.501]written = 10240000
+
+[03-20 10:30:13.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata33.bin
+[03-20 10:30:14.493]break 
+[03-20 10:30:14.508]written = 10240000
+
+[03-20 10:30:14.510][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata34.bin
+[03-20 10:30:15.500]written = 10240000
+
+[03-20 10:30:15.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata35.bin
+[03-20 10:30:16.493]break 
+[03-20 10:30:16.506]written = 10240000
+
+[03-20 10:30:16.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata36.bin
+[03-20 10:30:17.500]written = 10240000
+
+[03-20 10:30:17.507][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata37.bin
+[03-20 10:30:18.493]break 
+[03-20 10:30:18.502]written = 10240000
+
+[03-20 10:30:18.509][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata38.bin
+[03-20 10:30:19.507]written = 10240000
+
+[03-20 10:30:19.514][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata39.bin
+[03-20 10:30:20.492]break 
+[03-20 10:30:20.508]written = 10240000
+
+[03-20 10:30:20.514][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata40.bin
+[03-20 10:30:21.508]written = 10240000
+
+[03-20 10:30:21.512][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata41.bin
+[03-20 10:30:22.493]break 
+[03-20 10:30:22.502]written = 10240000
+
+[03-20 10:30:22.509][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata42.bin
+[03-20 10:30:23.506]written = 10240000
+
+[03-20 10:30:23.513][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata43.bin
+[03-20 10:30:24.493]break 
+[03-20 10:30:24.511]written = 10240000
+
+[03-20 10:30:24.517][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata44.bin
+[03-20 10:30:25.513]written = 10240000
+
+[03-20 10:30:25.520][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata45.bin
+[03-20 10:30:26.493]break 
+[03-20 10:30:26.514]written = 10240000
+
+[03-20 10:30:26.521][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata46.bin
+[03-20 10:30:27.505]written = 10240000
+
+[03-20 10:30:27.512][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata47.bin
+[03-20 10:30:28.493]break 
+[03-20 10:30:28.514]written = 10240000
+
+[03-20 10:30:28.521][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata48.bin
+[03-20 10:30:29.506]written = 10240000
+
+[03-20 10:30:29.512][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata49.bin
+[03-20 10:30:30.493]break 
+[03-20 10:30:30.506]written = 10240000
+
+[03-20 10:30:30.514][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata50.bin
+[03-20 10:30:31.500]written = 10240000
+
+[03-20 10:30:31.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata51.bin
+[03-20 10:30:32.493]break 
+[03-20 10:30:32.501]written = 10240000
+
+[03-20 10:30:32.503][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata52.bin
+[03-20 10:30:33.496]written = 10240000
+
+[03-20 10:30:33.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata53.bin
+[03-20 10:30:34.493]break 
+[03-20 10:30:34.508]written = 10240000
+
+[03-20 10:30:34.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata54.bin
+[03-20 10:30:35.497]written = 10240000
+
+[03-20 10:30:35.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata55.bin
+[03-20 10:30:36.493]break 
+[03-20 10:30:36.498]written = 10240000
+
+[03-20 10:30:36.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata56.bin
+[03-20 10:30:37.498]written = 10240000
+
+[03-20 10:30:37.500][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata57.bin
+[03-20 10:30:38.493]break 
+[03-20 10:30:38.503]written = 10240000
+
+[03-20 10:30:38.505][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata58.bin
+[03-20 10:30:39.502]written = 10240000
+
+[03-20 10:30:39.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata59.bin
+[03-20 10:30:40.493]break 
+[03-20 10:30:40.500]written = 10240000
+
+[03-20 10:30:40.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata60.bin
+[03-20 10:30:41.505]written = 10240000
+
+[03-20 10:30:41.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata61.bin
+[03-20 10:30:42.493]break 
+[03-20 10:30:42.504]written = 10240000
+
+[03-20 10:30:42.506][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata62.bin
+[03-20 10:30:43.511]written = 10240000
+
+[03-20 10:30:43.513][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata63.bin
+[03-20 10:30:44.493]break 
+[03-20 10:30:44.497]written = 10240000
+
+[03-20 10:30:44.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata64.bin
+[03-20 10:30:45.497]written = 10240000
+
+[03-20 10:30:45.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata65.bin
+[03-20 10:30:46.493]break 
+[03-20 10:30:46.499]written = 10240000
+
+[03-20 10:30:46.501][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata66.bin
+[03-20 10:30:47.503]written = 10240000
+
+[03-20 10:30:47.504][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata67.bin
+[03-20 10:30:48.493]break 
+[03-20 10:30:48.509]written = 10240000
+
+[03-20 10:30:48.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata68.bin
+[03-20 10:30:49.496]written = 10240000
+
+[03-20 10:30:49.498][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata69.bin
+[03-20 10:30:50.493]break 
+[03-20 10:30:50.503]written = 10240000
+
+[03-20 10:30:50.505][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata70.bin
+[03-20 10:30:51.506]written = 10240000
+
+[03-20 10:30:51.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata71.bin
+[03-20 10:30:52.493]break 
+[03-20 10:30:52.505]written = 10240000
+
+[03-20 10:30:52.507][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata72.bin
+[03-20 10:30:53.505]written = 10240000
+
+[03-20 10:30:53.507][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata73.bin
+[03-20 10:30:54.493]break 
+[03-20 10:30:54.497]written = 10240000
+
+[03-20 10:30:54.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata74.bin
+[03-20 10:30:55.500]written = 10240000
+
+[03-20 10:30:55.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata75.bin
+[03-20 10:30:56.493]break 
+[03-20 10:30:56.505]written = 10240000
+
+[03-20 10:30:56.507][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata76.bin
+[03-20 10:30:57.506]written = 10240000
+
+[03-20 10:30:57.508][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata77.bin
+[03-20 10:30:58.494]break 
+[03-20 10:30:58.508]written = 10240000
+
+[03-20 10:30:58.510][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata78.bin
+[03-20 10:30:59.509]written = 10240000
+
+[03-20 10:30:59.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata79.bin
+[03-20 10:31:00.493]break 
+[03-20 10:31:00.497]written = 10240000
+
+[03-20 10:31:00.499][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata80.bin
+[03-20 10:31:01.500]written = 10240000
+
+[03-20 10:31:01.502][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata81.bin
+[03-20 10:31:02.493]break 
+[03-20 10:31:02.508]written = 10240000
+
+[03-20 10:31:02.510][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata82.bin
+[03-20 10:31:03.509]written = 10240000
+
+[03-20 10:31:03.511][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata83.bin
+[03-20 10:31:04.493]break 
+[03-20 10:31:04.511]written = 10240000
+
+[03-20 10:31:04.513][ThreadFileToDisk::SingleFile],关闭文件 I:\/testdata84.bin

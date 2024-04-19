@@ -11,9 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rd\include\QTXdmaApi.h" />
+    <ClInclude Include="fifo_multi\configdata.h" />
+    <ClInclude Include="fifo_multi\databuffer.h" />
+    <ClInclude Include="fifo_multi\Mutex.h" />
+    <ClInclude Include="fifo_multi\pingpong_example.h" />
+    <ClInclude Include="fifo_multi\qtpciexdma.h" />
+    <ClInclude Include="fifo_multi\qtxdmaapiinterface.h" />
     <ClInclude Include="TPM.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="fifo_multi\databuffer.cpp" />
+    <ClCompile Include="fifo_multi\MutexWin.cpp" />
+    <ClCompile Include="fifo_multi\pingpong_function.cpp" />
+    <ClCompile Include="fifo_multi\pub.cpp" />
+    <ClCompile Include="fifo_multi\qtxdmaapiinterface.cpp" />
+    <ClCompile Include="fifo_multi\TraceLog.cpp" />
     <ClCompile Include="NIAnalogOutputPort.cpp" />
     <ClCompile Include="NIDigitalOutputPort.cpp" />
     <ClCompile Include="TPM.cpp" />
@@ -62,38 +75,36 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;TPM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>Default</ConformanceMode>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;TPM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\logclass;D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\3rd\include;D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\fifo_multi;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>true</EnableUAC>
-      <AdditionalLibraryDirectories>$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>nidaqmx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\3rd\lib\x64;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>nidaqmx.lib;QTXdmaApi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;TPM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>Default</ConformanceMode>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;TPM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\logclass;D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\3rd\include;D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\fifo_multi;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>true</EnableUAC>
-      <AdditionalLibraryDirectories>$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>nidaqmx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\GitHub\micro-manager\micro-manager\mmCoreAndDevices\DeviceAdapters\TPM\3rd\lib\x64;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>nidaqmx.lib;QTXdmaApi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

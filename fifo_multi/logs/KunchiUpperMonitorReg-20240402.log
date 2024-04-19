@@ -1,0 +1,28 @@
+[04-02 09:08:58.736][QTXdmaApiInterface::Func_QTXdmaReadRegister], base 0x3000, offset 0x0
+[04-02 09:08:58.736][QTXdmaApiInterface::Func_QTXdmaReadRegister], base 0x3000, offset 0x4
+[04-02 09:08:58.737][QTXdmaApiInterface::Func_QTXdmaReadRegister], base 0x3000, offset 0xc
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaReadRegister], base 0x3000, offset 0x20
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x10, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x10, value 0x1
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x10, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x1000, offset 0x0, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x1000, offset 0x20, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x4, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x4, value 0x1
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x4, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x18, value 0x0
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x18, value 0x1
+[04-02 09:08:58.738][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x18, value 0x0
+[04-02 09:09:23.403][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x20, value 0x1f57
+[04-02 09:09:23.403][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x30, value 0x0
+[04-02 09:09:23.403][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x30, value 0x1
+[04-02 09:09:23.404][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x6000, offset 0x30, value 0x0
+[04-02 09:09:25.708][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x28, value 0x3e8
+[04-02 09:09:25.708][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x2c, value 0x1
+[04-02 09:09:25.709][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x30, value 0x0
+[04-02 09:09:25.709][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x30, value 0x1
+[04-02 09:09:25.709][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x30, value 0x0
+[04-02 09:09:28.033][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x38, value 0x1
+[04-02 09:09:33.034][QTXdmaApiInterface::Func_QTXdmaReadRegister], base 0x2000, offset 0x4
+[04-02 09:09:34.506][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x0, value 0x0
+[04-02 09:09:34.506][QTXdmaApiInterface::Func_QTXdmaWriteRegister], base 0x7000, offset 0x4, value 0x1

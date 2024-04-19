@@ -14,6 +14,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <stdlib.h> 
 
 #include "NIDAQmx.h"
 #include <boost/lexical_cast.hpp>
@@ -390,8 +391,80 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 // DAQ
 //
+
 class DAQAnalogInputPort : public CSignalIOBase<DAQAnalogInputPort>
 {
+public:
+    DAQAnalogInputPort();
+    virtual ~DAQAnalogInputPort();
+
+    virtual int Initialize();
+    virtual int Shutdown();
+    virtual int StopTask();
+
+    virtual void GetName(char* name) const;
+    virtual bool Busy() { return false; }
+
+
+private:
+    int change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int set_Frameheader(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int set_clockmode(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int set_SegmentDuration(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int OnSegmentDurationChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
+    int onCollection(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+    int CalculateOnceTrigBytes();
+    int CheckDataSpeed();
+    // 通用的属性回调函数
+    int OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+
+    // 其他辅助函数
+
+    void CalculateTriggerFrequency();
+    void CheckTriggerDuration();
+    int set_data1();
+
+
+
+private:
+    bool initialized_;
+
+    double offset;
+    int length;
+    int Frameheader;
+
+    // 触发变量设置
+    // 成员变量
+    uint32_t triggercount=0;            // 触发次数
+    uint32_t pulse_period = 0;          // 内部脉冲周期
+    uint32_t pulse_width = 0;           // 内部脉冲脉宽
+    uint32_t arm_hysteresis = 70;       // 触发迟滞
+    uint32_t rasing_codevalue = 0;      // 双边沿触发上升沿阈值
+    uint32_t falling_codevalue = 0;    // 双边沿触发下降沿阈值
+
+    // 映射属性名到成员变量指针
+    std::map<std::string, uint32_t*> triggerSetupMap;
+
+    uint32_t trigchannelID = 1;         // 触发通道
+    uint32_t trigmode;                  // 添加触发模式变量
+
+    // 设置DMA参数
+    double SegmentDuration; // 单次触发段时长（微秒）
+    uint64_t OnceTrigBytes; // 单次触发的字节数
+    double TriggerFrequency; // 触发频率（Hz）
+    double TriggerDuration; // 触发时长（毫秒）
+
+    uint32_t Samplerate; // 板卡采样率MHz
+    uint32_t ChannelCount; // 板卡通道数
+
+
+
 
 };
 

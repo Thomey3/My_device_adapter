@@ -6,10 +6,16 @@
 #include <boost/math/common_factor_rt.hpp>
 #include <boost/scoped_array.hpp>
 
+#include "pingpong_example.h"
+#include "pthread.h"
+#include "semaphore.h"
+#include "../include/TraceLog.h"
+
 const char* g_HubDeviceName = "TPM";
 const char* g_DeviceNameNIDAQHub = "NIDAQHub";
 const char* g_DeviceNameNIDAQAOPortPrefix = "NIDAQAO-";
 const char* g_DeviceNameNIDAQDOPortPrefix = "NIDAQDO-";
+const char* g_DeviceNameDAQ = "DAQ";
 
 const char* g_On = "On";
 const char* g_Off = "Off";
@@ -1261,7 +1267,720 @@ template class NIDAQDOHub<uInt32>;
 ///   DAQ 
 ///
 
+#define MB *1024*1024
+#define INTERRUPT 0
+#define POLLING 1
+#define WRITEFILE 1
+#define BASE_8MB 8*1024*1024
+#define single_interruption_duration 1000
 
+STXDMA_CARDINFO pstCardInfo;//存放PCIE板卡信息结构体
+Log_TraceLog g_Log(std::string("./logs/KunchiUpperMonitor.log"));
+Log_TraceLog* pLog = &g_Log;
+static sem_t gvar_program_exit;	//声明一个信号量
+sem_t c2h_ping;		//ping信号量
+sem_t c2h_pong;		//pong信号量
+long once_readbytes = 8 MB;
+long data_size = 0;
+uint32_t flag_ping = 0;
+uint32_t flag_pong = 0;
+
+//函数声明
+void* PollIntr(void* lParam);
+void* datacollect(void* lParam);
+
+struct data
+{
+    uint64_t DMATotolbytes;
+    uint64_t allbytes;
+};
+struct data data1;
+
+typedef struct {
+    unsigned char* bufferAddr;      // 缓冲区地址
+    size_t totalSize;      // 缓冲区总大小
+    size_t currentSize;    // 当前已使用的大小
+} Buffer ;
+Buffer buffer;
+
+
+DAQAnalogInputPort::DAQAnalogInputPort():
+initialized_(false)
+{
+    QTXdmaOpenBoard(&pstCardInfo, 0);   //打开板卡
+    QT_BoardGetCardInfo();              //获取板卡信息
+    QT_BoardSetADCStop();               //停止采集  
+    QT_BoardSetTransmitMode(0, 0);      //DMA置0
+    QT_BoardSetInterruptClear();        //清除中断
+    QT_BoardSetSoftReset();             //执行上位机软件复位
+}
+
+DAQAnalogInputPort::~DAQAnalogInputPort()
+{
+    Shutdown();
+}
+
+int DAQAnalogInputPort::Initialize()
+{
+    //信号量初始化
+    sem_init(&gvar_program_exit, 0, 0);
+    sem_init(&c2h_ping, 0, 0);
+    sem_init(&c2h_pong, 0, 0);
+
+    buffer.bufferAddr = (unsigned char*)malloc(1024 * 1024);  // 分配 1MB 大小的缓冲区
+    buffer.totalSize = 1024 * 1024;
+    buffer.currentSize = 0;
+
+    // 调整偏置
+    CPropertyAction* pAct = new CPropertyAction(this, &DAQAnalogInputPort::change_bias_channal);
+    int err = CreateFloatProperty("Channel1 offset", offset, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    err = CreateFloatProperty("Channel2 offset", offset, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    err = CreateFloatProperty("Channel3 offset", offset, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    err = CreateFloatProperty("Channel4 offset", offset, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+
+    // 预触发设置
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_pre_trig_length);
+    err = CreateIntegerProperty("Pre Trig Length", length, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    
+    // 帧头设置
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_Frameheader);
+    err = CreateIntegerProperty("Frameheader", Frameheader, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+
+    // 设置时钟模式
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_clockmode);
+    err = CreateStringProperty("Clockmode", "", false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    AddAllowedValue("Clockmode", "内参考时钟");
+    AddAllowedValue("Clockmode", "外采样时钟");
+    AddAllowedValue("Clockmode", "外参考时钟");
+
+    // 外部触发的一些变量设置
+    // 只添加你需要创建属性的变量
+    triggerSetupMap["Trigger Count"] = &triggercount;
+    triggerSetupMap["Pulse Period"] = &pulse_period;
+    triggerSetupMap["Pulse Width"] = &pulse_width;
+    triggerSetupMap["Trigger lag"] = &arm_hysteresis;
+    triggerSetupMap["Rasing Codevalue"] = &rasing_codevalue;
+    triggerSetupMap["Falling Codevalue"] = &falling_codevalue;
+
+    // 为每个属性创建Micro-Manager属性
+    for (auto& it : triggerSetupMap) {
+        // Cast uint32_t to long for conversion to string
+        long valueAsLong = static_cast<long>(*(it.second));
+        CreateProperty(it.first.c_str(), CDeviceUtils::ConvertToString(valueAsLong), MM::Integer, false, new CPropertyAction(this, &DAQAnalogInputPort::OnUInt32Changed));
+    }
+
+    // 设置触发通道
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_triggerchannel);
+    err = CreateStringProperty("triggerchannel", "", false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    AddAllowedValue("triggerchannel", "1");
+    AddAllowedValue("triggerchannel", "2");
+    AddAllowedValue("triggerchannel", "3");
+    AddAllowedValue("triggerchannel", "4");
+
+    // 设置触发模式
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_triggermode);
+    err = CreateStringProperty("triggermode", "", false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    AddAllowedValue("triggermode", "0 软件触发");
+    AddAllowedValue("triggermode", "1 内部脉冲触发");
+    AddAllowedValue("triggermode", "2 外部脉冲上升沿触发");
+    AddAllowedValue("triggermode", "3 外部脉冲下降沿触发");
+    AddAllowedValue("triggermode", "4 通道上升沿触发");
+    AddAllowedValue("triggermode", "5 通道下降沿触发");
+    AddAllowedValue("triggermode", "6 通道双沿触发");
+    AddAllowedValue("triggermode", "7 外部脉冲双沿触发");
+
+    ///////DMA 设置
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::OnSegmentDurationChanged);
+    err = CreateFloatProperty("Segment Duration (us)", SegmentDuration, false, pAct);
+    SetPropertyLimits("Segment Duration (us)", 0, 536870.904);
+    if (err != DEVICE_OK)
+        return err;
+
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::OnTriggerFrequencyChanged);
+    err = CreateFloatProperty("Trigger Frequency (Hz)", TriggerFrequency, false, pAct);
+    SetPropertyLimits("Trigger Frequency (Hz)", 800, 1e6); // 根据设定调整最大最小值
+    if (err != DEVICE_OK)
+        return err;
+
+    // 开始采集
+    pAct = new CPropertyAction(this, &DAQAnalogInputPort::onCollection);
+    err = CreateStringProperty("on Collection", "off", false, pAct);
+    if (err != DEVICE_OK)
+        return err;
+    AddAllowedValue("on Collection", "off");
+    AddAllowedValue("on Collection", "on");
+    
+}
+
+int DAQAnalogInputPort::Shutdown()
+{
+    if (!initialized_)
+        return DEVICE_OK;
+
+    int err = StopTask();
+
+    initialized_ = false;
+    return err;
+}
+
+int DAQAnalogInputPort::StopTask()
+{
+    QT_BoardSetADCStop();
+    QT_BoardSetTransmitMode(0, 0);
+    int err = QTXdmaCloseBoard(&pstCardInfo);
+    if (err != DEVICE_OK)
+    {
+        return err;
+    }
+    else
+    {
+        return DEVICE_OK;
+    }
+    
+}
+
+void DAQAnalogInputPort::GetName(char* name) const
+{
+    CDeviceUtils::CopyLimitedString(name, g_DeviceNameDAQ);
+}
+
+int DAQAnalogInputPort::change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    std::string propName = pProp->GetName();  // 获取触发回调的属性名称
+    if (eAct == MM::AfterSet)
+    {
+        double offset;
+        pProp->Get(offset); // 从属性中获取用户设置的新偏移值
+
+        int channelID = 0;  // 初始化通道ID
+        if (propName == "Channel1_offset")
+        {
+            channelID = 1;
+        }
+        else if (propName == "Channel2_offset")
+        {
+            channelID = 2;
+        }
+        else if (propName == "Channel3_offset")
+        {
+            channelID = 3;
+        }
+        else if (propName == "Channel4_offset")
+        {
+            channelID = 4;
+        }
+
+        if (channelID > 0) {  // 检查channelID是否有效
+            int err = QT_BoardSetOffset(channelID, offset);
+            if (err != DEVICE_OK)
+                return err;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        double length;
+        pProp->Get(length); // 从属性中获取用户设置的新偏移值
+        if (length > -1) {  // 检查channelID是否有效
+            int err = QT_BoardSetPerTrigger(length);
+            if (err != DEVICE_OK)
+                return err;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::set_Frameheader(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        double Frameheader;
+        pProp->Get(Frameheader); // 从属性中获取用户设置的新偏移值
+        if (Frameheader > -1) {  // 检查channelID是否有效
+            int err = QT_BoardSetFrameheader(Frameheader);
+            if (err != DEVICE_OK)
+                return err;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::set_clockmode(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        std::string clockmode;
+        int mode = 3;
+        pProp->Get(clockmode); // 从属性中获取用户设置的新偏移值
+        if (clockmode == "内参考时钟")
+        {
+            mode = 0;
+        }
+        else if (clockmode == "外采样时钟")
+        {
+            mode = 1;
+        }
+        else if (clockmode == "外参考时钟")
+        {
+            mode = 2;
+        }
+        if(mode < 3)
+        {  // 检查channelID是否有效
+            int err = QT_BoardSetClockMode(mode);
+            if (err != DEVICE_OK)
+                return err;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    std::string propName = pProp->GetName();
+    auto it = triggerSetupMap.find(propName);
+
+    if (it != triggerSetupMap.end()) {
+        if (eAct == MM::BeforeGet) {
+            // Convert uint32_t to string by casting to long first
+            long valueAsLong = static_cast<long>(*(it->second));
+            pProp->Set(CDeviceUtils::ConvertToString(valueAsLong));
+        }
+        else if (eAct == MM::AfterSet) {
+            long temp;
+            pProp->Get(temp);
+            *(it->second) = static_cast<uint32_t>(temp);  // Cast back to uint32_t after getting as long
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet) {
+        // 当要获取属性值时，将trigchannelID转换为字符串并返回
+        pProp->Set(CDeviceUtils::ConvertToString(static_cast<long>(trigchannelID)));
+    }
+    else if (eAct == MM::AfterSet) {
+        std::string valueAsString;
+        pProp->Get(valueAsString); // 获取属性值（字符串形式）
+
+        // 将字符串转换为uint32_t类型
+        try {
+            uint32_t value = static_cast<uint32_t>(std::stoul(valueAsString));
+
+            // 检查是否在允许的值范围内
+            if (value >= 1 && value <= 4) {
+                trigchannelID = value; // 更新trigchannelID
+            }
+            else {
+                // 如果不在允许范围内，你可以抛出错误或者将其设置为默认值
+                return DEVICE_INVALID_PROPERTY_VALUE;
+            }
+        }
+        catch (const std::exception&) {
+            // 如果转换失败，返回错误
+            return DEVICE_INVALID_PROPERTY_VALUE;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet) {
+        // 获取当前设置的触发模式并将其转换为字符串形式返回
+        pProp->Set(CDeviceUtils::ConvertToString(static_cast<long>(trigmode)));
+    }
+    else if (eAct == MM::AfterSet) {
+        std::string modeAsString;
+        pProp->Get(modeAsString); // 获取属性值（字符串形式）
+        uint32_t mode = static_cast<uint32_t>(std::stoul(modeAsString.substr(0, 1))); // 解析模式编号
+
+        // 设置trigmode变量，并根据选定的模式调用相应的硬件接口函数
+        trigmode = mode;
+        switch (trigmode) {
+        case 0:
+            QT_BoardSoftTrigger();
+            break;
+        case 1:
+            QT_BoardInternalPulseTrigger(triggercount, pulse_period, pulse_width);
+            break;
+        case 2:
+            QT_BoardExternalTrigger(2, triggercount);
+            break;
+        case 3:
+            QT_BoardExternalTrigger(3, triggercount);
+            break;
+        case 4:
+            QT_BoardChannelTrigger(4, triggercount, trigchannelID, rasing_codevalue, falling_codevalue);
+            break;
+        case 5:
+            QT_BoardChannelTrigger(5, triggercount, trigchannelID, rasing_codevalue, falling_codevalue);
+            break;
+        case 6:
+            QT_BoardChannelTrigger(6, triggercount, trigchannelID, rasing_codevalue, falling_codevalue);
+            break;
+        case 7:
+            QT_BoardExternalTrigger(7, triggercount);
+            break;
+        default:
+            // 如果触发模式无效，记录错误或设置为默认值
+            return DEVICE_INVALID_PROPERTY_VALUE;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::OnSegmentDurationChanged(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        pProp->Set(SegmentDuration);
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        pProp->Get(SegmentDuration);
+        int err = CalculateOnceTrigBytes();
+        if (err != DEVICE_OK)
+        {
+            return DEVICE_ERR;
+        }
+        CalculateTriggerFrequency();
+        CheckTriggerDuration();
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        pProp->Set(TriggerFrequency);
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        pProp->Get(TriggerFrequency);
+        CalculateTriggerFrequency();
+        CheckTriggerDuration();
+        CheckDataSpeed(); // 检查数据速度是否超标
+        set_data1();
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::onCollection(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        // 可以提供一些状态信息
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        std::string value;
+        pProp->Get(value); // 获取当前属性的值
+
+        if (value == "On")
+        {
+            //DMA参数设置
+            QT_BoardSetFifoMultiDMAParameter(OnceTrigBytes, data1.DMATotolbytes);
+            //DMA传输模式设置
+            QT_BoardSetTransmitMode(1, 0);
+
+            //使能PCIE中断
+            QT_BoardSetInterruptSwitch();
+
+            //数据采集线程
+            pthread_t data_collect;
+            pthread_create(&data_collect, NULL, datacollect, &data1);
+
+            //ADC开始采集
+            QT_BoardSetADCStart();
+
+            //等中断线程
+            pthread_t wait_intr_c2h_0;
+            pthread_create(&wait_intr_c2h_0, NULL, PollIntr, NULL);
+        }
+        else if (value == "Off")
+        {
+            QT_BoardSetADCStop();
+            QT_BoardSetTransmitMode(0, 0);
+            QTXdmaCloseBoard(&pstCardInfo);
+        }
+        sem_wait(&gvar_program_exit);
+        sem_destroy(&gvar_program_exit);
+    }
+    return DEVICE_OK;
+
+}
+
+int DAQAnalogInputPort::CalculateOnceTrigBytes()
+{
+    OnceTrigBytes = static_cast<uint64_t>(SegmentDuration * Samplerate * ChannelCount * 2);
+    if (OnceTrigBytes % 512 != 0)
+    {
+        OnceTrigBytes = (OnceTrigBytes / 512) * 512;
+    }
+    if (OnceTrigBytes > 4294967232)
+    {
+        LogMessage("单次触发数据量超过DDR大小！请减小触发段时长或者降低触发频率！");
+        return DEVICE_ERR;
+    }
+    return DEVICE_OK;
+}
+
+void DAQAnalogInputPort::CalculateTriggerFrequency()
+{
+    if (trigmode != 0 && trigmode != 1)
+    {
+        uint64_t GB = 4000000000;
+        if (trigmode == 6 || trigmode == 7)
+        {
+            TriggerFrequency = (GB / OnceTrigBytes) / 2;
+        }
+        else
+        {
+            TriggerFrequency = GB / OnceTrigBytes;
+        }
+    }
+}
+
+void DAQAnalogInputPort::CheckTriggerDuration()
+{
+    if (trigmode == 1)
+    {
+        TriggerDuration = pulse_period / 1000.0 / 1000.0;
+    }
+    else
+    {
+        TriggerDuration = 1000.0 / TriggerFrequency;
+    }
+}
+
+int DAQAnalogInputPort::CheckDataSpeed()
+{
+    double dataspeed = (TriggerFrequency * OnceTrigBytes) / 1024.0 / 1024.0; // 数据速度计算，单位为MB/s
+    if (trigmode == 6 || trigmode == 7) // 如果是双边沿触发
+    {
+        dataspeed *= 2; // 数据速度翻倍
+    }
+    if (dataspeed > 4000) // 超过4GB/s
+    {
+        LogMessage("流盘速度大于4GB/S！建议降低触发段时长或者提高触发周期！", true); // 记录错误消息
+        // 这里可以进行一些恢复或安全设置的操作
+        // 可以选择停止操作，设置触发频率到一个安全值，或者提示用户进行调整
+        TriggerFrequency = 4000 / (OnceTrigBytes / 1024.0 / 1024.0); // 调整到最大安全频率
+        return DEVICE_ERR;
+    }
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::set_data1()
+{
+    if (TriggerDuration > single_interruption_duration) {
+        data1.DMATotolbytes = OnceTrigBytes;
+    }
+    else {
+        double x = single_interruption_duration / TriggerDuration;
+        if (x - static_cast<int>(x) > 0.5) x += 1;
+        int frameCount = static_cast<int>(x); // 帧头个数
+        LogMessage("帧头个数 = " + std::to_string(frameCount));
+        data1.DMATotolbytes = OnceTrigBytes * frameCount;
+    }
+
+    // 保证数据量为512字节的倍数
+    if (data1.DMATotolbytes % 512 != 0) {
+        data1.DMATotolbytes = (data1.DMATotolbytes / 512) * 512;
+    }
+
+    // 检查数据量是否超过DDR大小
+    if (data1.DMATotolbytes > 4294967232) {
+        LogMessage("单次中断数据量超过DDR大小！请减小触发段时长或者降低触发频率！", true);
+        return DEVICE_ERR;
+    }
+
+    LogMessage("单次中断数据量(单位:字节): " + std::to_string(data1.DMATotolbytes));
+    data1.allbytes = data1.DMATotolbytes;
+    
+    return DEVICE_OK;
+}
+
+void* PollIntr(void* lParam)
+{
+    pthread_detach(pthread_self());
+    int intr_cnt = 1;
+    int intr_ping = 0;
+    int intr_pong = 0;
+
+    clock_t start, finish;
+    double time1 = 0;
+    start = clock();
+
+    while (true)
+    {
+        QT_BoardInterruptGatherType();
+
+        finish = clock();
+        time1 = (double)(finish - start) / CLOCKS_PER_SEC;
+        printf("intr time is %f\n", time1);
+        start = finish;
+
+        if (intr_cnt % 2 == 0)
+        {
+            sem_post(&c2h_pong);
+            intr_pong++;
+            //printf("pong is %d free list size %d\n", intr_pong, ThreadFileToDisk::Ins().GetFreeSizePing());
+        }
+        else
+        {
+            sem_post(&c2h_ping);
+            intr_ping++;
+            //printf("ping is %d free list size %d\n", intr_ping, ThreadFileToDisk::Ins().GetFreeSizePing());
+        }
+
+        intr_cnt++;
+    }
+
+EXIT:
+    pthread_exit(NULL);
+    return 0;
+}
+
+void* datacollect(void* lParam)
+{
+    pthread_detach(pthread_self());
+
+    long ping_getdata = 0;
+    long pong_getdata = 0;
+
+
+    while (1)
+    {
+        //ping数据搬移
+        {
+            sem_wait(&c2h_ping);
+            int iBufferIndex = -1;
+            int64_t remain_size = data1.DMATotolbytes;
+            uint64_t offsetaddr_ping = 0x0;
+
+            while (remain_size > 0)
+            {
+                int iLoopCount = 0;
+                int iWriteBytes = 0;
+
+                do
+                {
+                    if (remain_size >= once_readbytes)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_ping, &pstCardInfo,
+                            buffer.bufferAddr + buffer.currentSize, once_readbytes, 0);
+
+                        buffer.currentSize += once_readbytes;
+
+                        iWriteBytes += once_readbytes;
+                    }
+                    else if (remain_size > 0)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_ping, &pstCardInfo,
+                            buffer.bufferAddr + buffer.currentSize, remain_size, 0);
+
+                        buffer.currentSize += once_readbytes;
+                        iWriteBytes += remain_size;
+                    }
+
+                    offsetaddr_ping += once_readbytes;
+                    remain_size -= once_readbytes;
+
+                    if (remain_size <= 0)
+                    {
+                        
+                        break;
+                    }
+                    iLoopCount++;
+                } while (iWriteBytes < buffer.totalSize);
+
+            }
+        }
+        ping_getdata++;
+
+        //pong数据搬移开始
+        {
+            sem_wait(&c2h_pong);
+            int iBufferIndex = -1;
+            int64_t remain_size = data1.DMATotolbytes;
+            uint64_t offsetaddr_pong = 0x100000000;
+
+            while (remain_size > 0)
+            {
+
+                int iLoopCount = 0;
+                int iWriteBytes = 0;
+
+                do
+                {
+                    if (remain_size >= once_readbytes)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_pong, &pstCardInfo,
+                            buffer.bufferAddr + buffer.currentSize, once_readbytes, 0);
+
+                        buffer.currentSize += once_readbytes;
+
+                        iWriteBytes += once_readbytes;
+                    }
+                    else if (remain_size > 0)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_pong, &pstCardInfo,
+                            buffer.bufferAddr + buffer.currentSize, remain_size, 0);
+
+                        buffer.currentSize += once_readbytes;
+
+                        iWriteBytes += remain_size;
+                    }
+
+                    iLoopCount++;
+
+                    offsetaddr_pong += once_readbytes;
+                    remain_size -= once_readbytes;
+
+                    if (remain_size <= 0)
+                    {
+                        break;
+                    }
+
+                } while (iWriteBytes < buffer.totalSize);
+            }
+        }
+        pong_getdata++;
+        printf("ping_getdata=%d  pong_getdata=%d\n", ping_getdata, pong_getdata);
+    }
+    puts("thread exit while!");
+EXIT:
+    pthread_exit(NULL);
+    sem_destroy(&c2h_ping);
+    sem_destroy(&c2h_pong);
+    return 0;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///   TPM 

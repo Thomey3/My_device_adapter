@@ -1,0 +1,53 @@
+﻿  pingpong.cpp
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\threadfiletodisk.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(32): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1469): note: 参见“vsprintf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(139): warning C4477: “scanf”: 格式字符串“%d”需要类型“int *”的参数，但可变参数 1 拥有了类型“uint64_t *”
+  c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(139): note: 请考虑在格式字符串中使用“%lld”
+  c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(139): note: 请考虑在格式字符串中使用“%Id”
+  c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(139): note: 请考虑在格式字符串中使用“%I64d”
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(140): warning C4244: “参数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(247): warning C4244: “=”: 从“double”转换到“uint64_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(270): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“uint64_t”
+  c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(270): note: 请考虑在格式字符串中使用“%lld”
+  c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(270): note: 请考虑在格式字符串中使用“%Id”
+  c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(270): note: 请考虑在格式字符串中使用“%I64d”
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(280): warning C4244: “=”: 从“uint64_t”转换到“double”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(284): warning C4244: “=”: 从“uint64_t”转换到“double”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(332): warning C4244: “=”: 从“double”转换到“uint64_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(354): warning C4244: “参数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(355): warning C4244: “初始化”: 从“uint64_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(124): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(130): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(139): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(156): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(172): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(174): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(197): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(208): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(214): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(221): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(228): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(240): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(302): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  h:\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 参见“scanf”的声明
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(404): warning C4102: “EXIT”: 未引用的标签
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(449): warning C4102: “EXIT”: 未引用的标签
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(502): warning C4244: “参数”: 从“int64_t”转换到“unsigned int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(505): warning C4244: “+=”: 从“int64_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(571): warning C4244: “参数”: 从“int64_t”转换到“unsigned int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(575): warning C4244: “+=”: 从“int64_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\生产发货资料\0318\12135ac\c&c++\无限点多次触发采集\fifo_multi\pingpong_example\pingpong.cpp(603): warning C4102: “EXIT”: 未引用的标签
+  pingpong_example.vcxproj -> C:\Users\Administrator\Desktop\生产发货资料\0318\12135AC\C&C++\无限点多次触发采集\fifo_multi\x64\Debug\pingpong_example.exe

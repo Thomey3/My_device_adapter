@@ -1,0 +1,10 @@
+﻿#ifndef PUBDEF_H
+#define PUBDEF_H
+
+const int ETHERNET_DATA_ADDR = 0x80000000;
+const int ETHERNET_DATA_ADDR_1562010 = 0x10000000;
+const int PCIE_DATA_ADDR = 0x00;
+
+
+
+#endif // PUBDEF_H
