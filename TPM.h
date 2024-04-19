@@ -400,10 +400,26 @@ public:
 
     virtual int Initialize();
     virtual int Shutdown();
-    virtual int StopTask();
 
     virtual void GetName(char* name) const;
     virtual bool Busy() { return false; }
+
+    virtual int SetGateOpen(bool open);
+    virtual int GetGateOpen(bool& open);
+    virtual int SetSignal(double volts);
+    virtual int GetSignal(double& /* volts */) { return DEVICE_UNSUPPORTED_COMMAND; }
+    virtual int GetLimits(double& minVolts, double& maxVolts);
+
+    virtual int IsDASequenceable(bool& isSequenceable) const;
+    virtual int GetDASequenceMaxLength(long& maxLength) const;
+    virtual int StartDASequence();
+    virtual int StopDASequence();
+    virtual int ClearDASequence();
+    virtual int AddToDASequence(double);
+    virtual int SendDASequence();
+
+    virtual int StopTask();
+
 
 
 private:
@@ -435,9 +451,21 @@ private:
 private:
     bool initialized_;
 
+    bool gateOpen_;
+    double gatedVoltage_;
+    bool sequenceRunning_;
+
+    double minVolts_; // User-selected for this port
+    double maxVolts_; // User-selected for this port
+    bool neverSequenceable_;
+    bool transitionPostExposure_; // when to transition in a sequence, not that we always transition on a rising flank
+
+
     double offset;
     int length;
     int Frameheader;
+
+
 
     // 触发变量设置
     // 成员变量

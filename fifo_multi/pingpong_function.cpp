@@ -12,10 +12,10 @@ void QT_BoardGetCardInfo()
 	uint64_t uintValue = 0;
 	QTXdmaApiInterface::Func_QTXdmaReadRegister(&pstCardInfo, BASE_BOARD_INFO, OFFSET_BDINFO_BDINFO, &uintValue);
 	string hexstr = pub::DecIntToHexStr(uintValue);
-	printf("Card Type is %s\n", hexstr.data());
+	//printf("Card Type is %s\n", hexstr.data());
 	QTXdmaApiInterface::Func_QTXdmaReadRegister(&pstCardInfo, BASE_BOARD_INFO, OFFSET_BDINFO_SOFT_VER, &uintValue);
 	string vexstr = pub::DecIntToHexStr(uintValue);
-	printf("Card Logical Version is %s\n", vexstr.data());
+	//printf("Card Logical Version is %s\n", vexstr.data());
 	QTXdmaApiInterface::Func_QTXdmaReadRegister(&pstCardInfo, BASE_BOARD_INFO, OFFSET_BDINFO_ADC, &uintValue);
 	string hexAdcStr = pub::DecIntToHexStr(uintValue);//表示转换成16进制存入字符串
 	int strLen = hexAdcStr.length();
@@ -23,13 +23,12 @@ void QT_BoardGetCardInfo()
 	uint32_t c1 = uintValue / 10000;//采样率
 	uint32_t c2 = uintValue / 100 - (uintValue / 10000) * 100;//通道数
 	uint32_t c3 = uintValue - (uintValue / 100) * 100;//分辨率
-	printf("Card Sample Rate is %d\n", c1);
-	printf("Card Channel Number is %d\n", c2);
-	printf("Card Resolution is %d\n", c3);
+	//printf("Card Sample Rate is %d\n", c1);
+	//printf("Card Channel Number is %d\n", c2);
+	//printf("Card Resolution is %d\n", c3);
 	uint64_t CurrentStates = 0;
 	QTXdmaApiInterface::Func_QTXdmaReadRegister(&pstCardInfo, BASE_BOARD_INFO, 0x20, &CurrentStates);
-	printf("Card Status is %#x\n\n", CurrentStates);//状态值
-
+	//printf("Card Status is %#x\n\n", CurrentStates);//状态值
 }
 
 int QT_BoardSetPerTrigger(uint32_t pre_trig_length)

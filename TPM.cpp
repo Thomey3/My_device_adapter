@@ -43,6 +43,8 @@ MODULE_API void InitializeModuleData()
 {
     RegisterDevice(g_DeviceNameNIDAQHub, MM::HubDevice, "NIDAQHub");
     RegisterDevice(g_HubDeviceName, MM::HubDevice, "TPM");
+    RegisterDevice(g_DeviceNameDAQ, MM::SignalIODevice, "DAQ");
+
 }
 
 MODULE_API MM::Device* CreateDevice(const char* deviceName)
@@ -72,6 +74,10 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
     else if (strcmp(deviceName, g_HubDeviceName) == 0)
     {
         return new TPM();
+    }
+    else if (strcmp(deviceName, g_DeviceNameDAQ) == 0)
+    {
+        return new DAQAnalogInputPort();
     }
 
     // ...supplied name not recognized
@@ -1322,6 +1328,9 @@ DAQAnalogInputPort::~DAQAnalogInputPort()
 
 int DAQAnalogInputPort::Initialize()
 {
+    if (initialized_)
+        return DEVICE_OK;
+
     //信号量初始化
     sem_init(&gvar_program_exit, 0, 0);
     sem_init(&c2h_ping, 0, 0);
@@ -1460,6 +1469,61 @@ int DAQAnalogInputPort::StopTask()
 void DAQAnalogInputPort::GetName(char* name) const
 {
     CDeviceUtils::CopyLimitedString(name, g_DeviceNameDAQ);
+}
+
+int DAQAnalogInputPort::SetGateOpen(bool open)
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::GetGateOpen(bool& open)
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::SetSignal(double volts)
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::GetLimits(double& minVolts, double& maxVolts)
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::IsDASequenceable(bool& isSequenceable) const
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::GetDASequenceMaxLength(long& maxLength) const
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::StartDASequence()
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::StopDASequence()
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::ClearDASequence()
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::AddToDASequence(double)
+{
+    return DEVICE_OK;
+}
+
+int DAQAnalogInputPort::SendDASequence()
+{
+    return DEVICE_OK;
 }
 
 int DAQAnalogInputPort::change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct)
