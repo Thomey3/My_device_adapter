@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\include\QTXdmaApi.h" />
+    <ClInclude Include="ETL.h" />
     <ClInclude Include="fifo_multi\configdata.h" />
     <ClInclude Include="fifo_multi\databuffer.h" />
     <ClInclude Include="fifo_multi\Mutex.h" />

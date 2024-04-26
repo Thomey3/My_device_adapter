@@ -16,6 +16,7 @@ const char* g_DeviceNameNIDAQHub = "NIDAQHub";
 const char* g_DeviceNameNIDAQAOPortPrefix = "NIDAQAO-";
 const char* g_DeviceNameNIDAQDOPortPrefix = "NIDAQDO-";
 const char* g_DeviceNameDAQ = "DAQ";
+const char* g_DeviceNameETL = "ETL";
 
 const char* g_On = "On";
 const char* g_Off = "Off";
@@ -43,6 +44,8 @@ MODULE_API void InitializeModuleData()
 {
     RegisterDevice(g_DeviceNameNIDAQHub, MM::HubDevice, "NIDAQHub");
     RegisterDevice(g_HubDeviceName, MM::HubDevice, "TPM");
+    RegisterDevice(g_DeviceNameDAQ, MM::SignalIODevice, "DAQ");
+    RegisterDevice(g_DeviceNameETL, MM::StageDevice, "ETL");
 }
 
 MODULE_API MM::Device* CreateDevice(const char* deviceName)
@@ -72,6 +75,14 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
     else if (strcmp(deviceName, g_HubDeviceName) == 0)
     {
         return new TPM();
+    }
+    else if (strcmp(deviceName, g_DeviceNameDAQ) == 0)
+    {
+        return new DAQAnalogInputPort();
+    }
+    else if (strcmp(deviceName, g_DeviceNameETL) == 0)
+    {
+        return new ETL();
     }
 
     // ...supplied name not recognized
@@ -1826,6 +1837,54 @@ int DAQAnalogInputPort::set_data1()
     return DEVICE_OK;
 }
 
+int DAQAnalogInputPort::Start_Collection()
+{
+    //DMA参数设置
+    int err = QT_BoardSetFifoMultiDMAParameter(OnceTrigBytes, data1.DMATotolbytes);
+    if (err != DEVICE_OK)
+    {
+        LogMessage("dma setup failed!");
+        return err;
+    }
+    //DMA传输模式设置
+    QT_BoardSetTransmitMode(1, 0);
+    if (err != DEVICE_OK)
+    {
+        LogMessage("dma setup failed!");
+        return err;
+    }
+    //使能PCIE中断
+    QT_BoardSetInterruptSwitch();
+    if (err != DEVICE_OK)
+    {
+        LogMessage("PCIE setup failed!");
+        return err;
+    }
+    //数据采集线程
+    pthread_t data_collect;
+    pthread_create(&data_collect, NULL, datacollect, &data1);
+    if (err != DEVICE_OK)
+    {
+        LogMessage("Thread_data_collect setup failed!");
+        return err;
+    }
+    //ADC开始采集
+    QT_BoardSetADCStart();
+    if (err != DEVICE_OK)
+    {
+        LogMessage("ADC setup failed!");
+        return err;
+    }
+    //等中断线程
+    pthread_t wait_intr_c2h_0;
+    pthread_create(&wait_intr_c2h_0, NULL, PollIntr, NULL);
+    if (err != DEVICE_OK)
+    {
+        LogMessage("Thread_data_waitintr setup failed!");
+        return err;
+    }
+}
+
 void* PollIntr(void* lParam)
 {
     pthread_detach(pthread_self());
@@ -1981,6 +2040,113 @@ EXIT:
     sem_destroy(&c2h_pong);
     return 0;
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+///   ETL 
+///
+
+ETL::ETL() :
+    pos_um_(0.0),
+    initialized_(false),
+    sequenceable_(false)
+{
+    //CPropertyAction* pAct = new CPropertyAction(this, &ETL::SelectCOM);
+    //CreateStringProperty("Serial Port", "COM3", false, pAct, true);
+    //pAct = new CPropertyAction(this, &ETL::Baudrate);
+    //CreateStringProperty("Baud rate", "115200", false, pAct, true);
+}
+
+ETL::~ETL()
+{
+    Shutdown();
+}
+
+int ETL::Initialize()
+{
+    initialized_ = true;
+    ETLController etl;
+    etl.openPort(port,baudrate);
+    std::string FPMinS = etl.getFPMin();
+    FPMin = std::stof(FPMinS);
+    std::string FPMaxS = etl.getFPMax();
+    FPMax = std::stof(FPMaxS);
+    CPropertyAction* pAct = new CPropertyAction(this, &ETL::onSetFP);
+    CreateFloatProperty("Focal Power(dpt)", 0, false, pAct, true);
+    SetPropertyLimits("Focal Power(dpt)", FPMin, FPMax);
+
+    return DEVICE_OK;
+}
+int ETL::Shutdown()
+{
+    initialized_ = false;
+    return DEVICE_OK;
+}
+
+void ETL::GetName(char* name) const
+{
+    CDeviceUtils::CopyLimitedString(name, g_DeviceNameETL);
+}
+
+int ETL::SetPositionUm(double pos)
+{
+    etl.Start();
+    etl.setFP((float)pos);
+    return DEVICE_OK;
+}
+
+int ETL::GetPositionUm(double& pos)
+{
+    etl.Start();
+    etl.getFP();
+    return DEVICE_OK;
+}
+
+int ETL::IsStageSequenceable(bool& isSequenceable) const
+{
+    isSequenceable = sequenceable_;
+    return DEVICE_OK;
+}
+
+
+int ETL::SelectCOM(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        std::string s;
+        pProp->Get(s);
+        port = s;
+        return DEVICE_OK;
+   }
+}
+
+int ETL::Baudrate(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        std::string s;
+        pProp->Get(s);
+        baudrate = std::stoi(s);
+        return DEVICE_OK;
+    }
+}
+
+int ETL::onSetFP(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        etl.Start();
+        float fp = etl.getFP();
+        pProp->Set(fp);
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        double fp;
+        pProp->Get(fp);
+        SetPositionUm(fp);
+    }
+    return DEVICE_OK;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///   TPM 

@@ -19,7 +19,7 @@
 #include "NIDAQmx.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/utility.hpp>
-
+#include "ETL.h"
 
 // NIDAQ
 // 
@@ -60,18 +60,18 @@ extern const int ERR_UNKNOWN_PINS_PER_PORT;
 
 inline std::string GetNIError(int32 nierr)
 {
-    char buf[1024];
-    if (DAQmxGetErrorString(nierr, buf, sizeof(buf)))
-        return "[failed to get DAQmx error code]";
-    return buf;
+	char buf[1024];
+	if (DAQmxGetErrorString(nierr, buf, sizeof(buf)))
+		return "[failed to get DAQmx error code]";
+	return buf;
 }
 
 inline std::string GetNIDetailedErrorForMostRecentCall()
 {
-    char buf[1024];
-    if (DAQmxGetExtendedErrorInfo(buf, sizeof(buf)))
-        return "[failed to get DAQmx extended error info]";
-    return buf;
+	char buf[1024];
+	if (DAQmxGetExtendedErrorInfo(buf, sizeof(buf)))
+		return "[failed to get DAQmx extended error info]";
+	return buf;
 }
 
 // Mix-in class for error code handling.
@@ -79,37 +79,37 @@ template <typename TDevice>
 class ErrorTranslator
 {
 public:
-    explicit ErrorTranslator(int minCode, int maxCode,
-        void (TDevice::* setCodeFunc)(int, const char*)) :
-        minErrorCode_(minCode),
-        maxErrorCode_(maxCode),
-        nextErrorCode_(minCode),
-        setCodeFunc_(setCodeFunc)
-    {}
+	explicit ErrorTranslator(int minCode, int maxCode,
+		void (TDevice::* setCodeFunc)(int, const char*)) :
+		minErrorCode_(minCode),
+		maxErrorCode_(maxCode),
+		nextErrorCode_(minCode),
+		setCodeFunc_(setCodeFunc)
+	{}
 
-    int NewErrorCode(const std::string& msg)
-    {
-        if (nextErrorCode_ > maxErrorCode_)
-            nextErrorCode_ = minErrorCode_;
-        int code = nextErrorCode_++;
+	int NewErrorCode(const std::string& msg)
+	{
+		if (nextErrorCode_ > maxErrorCode_)
+			nextErrorCode_ = minErrorCode_;
+		int code = nextErrorCode_++;
 
-        (static_cast<TDevice*>(this)->*setCodeFunc_)(code, msg.c_str());
-        return code;
-    }
+		(static_cast<TDevice*>(this)->*setCodeFunc_)(code, msg.c_str());
+		return code;
+	}
 
-    int TranslateNIError(int32 nierr)
-    {
-        char buf[1024];
-        if (DAQmxGetErrorString(nierr, buf, sizeof(buf)))
-            return NewErrorCode("[Cannot get DAQmx error message]");
-        return NewErrorCode(buf);
-    }
+	int TranslateNIError(int32 nierr)
+	{
+		char buf[1024];
+		if (DAQmxGetErrorString(nierr, buf, sizeof(buf)))
+			return NewErrorCode("[Cannot get DAQmx error message]");
+		return NewErrorCode(buf);
+	}
 
 private:
-    void (TDevice::* setCodeFunc_)(int, const char*);
-    int minErrorCode_;
-    int maxErrorCode_;
-    int nextErrorCode_;
+	void (TDevice::* setCodeFunc_)(int, const char*);
+	int minErrorCode_;
+	int maxErrorCode_;
+	int nextErrorCode_;
 };
 
 class NIDAQHub;
@@ -126,29 +126,29 @@ template <class Tuint>
 class NIDAQDOHub
 {
 public:
-    NIDAQDOHub(NIDAQHub* hub);
-    ~NIDAQDOHub();
+	NIDAQDOHub(NIDAQHub* hub);
+	~NIDAQDOHub();
 
-    int StartDOBlankingAndOrSequence(const std::string& port, const bool blankingOn,
-        const bool sequenceOn, const long& pos, const bool blankingDirection, const std::string triggerPort);
-    int StopDOBlankingAndSequence();
-    int AddDOPortToSequencing(const std::string& port, const std::vector<Tuint> sequence);
-    void RemoveDOPortFromSequencing(const std::string& port);
+	int StartDOBlankingAndOrSequence(const std::string& port, const bool blankingOn,
+		const bool sequenceOn, const long& pos, const bool blankingDirection, const std::string triggerPort);
+	int StopDOBlankingAndSequence();
+	int AddDOPortToSequencing(const std::string& port, const std::vector<Tuint> sequence);
+	void RemoveDOPortFromSequencing(const std::string& port);
 
 private:
 
-    int GetPinState(const std::string pinDesignation, bool& state);
-    int HandleTaskError(int32 niError);
+	int GetPinState(const std::string pinDesignation, bool& state);
+	int HandleTaskError(int32 niError);
 
 
-    int DaqmxWriteDigital(TaskHandle doTask_, int32 samplesPerChar, const Tuint* samples, int32* numWritten);
+	int DaqmxWriteDigital(TaskHandle doTask_, int32 samplesPerChar, const Tuint* samples, int32* numWritten);
 
-    NIDAQHub* hub_;
-    uInt32 portWidth_;
-    TaskHandle diTask_;
-    TaskHandle doTask_;
-    std::vector<std::string> physicalDOChannels_;
-    std::vector<std::vector<Tuint>> doChannelSequences_;
+	NIDAQHub* hub_;
+	uInt32 portWidth_;
+	TaskHandle diTask_;
+	TaskHandle doTask_;
+	std::vector<std::string> physicalDOChannels_;
+	std::vector<std::vector<Tuint>> doChannelSequences_;
 };
 
 
@@ -158,96 +158,96 @@ private:
  * Each Hub is associated with one NIDAQ device, usually named Dev1, Dev2, etc..
 */
 class NIDAQHub : public HubBase<NIDAQHub>,
-    public ErrorTranslator<NIDAQHub>,
-    boost::noncopyable
+	public ErrorTranslator<NIDAQHub>,
+	boost::noncopyable
 {
-    friend NIDAQDOHub<uInt32>;
-    friend NIDAQDOHub<uInt16>;
-    friend NIDAQDOHub<uInt8>;
+	friend NIDAQDOHub<uInt32>;
+	friend NIDAQDOHub<uInt16>;
+	friend NIDAQDOHub<uInt8>;
 public:
-    NIDAQHub();
-    virtual ~NIDAQHub();
+	NIDAQHub();
+	virtual ~NIDAQHub();
 
-    virtual int Initialize();
-    virtual int Shutdown();
+	virtual int Initialize();
+	virtual int Shutdown();
 
-    virtual void GetName(char* name) const;
-    virtual bool Busy() { return false; }
+	virtual void GetName(char* name) const;
+	virtual bool Busy() { return false; }
 
-    virtual int DetectInstalledDevices();
+	virtual int DetectInstalledDevices();
 
-    // Interface for individual ports
-    virtual int GetVoltageLimits(double& minVolts, double& maxVolts);
-    virtual int StartAOSequenceForPort(const std::string& port,
-        const std::vector<double> sequence);
-    virtual int StopAOSequenceForPort(const std::string& port);
+	// Interface for individual ports
+	virtual int GetVoltageLimits(double& minVolts, double& maxVolts);
+	virtual int StartAOSequenceForPort(const std::string& port,
+		const std::vector<double> sequence);
+	virtual int StopAOSequenceForPort(const std::string& port);
 
-    virtual int IsSequencingEnabled(bool& flag) const;
-    virtual int GetSequenceMaxLength(long& maxLength) const;
+	virtual int IsSequencingEnabled(bool& flag) const;
+	virtual int GetSequenceMaxLength(long& maxLength) const;
 
-    int StartDOBlankingAndOrSequence(const std::string& port, const uInt32 portWidth, const bool blankingOn, const bool sequenceOn,
-        const long& pos, const bool blankingDirection, const std::string triggerPort);
-    int StopDOBlankingAndSequence(const uInt32 portWidth);
+	int StartDOBlankingAndOrSequence(const std::string& port, const uInt32 portWidth, const bool blankingOn, const bool sequenceOn,
+		const long& pos, const bool blankingDirection, const std::string triggerPort);
+	int StopDOBlankingAndSequence(const uInt32 portWidth);
 
-    int SetDOPortState(const std::string port, uInt32 portWidth, long state);
-    const std::string GetTriggerPort() { return niTriggerPort_; }
+	int SetDOPortState(const std::string port, uInt32 portWidth, long state);
+	const std::string GetTriggerPort() { return niTriggerPort_; }
 
-    NIDAQDOHub<uInt8>* getDOHub8() { return doHub8_; }
-    NIDAQDOHub<uInt16>* getDOHub16() { return doHub16_; }
-    NIDAQDOHub<uInt32>* getDOHub32() { return doHub32_; }
+	NIDAQDOHub<uInt8>* getDOHub8() { return doHub8_; }
+	NIDAQDOHub<uInt16>* getDOHub16() { return doHub16_; }
+	NIDAQDOHub<uInt32>* getDOHub32() { return doHub32_; }
 
-    int StopTask(TaskHandle& task);
+	int StopTask(TaskHandle& task);
 
 private:
-    int AddAOPortToSequencing(const std::string& port, const std::vector<double> sequence);
-    void RemoveAOPortFromSequencing(const std::string& port);
+	int AddAOPortToSequencing(const std::string& port, const std::vector<double> sequence);
+	void RemoveAOPortFromSequencing(const std::string& port);
 
-    int GetVoltageRangeForDevice(const std::string& device, double& minVolts, double& maxVolts);
-    std::vector<std::string> GetAOTriggerTerminalsForDevice(const std::string& device);
-    std::vector<std::string> GetAnalogPortsForDevice(const std::string& device);
-    std::vector<std::string> GetDigitalPortsForDevice(const std::string& device);
-    std::string GetPhysicalChannelListForSequencing(std::vector<std::string> channels) const;
-    template<typename T> int GetLCMSamplesPerChannel(size_t& seqLen, std::vector<std::vector<T>>) const;
-    template<typename T> void GetLCMSequence(T* buffer, std::vector<std::vector<T>> sequences) const;
+	int GetVoltageRangeForDevice(const std::string& device, double& minVolts, double& maxVolts);
+	std::vector<std::string> GetAOTriggerTerminalsForDevice(const std::string& device);
+	std::vector<std::string> GetAnalogPortsForDevice(const std::string& device);
+	std::vector<std::string> GetDigitalPortsForDevice(const std::string& device);
+	std::string GetPhysicalChannelListForSequencing(std::vector<std::string> channels) const;
+	template<typename T> int GetLCMSamplesPerChannel(size_t& seqLen, std::vector<std::vector<T>>) const;
+	template<typename T> void GetLCMSequence(T* buffer, std::vector<std::vector<T>> sequences) const;
 
-    int SwitchTriggerPortToReadMode();
+	int SwitchTriggerPortToReadMode();
 
-    int StartAOSequencingTask();
+	int StartAOSequencingTask();
 
-    // Action handlers
-    int OnDevice(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnMaxSequenceLength(MM::PropertyBase* pProp, MM::ActionType eAct);
+	// Action handlers
+	int OnDevice(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnMaxSequenceLength(MM::PropertyBase* pProp, MM::ActionType eAct);
 
-    int OnSequencingEnabled(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnTriggerInputPort(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnSampleRate(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnSequencingEnabled(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnTriggerInputPort(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnSampleRate(MM::PropertyBase* pProp, MM::ActionType eAct);
 
 
-    bool initialized_;
-    size_t maxSequenceLength_;
-    bool sequencingEnabled_;
-    bool sequenceRunning_;
+	bool initialized_;
+	size_t maxSequenceLength_;
+	bool sequencingEnabled_;
+	bool sequenceRunning_;
 
-    std::string niDeviceName_;
-    std::string niTriggerPort_;
-    std::string niChangeDetection_;
-    std::string niSampleClock_;
+	std::string niDeviceName_;
+	std::string niTriggerPort_;
+	std::string niChangeDetection_;
+	std::string niSampleClock_;
 
-    double minVolts_; // Min possible for device
-    double maxVolts_; // Max possible for device
-    double sampleRateHz_;
+	double minVolts_; // Min possible for device
+	double maxVolts_; // Max possible for device
+	double sampleRateHz_;
 
-    TaskHandle aoTask_;
-    TaskHandle doTask_;
+	TaskHandle aoTask_;
+	TaskHandle doTask_;
 
-    NIDAQDOHub<uInt8>* doHub8_;
-    NIDAQDOHub<uInt16>* doHub16_;
-    NIDAQDOHub<uInt32>* doHub32_;
+	NIDAQDOHub<uInt8>* doHub8_;
+	NIDAQDOHub<uInt16>* doHub16_;
+	NIDAQDOHub<uInt32>* doHub32_;
 
-    // "Loaded" sequences for each channel
-    // Invariant: physicalChannels_.size() == channelSequences_.size()
-    std::vector<std::string> physicalAOChannels_; // Invariant: all unique
-    std::vector<std::vector<double>> aoChannelSequences_;
+	// "Loaded" sequences for each channel
+	// Invariant: physicalChannels_.size() == channelSequences_.size()
+	std::vector<std::string> physicalAOChannels_; // Invariant: all unique
+	std::vector<std::vector<double>> aoChannelSequences_;
 
 };
 
@@ -257,71 +257,71 @@ private:
 */
 
 class NIAnalogOutputPort : public CSignalIOBase<NIAnalogOutputPort>,
-    ErrorTranslator<NIAnalogOutputPort>,
-    boost::noncopyable
+	ErrorTranslator<NIAnalogOutputPort>,
+	boost::noncopyable
 {
 public:
-    NIAnalogOutputPort(const std::string& port);
-    virtual ~NIAnalogOutputPort();
+	NIAnalogOutputPort(const std::string& port);
+	virtual ~NIAnalogOutputPort();
 
-    virtual int Initialize();
-    virtual int Shutdown();
+	virtual int Initialize();
+	virtual int Shutdown();
 
-    virtual void GetName(char* name) const;
-    virtual bool Busy() { return false; }
+	virtual void GetName(char* name) const;
+	virtual bool Busy() { return false; }
 
-    virtual int SetGateOpen(bool open);
-    virtual int GetGateOpen(bool& open);
-    virtual int SetSignal(double volts);
-    virtual int GetSignal(double& /* volts */) { return DEVICE_UNSUPPORTED_COMMAND; }
-    virtual int GetLimits(double& minVolts, double& maxVolts);
+	virtual int SetGateOpen(bool open);
+	virtual int GetGateOpen(bool& open);
+	virtual int SetSignal(double volts);
+	virtual int GetSignal(double& /* volts */) { return DEVICE_UNSUPPORTED_COMMAND; }
+	virtual int GetLimits(double& minVolts, double& maxVolts);
 
-    virtual int IsDASequenceable(bool& isSequenceable) const;
-    virtual int GetDASequenceMaxLength(long& maxLength) const;
-    virtual int StartDASequence();
-    virtual int StopDASequence();
-    virtual int ClearDASequence();
-    virtual int AddToDASequence(double);
-    virtual int SendDASequence();
-
-private:
-    // Pre-init property action handlers
-    int OnMinVolts(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnMaxVolts(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnSequenceable(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnSequenceTransition(MM::PropertyBase* pProp, MM::ActionType eAct);
-
-    // Post-init property action handlers
-    int OnVoltage(MM::PropertyBase* pProp, MM::ActionType eAct);
+	virtual int IsDASequenceable(bool& isSequenceable) const;
+	virtual int GetDASequenceMaxLength(long& maxLength) const;
+	virtual int StartDASequence();
+	virtual int StopDASequence();
+	virtual int ClearDASequence();
+	virtual int AddToDASequence(double);
+	virtual int SendDASequence();
 
 private:
-    NIDAQHub* GetHub() const
-    {
-        return static_cast<NIDAQHub*>(GetParentHub());
-    }
-    int TranslateHubError(int err);
-    int StartOnDemandTask(double voltage);
-    int StopTask();
+	// Pre-init property action handlers
+	int OnMinVolts(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnMaxVolts(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnSequenceable(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnSequenceTransition(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+	// Post-init property action handlers
+	int OnVoltage(MM::PropertyBase* pProp, MM::ActionType eAct);
 
 private:
-    const std::string niPort_;
+	NIDAQHub* GetHub() const
+	{
+		return static_cast<NIDAQHub*>(GetParentHub());
+	}
+	int TranslateHubError(int err);
+	int StartOnDemandTask(double voltage);
+	int StopTask();
 
-    bool initialized_;
+private:
+	const std::string niPort_;
 
-    bool gateOpen_;
-    double gatedVoltage_;
-    bool sequenceRunning_;
+	bool initialized_;
 
-    double minVolts_; // User-selected for this port
-    double maxVolts_; // User-selected for this port
-    bool neverSequenceable_;
-    bool transitionPostExposure_; // when to transition in a sequence, not that we always transition on a rising flank
-    // it can be advantaguous to transition post exposure, in which case we have to modify our sequence 
+	bool gateOpen_;
+	double gatedVoltage_;
+	bool sequenceRunning_;
 
-    TaskHandle task_;
+	double minVolts_; // User-selected for this port
+	double maxVolts_; // User-selected for this port
+	bool neverSequenceable_;
+	bool transitionPostExposure_; // when to transition in a sequence, not that we always transition on a rising flank
+	// it can be advantaguous to transition post exposure, in which case we have to modify our sequence 
 
-    std::vector<double> unsentSequence_;
-    std::vector<double> sentSequence_; // Pretend "sent" to device
+	TaskHandle task_;
+
+	std::vector<double> unsentSequence_;
+	std::vector<double> sentSequence_; // Pretend "sent" to device
 };
 
 
@@ -329,63 +329,63 @@ private:
 * Class that provides the digital output port (p0, p1, etc..).  Each port (8, 16, or 32 pins) will get one instance of these
 */
 class DigitalOutputPort : public CStateDeviceBase<DigitalOutputPort>,
-    ErrorTranslator<DigitalOutputPort>
+	ErrorTranslator<DigitalOutputPort>
 {
 public:
-    DigitalOutputPort(const std::string& port);
-    virtual ~DigitalOutputPort();
+	DigitalOutputPort(const std::string& port);
+	virtual ~DigitalOutputPort();
 
-    virtual int Initialize();
-    virtual int Shutdown();
+	virtual int Initialize();
+	virtual int Shutdown();
 
-    virtual void GetName(char* name) const;
-    virtual bool Busy() { return false; }
+	virtual void GetName(char* name) const;
+	virtual bool Busy() { return false; }
 
-    virtual unsigned long GetNumberOfPositions()const { return numPos_; } // replace with numPos_ once API allows not creating Labels
+	virtual unsigned long GetNumberOfPositions()const { return numPos_; } // replace with numPos_ once API allows not creating Labels
 
-    // action interface
-    // ----------------
-    int OnState(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnBlanking(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnBlankingTriggerDirection(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnFirstStateSlider(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnNrOfStateSliders(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnLine(MM::PropertyBase* pProp, MM::ActionType eActEx, long ttlNr);
-    int OnInputLine(MM::PropertyBase* pProp, MM::ActionType eAct);
+	// action interface
+	// ----------------
+	int OnState(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnBlanking(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnBlankingTriggerDirection(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnFirstStateSlider(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnNrOfStateSliders(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnLine(MM::PropertyBase* pProp, MM::ActionType eActEx, long ttlNr);
+	int OnInputLine(MM::PropertyBase* pProp, MM::ActionType eAct);
 
 
 private:
-    int OnSequenceable(MM::PropertyBase* pProp, MM::ActionType eAct);
-    NIDAQHub* GetHub() const
-    {
-        return static_cast<NIDAQHub*>(GetParentHub());
-    }
-    int TranslateHubError(int err);
-    int SetState(long state);
-    int StopTask();
+	int OnSequenceable(MM::PropertyBase* pProp, MM::ActionType eAct);
+	NIDAQHub* GetHub() const
+	{
+		return static_cast<NIDAQHub*>(GetParentHub());
+	}
+	int TranslateHubError(int err);
+	int SetState(long state);
+	int StopTask();
 
-    std::string niPort_;
-    std::string triggerTerminal_;
-    bool initialized_;
-    bool sequenceRunning_;
-    bool blanking_;
-    bool blankOnLow_;
-    bool open_;
-    long pos_;
-    long numPos_;
-    uInt32 portWidth_;
-    long inputLine_;
-    long firstStateSlider_;
-    long nrOfStateSliders_;
-    bool neverSequenceable_;
-    bool supportsBlankingAndSequencing_;
+	std::string niPort_;
+	std::string triggerTerminal_;
+	bool initialized_;
+	bool sequenceRunning_;
+	bool blanking_;
+	bool blankOnLow_;
+	bool open_;
+	long pos_;
+	long numPos_;
+	uInt32 portWidth_;
+	long inputLine_;
+	long firstStateSlider_;
+	long nrOfStateSliders_;
+	bool neverSequenceable_;
+	bool supportsBlankingAndSequencing_;
 
-    // this can probably be done more elegantly using templates
-    std::vector<uInt8> sequence8_;
-    std::vector<uInt16> sequence16_;
-    std::vector<uInt32> sequence32_;
+	// this can probably be done more elegantly using templates
+	std::vector<uInt8> sequence8_;
+	std::vector<uInt16> sequence16_;
+	std::vector<uInt32> sequence32_;
 
-    TaskHandle task_;
+	TaskHandle task_;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -395,78 +395,180 @@ private:
 class DAQAnalogInputPort : public CSignalIOBase<DAQAnalogInputPort>
 {
 public:
-    DAQAnalogInputPort();
-    virtual ~DAQAnalogInputPort();
+	DAQAnalogInputPort();
+	virtual ~DAQAnalogInputPort();
 
-    virtual int Initialize();
-    virtual int Shutdown();
-    virtual int StopTask();
+	virtual int Initialize();
+	virtual int Shutdown();
 
-    virtual void GetName(char* name) const;
-    virtual bool Busy() { return false; }
+
+	virtual void GetName(char* name) const;
+	virtual bool Busy() { return false; }
+
+	int SetGateOpen(bool open)
+	{
+		return DEVICE_OK;
+	}
+	int GetGateOpen(bool& open)
+	{
+		return DEVICE_OK;
+	}
+	int SetSignal(double volts)
+	{
+		return DEVICE_OK;
+	}
+	int GetSignal(double& volts)
+	{
+		return DEVICE_OK;
+	}
+
+	int IsDASequenceable(bool& isSequenceable) const
+	{
+		isSequenceable = true;
+		return DEVICE_OK;
+	};
+
+	int GetLimits(double& minVolts, double& maxVolts)
+	{
+		return DEVICE_OK;
+	}
+
+	virtual int StopTask();
+private:
+	int change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int set_Frameheader(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int set_clockmode(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int set_SegmentDuration(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnSegmentDurationChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int onCollection(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+	int CalculateOnceTrigBytes();
+	int CheckDataSpeed();
+	// 通用的属性回调函数
+	int OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+	int Start_Collection();
+	// 其他辅助函数
+
+	void CalculateTriggerFrequency();
+	void CheckTriggerDuration();
+	int set_data1();
+
 
 
 private:
-    int change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int set_Frameheader(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int set_clockmode(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int set_SegmentDuration(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnSegmentDurationChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
-    int onCollection(MM::PropertyBase* pProp, MM::ActionType eAct);
+	bool initialized_;
 
-    int CalculateOnceTrigBytes();
-    int CheckDataSpeed();
-    // 通用的属性回调函数
-    int OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct);
+	double offset;
+	int length;
+	int Frameheader;
 
+	// 触发变量设置
+	// 成员变量
+	uint32_t triggercount = 0;            // 触发次数
+	uint32_t pulse_period = 0;          // 内部脉冲周期
+	uint32_t pulse_width = 0;           // 内部脉冲脉宽
+	uint32_t arm_hysteresis = 70;       // 触发迟滞
+	uint32_t rasing_codevalue = 0;      // 双边沿触发上升沿阈值
+	uint32_t falling_codevalue = 0;    // 双边沿触发下降沿阈值
 
-    // 其他辅助函数
+	// 映射属性名到成员变量指针
+	std::map<std::string, uint32_t*> triggerSetupMap;
 
-    void CalculateTriggerFrequency();
-    void CheckTriggerDuration();
-    int set_data1();
+	uint32_t trigchannelID = 1;         // 触发通道
+	uint32_t trigmode;                  // 添加触发模式变量
 
+	// 设置DMA参数
+	double SegmentDuration; // 单次触发段时长（微秒）
+	uint64_t OnceTrigBytes; // 单次触发的字节数
+	double TriggerFrequency; // 触发频率（Hz）
+	double TriggerDuration; // 触发时长（毫秒）
 
-
-private:
-    bool initialized_;
-
-    double offset;
-    int length;
-    int Frameheader;
-
-    // 触发变量设置
-    // 成员变量
-    uint32_t triggercount=0;            // 触发次数
-    uint32_t pulse_period = 0;          // 内部脉冲周期
-    uint32_t pulse_width = 0;           // 内部脉冲脉宽
-    uint32_t arm_hysteresis = 70;       // 触发迟滞
-    uint32_t rasing_codevalue = 0;      // 双边沿触发上升沿阈值
-    uint32_t falling_codevalue = 0;    // 双边沿触发下降沿阈值
-
-    // 映射属性名到成员变量指针
-    std::map<std::string, uint32_t*> triggerSetupMap;
-
-    uint32_t trigchannelID = 1;         // 触发通道
-    uint32_t trigmode;                  // 添加触发模式变量
-
-    // 设置DMA参数
-    double SegmentDuration; // 单次触发段时长（微秒）
-    uint64_t OnceTrigBytes; // 单次触发的字节数
-    double TriggerFrequency; // 触发频率（Hz）
-    double TriggerDuration; // 触发时长（毫秒）
-
-    uint32_t Samplerate; // 板卡采样率MHz
-    uint32_t ChannelCount; // 板卡通道数
+	uint32_t Samplerate; // 板卡采样率MHz
+	uint32_t ChannelCount; // 板卡通道数
 
 
 
 
 };
+
+//////////////////////////////////////////////////////////////////////////////
+// ETL
+//
+
+class ETL : public CStageBase<ETL>
+{
+public:
+	ETL();
+	virtual ~ETL();
+
+	virtual int Initialize();
+	virtual int Shutdown();
+
+	void GetName(char* name) const;
+	bool Busy() { return false; };
+
+	int 	SetPositionUm(double pos);
+	//int 	SetRelativePositionUm(double d);
+	//int 	Move(double velocity);
+	//int 	Stop();
+	//int 	Home();
+	//int 	SetAdapterOriginUm(double d);
+	int 	GetPositionUm(double& pos);
+	int SetPositionSteps(long steps)
+	{
+		pos_um_ = steps * stepSize_um_;
+		return  OnStagePositionChanged(pos_um_);
+	}
+	int GetPositionSteps(long& steps)
+	{
+		steps = (long)(pos_um_ / stepSize_um_);
+		return DEVICE_OK;
+	}
+	int 	SetOrigin() { return DEVICE_OK; };
+	int GetLimits(double& lower, double& upper)
+	{
+		lower = lowerLimit_;
+		upper = upperLimit_;
+		return DEVICE_OK;
+	}
+	int 	IsStageSequenceable(bool& isSequenceable) const;
+	//int 	IsStageLinearSequenceable(bool& isSequenceable);
+	bool 	IsContinuousFocusDrive() const { return true; };
+	//int 	GetStageSequenceMaxLength(long& nrEvents);
+	//int 	StartStageSequence();
+	//int 	StopStageSequence();
+	//int 	ClearStageSequence();
+	//int 	AddToStageSequence(double position);
+	//int 	SendStageSequence();
+	//int 	SetStageLinearSequence(double dZ_um, long nSlices);
+
+private:
+	int		SelectCOM(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int		Baudrate(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int		onSetFP(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+private:
+	ETLController	etl;
+	double stepSize_um_;
+	double pos_um_;
+	bool initialized_;
+	double lowerLimit_;
+	double upperLimit_;
+	bool sequenceable_;
+
+	std::string port = "COM3";
+	int baudrate = 115200;
+
+	float FPMin;
+	float FPMax;
+};
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 // CREATE HUB
@@ -475,38 +577,38 @@ private:
 class TPM : public HubBase<TPM>
 {
 public:
-    TPM() :
-        initialized_(false),
-        busy_(false)
-    {}
-    ~TPM() {}
+	TPM() :
+		initialized_(false),
+		busy_(false)
+	{}
+	~TPM() {}
 
-    // Device API
-    // ---------
-    int Initialize();
-    int Shutdown() { return DEVICE_OK; };
-    void GetName(char* pName) const;
-    bool Busy() { return busy_; };
+	// Device API
+	// ---------
+	int Initialize();
+	int Shutdown() { return DEVICE_OK; };
+	void GetName(char* pName) const;
+	bool Busy() { return busy_; };
 
-    // HUB api
-    int DetectInstalledDevices();
+	// HUB api
+	int DetectInstalledDevices();
 
-    int OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct);
-    void SetPortName(const std::string& portName) { portName_ = portName; }
-    void GetPortName(std::string& portName) const { portName = portName_; }
+	int OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct);
+	void SetPortName(const std::string& portName) { portName_ = portName; }
+	void GetPortName(std::string& portName) const { portName = portName_; }
 
-    int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
-    NIDAQHub* GetNIDAQHubSafe();
+	int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
+	NIDAQHub* GetNIDAQHubSafe();
 
 private:
-    std::string portName_;  // 用于存储端口名
+	std::string portName_;  // 用于存储端口名
 
-    int TriggerAOSequence();
-    int StopAOSequence();
+	int TriggerAOSequence();
+	int StopAOSequence();
 
-    void GetPeripheralInventory();
+	void GetPeripheralInventory();
 
-    std::vector<std::string> peripherals_;
-    bool initialized_;
-    bool busy_;
+	std::vector<std::string> peripherals_;
+	bool initialized_;
+	bool busy_;
 };

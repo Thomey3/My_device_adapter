@@ -39,6 +39,9 @@
     <ClInclude Include="3rd\include\QTXdmaApi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ETL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TPM.cpp">
