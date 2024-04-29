@@ -1288,18 +1288,18 @@ template class NIDAQDOHub<uInt32>;
 #define BASE_8MB 8*1024*1024
 #define single_interruption_duration 1000
 
-STXDMA_CARDINFO pstCardInfo;//´æ·ÅPCIE°å¿¨ĞÅÏ¢½á¹¹Ìå
+STXDMA_CARDINFO pstCardInfo;//å­˜æ”¾PCIEæ¿å¡ä¿¡æ¯ç»“æ„ä½“
 Log_TraceLog g_Log(std::string("./logs/KunchiUpperMonitor.log"));
 Log_TraceLog* pLog = &g_Log;
-static sem_t gvar_program_exit;	//ÉùÃ÷Ò»¸öĞÅºÅÁ¿
-sem_t c2h_ping;		//pingĞÅºÅÁ¿
-sem_t c2h_pong;		//pongĞÅºÅÁ¿
+static sem_t gvar_program_exit;	//å£°æ˜ä¸€ä¸ªä¿¡å·é‡
+sem_t c2h_ping;		//pingä¿¡å·é‡
+sem_t c2h_pong;		//pongä¿¡å·é‡
 long once_readbytes = 8 MB;
 long data_size = 0;
 uint32_t flag_ping = 0;
 uint32_t flag_pong = 0;
 
-//º¯ÊıÉùÃ÷
+//å‡½æ•°å£°æ˜
 void* PollIntr(void* lParam);
 void* datacollect(void* lParam);
 
@@ -1311,9 +1311,9 @@ struct data
 struct data data1;
 
 typedef struct {
-    unsigned char* bufferAddr;      // »º³åÇøµØÖ·
-    size_t totalSize;      // »º³åÇø×Ü´óĞ¡
-    size_t currentSize;    // µ±Ç°ÒÑÊ¹ÓÃµÄ´óĞ¡
+    unsigned char* bufferAddr;      // ç¼“å†²åŒºåœ°å€
+    size_t totalSize;      // ç¼“å†²åŒºæ€»å¤§å°
+    size_t currentSize;    // å½“å‰å·²ä½¿ç”¨çš„å¤§å°
 } Buffer;
 Buffer buffer;
 
@@ -1321,12 +1321,12 @@ Buffer buffer;
 DAQAnalogInputPort::DAQAnalogInputPort() :
     initialized_(false)
 {
-    QTXdmaOpenBoard(&pstCardInfo, 0);   //´ò¿ª°å¿¨
-    QT_BoardGetCardInfo();              //»ñÈ¡°å¿¨ĞÅÏ¢
-    QT_BoardSetADCStop();               //Í£Ö¹²É¼¯  
-    QT_BoardSetTransmitMode(0, 0);      //DMAÖÃ0
-    QT_BoardSetInterruptClear();        //Çå³ıÖĞ¶Ï
-    QT_BoardSetSoftReset();             //Ö´ĞĞÉÏÎ»»úÈí¼ş¸´Î»
+    QTXdmaOpenBoard(&pstCardInfo, 0);   //æ‰“å¼€æ¿å¡
+    QT_BoardGetCardInfo();              //è·å–æ¿å¡ä¿¡æ¯
+    QT_BoardSetADCStop();               //åœæ­¢é‡‡é›†  
+    QT_BoardSetTransmitMode(0, 0);      //DMAç½®0
+    QT_BoardSetInterruptClear();        //æ¸…é™¤ä¸­æ–­
+    QT_BoardSetSoftReset();             //æ‰§è¡Œä¸Šä½æœºè½¯ä»¶å¤ä½
 }
 
 DAQAnalogInputPort::~DAQAnalogInputPort()
@@ -1336,16 +1336,16 @@ DAQAnalogInputPort::~DAQAnalogInputPort()
 
 int DAQAnalogInputPort::Initialize()
 {
-    //ĞÅºÅÁ¿³õÊ¼»¯
+    //ä¿¡å·é‡åˆå§‹åŒ–
     sem_init(&gvar_program_exit, 0, 0);
     sem_init(&c2h_ping, 0, 0);
     sem_init(&c2h_pong, 0, 0);
 
-    buffer.bufferAddr = (unsigned char*)malloc(1024 * 1024);  // ·ÖÅä 1MB ´óĞ¡µÄ»º³åÇø
+    buffer.bufferAddr = (unsigned char*)malloc(1024 * 1024);  // åˆ†é… 1MB å¤§å°çš„ç¼“å†²åŒº
     buffer.totalSize = 1024 * 1024;
     buffer.currentSize = 0;
 
-    // µ÷ÕûÆ«ÖÃ
+    // è°ƒæ•´åç½®
     CPropertyAction* pAct = new CPropertyAction(this, &DAQAnalogInputPort::change_bias_channal);
     int err = CreateFloatProperty("Channel1 offset", offset, false, pAct);
     if (err != DEVICE_OK)
@@ -1360,29 +1360,29 @@ int DAQAnalogInputPort::Initialize()
     if (err != DEVICE_OK)
         return err;
 
-    // Ô¤´¥·¢ÉèÖÃ
+    // é¢„è§¦å‘è®¾ç½®
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_pre_trig_length);
     err = CreateIntegerProperty("Pre Trig Length", length, false, pAct);
     if (err != DEVICE_OK)
         return err;
 
-    // Ö¡Í·ÉèÖÃ
+    // å¸§å¤´è®¾ç½®
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_Frameheader);
     err = CreateIntegerProperty("Frameheader", Frameheader, false, pAct);
     if (err != DEVICE_OK)
         return err;
 
-    // ÉèÖÃÊ±ÖÓÄ£Ê½
+    // è®¾ç½®æ—¶é’Ÿæ¨¡å¼
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_clockmode);
     err = CreateStringProperty("Clockmode", "", false, pAct);
     if (err != DEVICE_OK)
         return err;
-    AddAllowedValue("Clockmode", "ÄÚ²Î¿¼Ê±ÖÓ");
-    AddAllowedValue("Clockmode", "Íâ²ÉÑùÊ±ÖÓ");
-    AddAllowedValue("Clockmode", "Íâ²Î¿¼Ê±ÖÓ");
+    AddAllowedValue("Clockmode", "å†…å‚è€ƒæ—¶é’Ÿ");
+    AddAllowedValue("Clockmode", "å¤–é‡‡æ ·æ—¶é’Ÿ");
+    AddAllowedValue("Clockmode", "å¤–å‚è€ƒæ—¶é’Ÿ");
 
-    // Íâ²¿´¥·¢µÄÒ»Ğ©±äÁ¿ÉèÖÃ
-    // Ö»Ìí¼ÓÄãĞèÒª´´½¨ÊôĞÔµÄ±äÁ¿
+    // å¤–éƒ¨è§¦å‘çš„ä¸€äº›å˜é‡è®¾ç½®
+    // åªæ·»åŠ ä½ éœ€è¦åˆ›å»ºå±æ€§çš„å˜é‡
     triggerSetupMap["Trigger Count"] = &triggercount;
     triggerSetupMap["Pulse Period"] = &pulse_period;
     triggerSetupMap["Pulse Width"] = &pulse_width;
@@ -1390,14 +1390,14 @@ int DAQAnalogInputPort::Initialize()
     triggerSetupMap["Rasing Codevalue"] = &rasing_codevalue;
     triggerSetupMap["Falling Codevalue"] = &falling_codevalue;
 
-    // ÎªÃ¿¸öÊôĞÔ´´½¨Micro-ManagerÊôĞÔ
+    // ä¸ºæ¯ä¸ªå±æ€§åˆ›å»ºMicro-Managerå±æ€§
     for (auto& it : triggerSetupMap) {
         // Cast uint32_t to long for conversion to string
         long valueAsLong = static_cast<long>(*(it.second));
         CreateProperty(it.first.c_str(), CDeviceUtils::ConvertToString(valueAsLong), MM::Integer, false, new CPropertyAction(this, &DAQAnalogInputPort::OnUInt32Changed));
     }
 
-    // ÉèÖÃ´¥·¢Í¨µÀ
+    // è®¾ç½®è§¦å‘é€šé“
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_triggerchannel);
     err = CreateStringProperty("triggerchannel", "", false, pAct);
     if (err != DEVICE_OK)
@@ -1407,21 +1407,21 @@ int DAQAnalogInputPort::Initialize()
     AddAllowedValue("triggerchannel", "3");
     AddAllowedValue("triggerchannel", "4");
 
-    // ÉèÖÃ´¥·¢Ä£Ê½
+    // è®¾ç½®è§¦å‘æ¨¡å¼
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_triggermode);
     err = CreateStringProperty("triggermode", "", false, pAct);
     if (err != DEVICE_OK)
         return err;
-    AddAllowedValue("triggermode", "0 Èí¼ş´¥·¢");
-    AddAllowedValue("triggermode", "1 ÄÚ²¿Âö³å´¥·¢");
-    AddAllowedValue("triggermode", "2 Íâ²¿Âö³åÉÏÉıÑØ´¥·¢");
-    AddAllowedValue("triggermode", "3 Íâ²¿Âö³åÏÂ½µÑØ´¥·¢");
-    AddAllowedValue("triggermode", "4 Í¨µÀÉÏÉıÑØ´¥·¢");
-    AddAllowedValue("triggermode", "5 Í¨µÀÏÂ½µÑØ´¥·¢");
-    AddAllowedValue("triggermode", "6 Í¨µÀË«ÑØ´¥·¢");
-    AddAllowedValue("triggermode", "7 Íâ²¿Âö³åË«ÑØ´¥·¢");
+    AddAllowedValue("triggermode", "0 è½¯ä»¶è§¦å‘");
+    AddAllowedValue("triggermode", "1 å†…éƒ¨è„‰å†²è§¦å‘");
+    AddAllowedValue("triggermode", "2 å¤–éƒ¨è„‰å†²ä¸Šå‡æ²¿è§¦å‘");
+    AddAllowedValue("triggermode", "3 å¤–éƒ¨è„‰å†²ä¸‹é™æ²¿è§¦å‘");
+    AddAllowedValue("triggermode", "4 é€šé“ä¸Šå‡æ²¿è§¦å‘");
+    AddAllowedValue("triggermode", "5 é€šé“ä¸‹é™æ²¿è§¦å‘");
+    AddAllowedValue("triggermode", "6 é€šé“åŒæ²¿è§¦å‘");
+    AddAllowedValue("triggermode", "7 å¤–éƒ¨è„‰å†²åŒæ²¿è§¦å‘");
 
-    ///////DMA ÉèÖÃ
+    ///////DMA è®¾ç½®
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::OnSegmentDurationChanged);
     err = CreateFloatProperty("Segment Duration (us)", SegmentDuration, false, pAct);
     SetPropertyLimits("Segment Duration (us)", 0, 536870.904);
@@ -1430,11 +1430,11 @@ int DAQAnalogInputPort::Initialize()
 
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::OnTriggerFrequencyChanged);
     err = CreateFloatProperty("Trigger Frequency (Hz)", TriggerFrequency, false, pAct);
-    SetPropertyLimits("Trigger Frequency (Hz)", 800, 1e6); // ¸ù¾İÉè¶¨µ÷Õû×î´ó×îĞ¡Öµ
+    SetPropertyLimits("Trigger Frequency (Hz)", 800, 1e6); // æ ¹æ®è®¾å®šè°ƒæ•´æœ€å¤§æœ€å°å€¼
     if (err != DEVICE_OK)
         return err;
 
-    // ¿ªÊ¼²É¼¯
+    // å¼€å§‹é‡‡é›†
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::onCollection);
     err = CreateStringProperty("on Collection", "off", false, pAct);
     if (err != DEVICE_OK)
@@ -1478,13 +1478,13 @@ void DAQAnalogInputPort::GetName(char* name) const
 
 int DAQAnalogInputPort::change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
-    std::string propName = pProp->GetName();  // »ñÈ¡´¥·¢»Øµ÷µÄÊôĞÔÃû³Æ
+    std::string propName = pProp->GetName();  // è·å–è§¦å‘å›è°ƒçš„å±æ€§åç§°
     if (eAct == MM::AfterSet)
     {
         double offset;
-        pProp->Get(offset); // ´ÓÊôĞÔÖĞ»ñÈ¡ÓÃ»§ÉèÖÃµÄĞÂÆ«ÒÆÖµ
+        pProp->Get(offset); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
 
-        int channelID = 0;  // ³õÊ¼»¯Í¨µÀID
+        int channelID = 0;  // åˆå§‹åŒ–é€šé“ID
         if (propName == "Channel1_offset")
         {
             channelID = 1;
@@ -1502,7 +1502,7 @@ int DAQAnalogInputPort::change_bias_channal(MM::PropertyBase* pProp, MM::ActionT
             channelID = 4;
         }
 
-        if (channelID > 0) {  // ¼ì²échannelIDÊÇ·ñÓĞĞ§
+        if (channelID > 0) {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
             int err = QT_BoardSetOffset(channelID, offset);
             if (err != DEVICE_OK)
                 return err;
@@ -1516,8 +1516,8 @@ int DAQAnalogInputPort::set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionT
     if (eAct == MM::AfterSet)
     {
         double length;
-        pProp->Get(length); // ´ÓÊôĞÔÖĞ»ñÈ¡ÓÃ»§ÉèÖÃµÄĞÂÆ«ÒÆÖµ
-        if (length > -1) {  // ¼ì²échannelIDÊÇ·ñÓĞĞ§
+        pProp->Get(length); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
+        if (length > -1) {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
             int err = QT_BoardSetPerTrigger(length);
             if (err != DEVICE_OK)
                 return err;
@@ -1531,8 +1531,8 @@ int DAQAnalogInputPort::set_Frameheader(MM::PropertyBase* pProp, MM::ActionType 
     if (eAct == MM::AfterSet)
     {
         double Frameheader;
-        pProp->Get(Frameheader); // ´ÓÊôĞÔÖĞ»ñÈ¡ÓÃ»§ÉèÖÃµÄĞÂÆ«ÒÆÖµ
-        if (Frameheader > -1) {  // ¼ì²échannelIDÊÇ·ñÓĞĞ§
+        pProp->Get(Frameheader); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
+        if (Frameheader > -1) {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
             int err = QT_BoardSetFrameheader(Frameheader);
             if (err != DEVICE_OK)
                 return err;
@@ -1547,21 +1547,21 @@ int DAQAnalogInputPort::set_clockmode(MM::PropertyBase* pProp, MM::ActionType eA
     {
         std::string clockmode;
         int mode = 3;
-        pProp->Get(clockmode); // ´ÓÊôĞÔÖĞ»ñÈ¡ÓÃ»§ÉèÖÃµÄĞÂÆ«ÒÆÖµ
-        if (clockmode == "ÄÚ²Î¿¼Ê±ÖÓ")
+        pProp->Get(clockmode); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
+        if (clockmode == "å†…å‚è€ƒæ—¶é’Ÿ")
         {
             mode = 0;
         }
-        else if (clockmode == "Íâ²ÉÑùÊ±ÖÓ")
+        else if (clockmode == "å¤–é‡‡æ ·æ—¶é’Ÿ")
         {
             mode = 1;
         }
-        else if (clockmode == "Íâ²Î¿¼Ê±ÖÓ")
+        else if (clockmode == "å¤–å‚è€ƒæ—¶é’Ÿ")
         {
             mode = 2;
         }
         if (mode < 3)
-        {  // ¼ì²échannelIDÊÇ·ñÓĞĞ§
+        {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
             int err = QT_BoardSetClockMode(mode);
             if (err != DEVICE_OK)
                 return err;
@@ -1593,28 +1593,28 @@ int DAQAnalogInputPort::OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType 
 int DAQAnalogInputPort::set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::BeforeGet) {
-        // µ±Òª»ñÈ¡ÊôĞÔÖµÊ±£¬½«trigchannelID×ª»»Îª×Ö·û´®²¢·µ»Ø
+        // å½“è¦è·å–å±æ€§å€¼æ—¶ï¼Œå°†trigchannelIDè½¬æ¢ä¸ºå­—ç¬¦ä¸²å¹¶è¿”å›
         pProp->Set(CDeviceUtils::ConvertToString(static_cast<long>(trigchannelID)));
     }
     else if (eAct == MM::AfterSet) {
         std::string valueAsString;
-        pProp->Get(valueAsString); // »ñÈ¡ÊôĞÔÖµ£¨×Ö·û´®ĞÎÊ½£©
+        pProp->Get(valueAsString); // è·å–å±æ€§å€¼ï¼ˆå­—ç¬¦ä¸²å½¢å¼ï¼‰
 
-        // ½«×Ö·û´®×ª»»Îªuint32_tÀàĞÍ
+        // å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºuint32_tç±»å‹
         try {
             uint32_t value = static_cast<uint32_t>(std::stoul(valueAsString));
 
-            // ¼ì²éÊÇ·ñÔÚÔÊĞíµÄÖµ·¶Î§ÄÚ
+            // æ£€æŸ¥æ˜¯å¦åœ¨å…è®¸çš„å€¼èŒƒå›´å†…
             if (value >= 1 && value <= 4) {
-                trigchannelID = value; // ¸üĞÂtrigchannelID
+                trigchannelID = value; // æ›´æ–°trigchannelID
             }
             else {
-                // Èç¹û²»ÔÚÔÊĞí·¶Î§ÄÚ£¬Äã¿ÉÒÔÅ×³ö´íÎó»òÕß½«ÆäÉèÖÃÎªÄ¬ÈÏÖµ
+                // å¦‚æœä¸åœ¨å…è®¸èŒƒå›´å†…ï¼Œä½ å¯ä»¥æŠ›å‡ºé”™è¯¯æˆ–è€…å°†å…¶è®¾ç½®ä¸ºé»˜è®¤å€¼
                 return DEVICE_INVALID_PROPERTY_VALUE;
             }
         }
         catch (const std::exception&) {
-            // Èç¹û×ª»»Ê§°Ü£¬·µ»Ø´íÎó
+            // å¦‚æœè½¬æ¢å¤±è´¥ï¼Œè¿”å›é”™è¯¯
             return DEVICE_INVALID_PROPERTY_VALUE;
         }
     }
@@ -1624,15 +1624,15 @@ int DAQAnalogInputPort::set_triggerchannel(MM::PropertyBase* pProp, MM::ActionTy
 int DAQAnalogInputPort::set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::BeforeGet) {
-        // »ñÈ¡µ±Ç°ÉèÖÃµÄ´¥·¢Ä£Ê½²¢½«Æä×ª»»Îª×Ö·û´®ĞÎÊ½·µ»Ø
+        // è·å–å½“å‰è®¾ç½®çš„è§¦å‘æ¨¡å¼å¹¶å°†å…¶è½¬æ¢ä¸ºå­—ç¬¦ä¸²å½¢å¼è¿”å›
         pProp->Set(CDeviceUtils::ConvertToString(static_cast<long>(trigmode)));
     }
     else if (eAct == MM::AfterSet) {
         std::string modeAsString;
-        pProp->Get(modeAsString); // »ñÈ¡ÊôĞÔÖµ£¨×Ö·û´®ĞÎÊ½£©
-        uint32_t mode = static_cast<uint32_t>(std::stoul(modeAsString.substr(0, 1))); // ½âÎöÄ£Ê½±àºÅ
+        pProp->Get(modeAsString); // è·å–å±æ€§å€¼ï¼ˆå­—ç¬¦ä¸²å½¢å¼ï¼‰
+        uint32_t mode = static_cast<uint32_t>(std::stoul(modeAsString.substr(0, 1))); // è§£ææ¨¡å¼ç¼–å·
 
-        // ÉèÖÃtrigmode±äÁ¿£¬²¢¸ù¾İÑ¡¶¨µÄÄ£Ê½µ÷ÓÃÏàÓ¦µÄÓ²¼ş½Ó¿Úº¯Êı
+        // è®¾ç½®trigmodeå˜é‡ï¼Œå¹¶æ ¹æ®é€‰å®šçš„æ¨¡å¼è°ƒç”¨ç›¸åº”çš„ç¡¬ä»¶æ¥å£å‡½æ•°
         trigmode = mode;
         switch (trigmode) {
         case 0:
@@ -1660,7 +1660,7 @@ int DAQAnalogInputPort::set_triggermode(MM::PropertyBase* pProp, MM::ActionType 
             QT_BoardExternalTrigger(7, triggercount);
             break;
         default:
-            // Èç¹û´¥·¢Ä£Ê½ÎŞĞ§£¬¼ÇÂ¼´íÎó»òÉèÖÃÎªÄ¬ÈÏÖµ
+            // å¦‚æœè§¦å‘æ¨¡å¼æ— æ•ˆï¼Œè®°å½•é”™è¯¯æˆ–è®¾ç½®ä¸ºé»˜è®¤å€¼
             return DEVICE_INVALID_PROPERTY_VALUE;
         }
     }
@@ -1698,7 +1698,7 @@ int DAQAnalogInputPort::OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::A
         pProp->Get(TriggerFrequency);
         CalculateTriggerFrequency();
         CheckTriggerDuration();
-        CheckDataSpeed(); // ¼ì²éÊı¾İËÙ¶ÈÊÇ·ñ³¬±ê
+        CheckDataSpeed(); // æ£€æŸ¥æ•°æ®é€Ÿåº¦æ˜¯å¦è¶…æ ‡
         set_data1();
     }
     return DEVICE_OK;
@@ -1708,31 +1708,31 @@ int DAQAnalogInputPort::onCollection(MM::PropertyBase* pProp, MM::ActionType eAc
 {
     if (eAct == MM::BeforeGet)
     {
-        // ¿ÉÒÔÌá¹©Ò»Ğ©×´Ì¬ĞÅÏ¢
+        // å¯ä»¥æä¾›ä¸€äº›çŠ¶æ€ä¿¡æ¯
     }
     else if (eAct == MM::AfterSet)
     {
         std::string value;
-        pProp->Get(value); // »ñÈ¡µ±Ç°ÊôĞÔµÄÖµ
+        pProp->Get(value); // è·å–å½“å‰å±æ€§çš„å€¼
 
         if (value == "On")
         {
-            //DMA²ÎÊıÉèÖÃ
+            //DMAå‚æ•°è®¾ç½®
             QT_BoardSetFifoMultiDMAParameter(OnceTrigBytes, data1.DMATotolbytes);
-            //DMA´«ÊäÄ£Ê½ÉèÖÃ
+            //DMAä¼ è¾“æ¨¡å¼è®¾ç½®
             QT_BoardSetTransmitMode(1, 0);
 
-            //Ê¹ÄÜPCIEÖĞ¶Ï
+            //ä½¿èƒ½PCIEä¸­æ–­
             QT_BoardSetInterruptSwitch();
 
-            //Êı¾İ²É¼¯Ïß³Ì
+            //æ•°æ®é‡‡é›†çº¿ç¨‹
             pthread_t data_collect;
             pthread_create(&data_collect, NULL, datacollect, &data1);
 
-            //ADC¿ªÊ¼²É¼¯
+            //ADCå¼€å§‹é‡‡é›†
             QT_BoardSetADCStart();
 
-            //µÈÖĞ¶ÏÏß³Ì
+            //ç­‰ä¸­æ–­çº¿ç¨‹
             pthread_t wait_intr_c2h_0;
             pthread_create(&wait_intr_c2h_0, NULL, PollIntr, NULL);
         }
@@ -1758,7 +1758,7 @@ int DAQAnalogInputPort::CalculateOnceTrigBytes()
     }
     if (OnceTrigBytes > 4294967232)
     {
-        LogMessage("µ¥´Î´¥·¢Êı¾İÁ¿³¬¹ıDDR´óĞ¡£¡Çë¼õĞ¡´¥·¢¶ÎÊ±³¤»òÕß½µµÍ´¥·¢ÆµÂÊ£¡");
+        LogMessage("å•æ¬¡è§¦å‘æ•°æ®é‡è¶…è¿‡DDRå¤§å°ï¼è¯·å‡å°è§¦å‘æ®µæ—¶é•¿æˆ–è€…é™ä½è§¦å‘é¢‘ç‡ï¼");
         return DEVICE_ERR;
     }
     return DEVICE_OK;
@@ -1794,17 +1794,17 @@ void DAQAnalogInputPort::CheckTriggerDuration()
 
 int DAQAnalogInputPort::CheckDataSpeed()
 {
-    double dataspeed = (TriggerFrequency * OnceTrigBytes) / 1024.0 / 1024.0; // Êı¾İËÙ¶È¼ÆËã£¬µ¥Î»ÎªMB/s
-    if (trigmode == 6 || trigmode == 7) // Èç¹ûÊÇË«±ßÑØ´¥·¢
+    double dataspeed = (TriggerFrequency * OnceTrigBytes) / 1024.0 / 1024.0; // æ•°æ®é€Ÿåº¦è®¡ç®—ï¼Œå•ä½ä¸ºMB/s
+    if (trigmode == 6 || trigmode == 7) // å¦‚æœæ˜¯åŒè¾¹æ²¿è§¦å‘
     {
-        dataspeed *= 2; // Êı¾İËÙ¶È·­±¶
+        dataspeed *= 2; // æ•°æ®é€Ÿåº¦ç¿»å€
     }
-    if (dataspeed > 4000) // ³¬¹ı4GB/s
+    if (dataspeed > 4000) // è¶…è¿‡4GB/s
     {
-        LogMessage("Á÷ÅÌËÙ¶È´óÓÚ4GB/S£¡½¨Òé½µµÍ´¥·¢¶ÎÊ±³¤»òÕßÌá¸ß´¥·¢ÖÜÆÚ£¡", true); // ¼ÇÂ¼´íÎóÏûÏ¢
-        // ÕâÀï¿ÉÒÔ½øĞĞÒ»Ğ©»Ö¸´»ò°²È«ÉèÖÃµÄ²Ù×÷
-        // ¿ÉÒÔÑ¡ÔñÍ£Ö¹²Ù×÷£¬ÉèÖÃ´¥·¢ÆµÂÊµ½Ò»¸ö°²È«Öµ£¬»òÕßÌáÊ¾ÓÃ»§½øĞĞµ÷Õû
-        TriggerFrequency = 4000 / (OnceTrigBytes / 1024.0 / 1024.0); // µ÷Õûµ½×î´ó°²È«ÆµÂÊ
+        LogMessage("æµç›˜é€Ÿåº¦å¤§äº4GB/Sï¼å»ºè®®é™ä½è§¦å‘æ®µæ—¶é•¿æˆ–è€…æé«˜è§¦å‘å‘¨æœŸï¼", true); // è®°å½•é”™è¯¯æ¶ˆæ¯
+        // è¿™é‡Œå¯ä»¥è¿›è¡Œä¸€äº›æ¢å¤æˆ–å®‰å…¨è®¾ç½®çš„æ“ä½œ
+        // å¯ä»¥é€‰æ‹©åœæ­¢æ“ä½œï¼Œè®¾ç½®è§¦å‘é¢‘ç‡åˆ°ä¸€ä¸ªå®‰å…¨å€¼ï¼Œæˆ–è€…æç¤ºç”¨æˆ·è¿›è¡Œè°ƒæ•´
+        TriggerFrequency = 4000 / (OnceTrigBytes / 1024.0 / 1024.0); // è°ƒæ•´åˆ°æœ€å¤§å®‰å…¨é¢‘ç‡
         return DEVICE_ERR;
     }
     return DEVICE_OK;
@@ -1818,23 +1818,23 @@ int DAQAnalogInputPort::set_data1()
     else {
         double x = single_interruption_duration / TriggerDuration;
         if (x - static_cast<int>(x) > 0.5) x += 1;
-        int frameCount = static_cast<int>(x); // Ö¡Í·¸öÊı
-        LogMessage("Ö¡Í·¸öÊı = " + std::to_string(frameCount));
+        int frameCount = static_cast<int>(x); // å¸§å¤´ä¸ªæ•°
+        LogMessage("å¸§å¤´ä¸ªæ•° = " + std::to_string(frameCount));
         data1.DMATotolbytes = OnceTrigBytes * frameCount;
     }
 
-    // ±£Ö¤Êı¾İÁ¿Îª512×Ö½ÚµÄ±¶Êı
+    // ä¿è¯æ•°æ®é‡ä¸º512å­—èŠ‚çš„å€æ•°
     if (data1.DMATotolbytes % 512 != 0) {
         data1.DMATotolbytes = (data1.DMATotolbytes / 512) * 512;
     }
 
-    // ¼ì²éÊı¾İÁ¿ÊÇ·ñ³¬¹ıDDR´óĞ¡
+    // æ£€æŸ¥æ•°æ®é‡æ˜¯å¦è¶…è¿‡DDRå¤§å°
     if (data1.DMATotolbytes > 4294967232) {
-        LogMessage("µ¥´ÎÖĞ¶ÏÊı¾İÁ¿³¬¹ıDDR´óĞ¡£¡Çë¼õĞ¡´¥·¢¶ÎÊ±³¤»òÕß½µµÍ´¥·¢ÆµÂÊ£¡", true);
+        LogMessage("å•æ¬¡ä¸­æ–­æ•°æ®é‡è¶…è¿‡DDRå¤§å°ï¼è¯·å‡å°è§¦å‘æ®µæ—¶é•¿æˆ–è€…é™ä½è§¦å‘é¢‘ç‡ï¼", true);
         return DEVICE_ERR;
     }
 
-    LogMessage("µ¥´ÎÖĞ¶ÏÊı¾İÁ¿(µ¥Î»:×Ö½Ú): " + std::to_string(data1.DMATotolbytes));
+    LogMessage("å•æ¬¡ä¸­æ–­æ•°æ®é‡(å•ä½:å­—èŠ‚): " + std::to_string(data1.DMATotolbytes));
     data1.allbytes = data1.DMATotolbytes;
 
     return DEVICE_OK;
@@ -1842,28 +1842,28 @@ int DAQAnalogInputPort::set_data1()
 
 int DAQAnalogInputPort::Start_Collection()
 {
-    //DMA²ÎÊıÉèÖÃ
+    //DMAå‚æ•°è®¾ç½®
     int err = QT_BoardSetFifoMultiDMAParameter(OnceTrigBytes, data1.DMATotolbytes);
     if (err != DEVICE_OK)
     {
         LogMessage("dma setup failed!");
         return err;
     }
-    //DMA´«ÊäÄ£Ê½ÉèÖÃ
+    //DMAä¼ è¾“æ¨¡å¼è®¾ç½®
     QT_BoardSetTransmitMode(1, 0);
     if (err != DEVICE_OK)
     {
         LogMessage("dma setup failed!");
         return err;
     }
-    //Ê¹ÄÜPCIEÖĞ¶Ï
+    //ä½¿èƒ½PCIEä¸­æ–­
     QT_BoardSetInterruptSwitch();
     if (err != DEVICE_OK)
     {
         LogMessage("PCIE setup failed!");
         return err;
     }
-    //Êı¾İ²É¼¯Ïß³Ì
+    //æ•°æ®é‡‡é›†çº¿ç¨‹
     pthread_t data_collect;
     pthread_create(&data_collect, NULL, datacollect, &data1);
     if (err != DEVICE_OK)
@@ -1871,14 +1871,14 @@ int DAQAnalogInputPort::Start_Collection()
         LogMessage("Thread_data_collect setup failed!");
         return err;
     }
-    //ADC¿ªÊ¼²É¼¯
+    //ADCå¼€å§‹é‡‡é›†
     QT_BoardSetADCStart();
     if (err != DEVICE_OK)
     {
         LogMessage("ADC setup failed!");
         return err;
     }
-    //µÈÖĞ¶ÏÏß³Ì
+    //ç­‰ä¸­æ–­çº¿ç¨‹
     pthread_t wait_intr_c2h_0;
     pthread_create(&wait_intr_c2h_0, NULL, PollIntr, NULL);
     if (err != DEVICE_OK)
@@ -1939,7 +1939,7 @@ void* datacollect(void* lParam)
 
     while (1)
     {
-        //pingÊı¾İ°áÒÆ
+        //pingæ•°æ®æ¬ç§»
         {
             sem_wait(&c2h_ping);
             int iBufferIndex = -1;
@@ -1986,7 +1986,7 @@ void* datacollect(void* lParam)
         }
         ping_getdata++;
 
-        //pongÊı¾İ°áÒÆ¿ªÊ¼
+        //pongæ•°æ®æ¬ç§»å¼€å§‹
         {
             sem_wait(&c2h_pong);
             int iBufferIndex = -1;
@@ -2145,16 +2145,16 @@ std::string optotune::sendStart()
     PurgeComPort(port.c_str());
     if (result == DEVICE_OK) {
         if (answer == "OK") {
-            // ´¦Àí½ÓÊÕµ½µÄ"ready"ĞÅÏ¢
+            // å¤„ç†æ¥æ”¶åˆ°çš„"ready"ä¿¡æ¯
             std::cout << "Device is ready." << std::endl;
         }
         else {
-            // ½ÓÊÕµ½µÄĞÅÏ¢²»ÊÇ"ready"
+            // æ¥æ”¶åˆ°çš„ä¿¡æ¯ä¸æ˜¯"ready"
             std::cout << "Received unexpected response: " << answer << std::endl;
         }
     }
     else {
-        // ´íÎó´¦Àí
+        // é”™è¯¯å¤„ç†
         std::cerr << "Failed to receive answer: " << result << std::endl;
     }
 
@@ -2211,21 +2211,21 @@ float optotune::getFP()
 
 int TPM::Initialize()
 {
-    // Êä³öAOSequenceµÄ²âÊÔÊôĞÔ
+    // è¾“å‡ºAOSequenceçš„æµ‹è¯•å±æ€§
     initialized_ = true;
     CPropertyAction* pAct = new CPropertyAction(this, &TPM::OnTriggerAOSequence);
     CreateProperty("TriggerAOSequence", "Off", MM::String, false, pAct);
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
 
-    // Ìí¼Ó portName ÊôĞÔ
+    // æ·»åŠ  portName å±æ€§
     CPropertyAction* pActPort = new CPropertyAction(this, &TPM::OnPortName);
     CreateProperty("PortName", "Dev2/ao0", MM::String, false, pActPort);
     AddAllowedValue("PortName", "Dev2/ao0");
     AddAllowedValue("PortName", "Dev2/ao1");
-    AddAllowedValue("PortName", "Dev2/ao2");  // ¸ù¾İÊµ¼Ê¶Ë¿Ú½øĞĞÌí¼Ó
+    AddAllowedValue("PortName", "Dev2/ao2");  // æ ¹æ®å®é™…ç«¯å£è¿›è¡Œæ·»åŠ 
 
-    // ... ÆäËü³õÊ¼»¯´úÂë ...
+    // ... å…¶å®ƒåˆå§‹åŒ–ä»£ç  ...
 
     return DEVICE_OK;
 }
@@ -2261,7 +2261,7 @@ NIDAQHub* TPM::GetNIDAQHubSafe() {
     NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
     if (!hub) {
         std::cerr << "Error: NIDAQHub not found or not properly initialized." << std::endl;
-        return nullptr; // »ò´¦Àí´íÎóµÄÆäËû·½Ê½
+        return nullptr; // æˆ–å¤„ç†é”™è¯¯çš„å…¶ä»–æ–¹å¼
     }
     return hub;
 }
@@ -2271,14 +2271,14 @@ int TPM::OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct)
     if (eAct == MM::BeforeGet)
     {
         std::string portName;
-        GetPortName(portName);  // »ñÈ¡µ±Ç°ÉèÖÃµÄ¶Ë¿ÚÃû
+        GetPortName(portName);  // è·å–å½“å‰è®¾ç½®çš„ç«¯å£å
         pProp->Set(portName.c_str());
     }
     else if (eAct == MM::AfterSet)
     {
         std::string portName;
         pProp->Get(portName);
-        SetPortName(portName);  // ±£´æĞÂÉèÖÃµÄ¶Ë¿ÚÃû
+        SetPortName(portName);  // ä¿å­˜æ–°è®¾ç½®çš„ç«¯å£å
     }
     return DEVICE_OK;
 }
@@ -2287,20 +2287,20 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::BeforeGet)
     {
-        // ¿ÉÒÔÌá¹©Ò»Ğ©×´Ì¬ĞÅÏ¢
+        // å¯ä»¥æä¾›ä¸€äº›çŠ¶æ€ä¿¡æ¯
     }
     else if (eAct == MM::AfterSet)
     {
         std::string value;
-        pProp->Get(value); // »ñÈ¡µ±Ç°ÊôĞÔµÄÖµ
+        pProp->Get(value); // è·å–å½“å‰å±æ€§çš„å€¼
 
         if (value == "On")
         {
-            return TriggerAOSequence(); // Èç¹ûÊÇ"On"£¬ÔòÖ´ĞĞTriggerAOSequence
+            return TriggerAOSequence(); // å¦‚æœæ˜¯"On"ï¼Œåˆ™æ‰§è¡ŒTriggerAOSequence
         }
         else if (value == "Off")
         {
-            return StopAOSequence(); // Èç¹ûÊÇ"Off"£¬ÔòÖ´ĞĞStopAOSequence»òÆäËûÄãÏ£ÍûµÄº¯Êı
+            return StopAOSequence(); // å¦‚æœæ˜¯"Off"ï¼Œåˆ™æ‰§è¡ŒStopAOSequenceæˆ–å…¶ä»–ä½ å¸Œæœ›çš„å‡½æ•°
         }
     }
     return DEVICE_OK;
@@ -2308,7 +2308,7 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 
 int TPM::TriggerAOSequence() {
     std::string portName;
-    GetPortName(portName);  // »ñÈ¡µ±Ç°ÉèÖÃµÄ¶Ë¿ÚÃû
+    GetPortName(portName);  // è·å–å½“å‰è®¾ç½®çš„ç«¯å£å
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         std::vector<double> sequence = { -1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
@@ -2319,7 +2319,7 @@ int TPM::TriggerAOSequence() {
     -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96 };
         int result = nidaqHub->StartAOSequenceForPort(portName, sequence);
         if (result != DEVICE_OK) {
-            // ´¦Àí´íÎó
+            // å¤„ç†é”™è¯¯
             std::cerr << "Error starting AO sequence on port " << portName << std::endl;
             return result;
         };
@@ -2329,7 +2329,7 @@ int TPM::TriggerAOSequence() {
 
 int TPM::StopAOSequence() {
     std::string portName;
-    GetPortName(portName);  // »ñÈ¡µ±Ç°ÉèÖÃµÄ¶Ë¿ÚÃû
+    GetPortName(portName);  // è·å–å½“å‰è®¾ç½®çš„ç«¯å£å
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         int result = nidaqHub->StopAOSequenceForPort(portName);

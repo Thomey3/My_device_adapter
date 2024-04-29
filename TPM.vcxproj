@@ -79,6 +79,7 @@
       <PreprocessorDefinitions>_DEBUG;TPM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\TPM\logclass;..\TPM\3rd\include;..\TPM\fifo_multi;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
       <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
@@ -86,6 +87,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>true</EnableUAC>
       <AdditionalLibraryDirectories>..\TPM\3rd\lib\x64;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+
       <AdditionalDependencies>nidaqmx.lib;QTXdmaApi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

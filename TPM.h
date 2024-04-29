@@ -450,11 +450,11 @@ private:
 
 	int CalculateOnceTrigBytes();
 	int CheckDataSpeed();
-	// Í¨ÓÃµÄÊôĞÔ»Øµ÷º¯Êı
+	// é€šç”¨çš„å±æ€§å›è°ƒå‡½æ•°
 	int OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct);
 
 	int Start_Collection();
-	// ÆäËû¸¨Öúº¯Êı
+	// å…¶ä»–è¾…åŠ©å‡½æ•°
 
 	void CalculateTriggerFrequency();
 	void CheckTriggerDuration();
@@ -469,29 +469,29 @@ private:
 	int length;
 	int Frameheader;
 
-	// ´¥·¢±äÁ¿ÉèÖÃ
-	// ³ÉÔ±±äÁ¿
-	uint32_t triggercount = 0;            // ´¥·¢´ÎÊı
-	uint32_t pulse_period = 0;          // ÄÚ²¿Âö³åÖÜÆÚ
-	uint32_t pulse_width = 0;           // ÄÚ²¿Âö³åÂö¿í
-	uint32_t arm_hysteresis = 70;       // ´¥·¢³ÙÖÍ
-	uint32_t rasing_codevalue = 0;      // Ë«±ßÑØ´¥·¢ÉÏÉıÑØãĞÖµ
-	uint32_t falling_codevalue = 0;    // Ë«±ßÑØ´¥·¢ÏÂ½µÑØãĞÖµ
+	// è§¦å‘å˜é‡è®¾ç½®
+	// æˆå‘˜å˜é‡
+	uint32_t triggercount = 0;            // è§¦å‘æ¬¡æ•°
+	uint32_t pulse_period = 0;          // å†…éƒ¨è„‰å†²å‘¨æœŸ
+	uint32_t pulse_width = 0;           // å†…éƒ¨è„‰å†²è„‰å®½
+	uint32_t arm_hysteresis = 70;       // è§¦å‘è¿Ÿæ»
+	uint32_t rasing_codevalue = 0;      // åŒè¾¹æ²¿è§¦å‘ä¸Šå‡æ²¿é˜ˆå€¼
+	uint32_t falling_codevalue = 0;    // åŒè¾¹æ²¿è§¦å‘ä¸‹é™æ²¿é˜ˆå€¼
 
-	// Ó³ÉäÊôĞÔÃûµ½³ÉÔ±±äÁ¿Ö¸Õë
+	// æ˜ å°„å±æ€§ååˆ°æˆå‘˜å˜é‡æŒ‡é’ˆ
 	std::map<std::string, uint32_t*> triggerSetupMap;
 
-	uint32_t trigchannelID = 1;         // ´¥·¢Í¨µÀ
-	uint32_t trigmode;                  // Ìí¼Ó´¥·¢Ä£Ê½±äÁ¿
+	uint32_t trigchannelID = 1;         // è§¦å‘é€šé“
+	uint32_t trigmode;                  // æ·»åŠ è§¦å‘æ¨¡å¼å˜é‡
 
-	// ÉèÖÃDMA²ÎÊı
-	double SegmentDuration; // µ¥´Î´¥·¢¶ÎÊ±³¤£¨Î¢Ãë£©
-	uint64_t OnceTrigBytes; // µ¥´Î´¥·¢µÄ×Ö½ÚÊı
-	double TriggerFrequency; // ´¥·¢ÆµÂÊ£¨Hz£©
-	double TriggerDuration; // ´¥·¢Ê±³¤£¨ºÁÃë£©
+	// è®¾ç½®DMAå‚æ•°
+	double SegmentDuration; // å•æ¬¡è§¦å‘æ®µæ—¶é•¿ï¼ˆå¾®ç§’ï¼‰
+	uint64_t OnceTrigBytes; // å•æ¬¡è§¦å‘çš„å­—èŠ‚æ•°
+	double TriggerFrequency; // è§¦å‘é¢‘ç‡ï¼ˆHzï¼‰
+	double TriggerDuration; // è§¦å‘æ—¶é•¿ï¼ˆæ¯«ç§’ï¼‰
 
-	uint32_t Samplerate; // °å¿¨²ÉÑùÂÊMHz
-	uint32_t ChannelCount; // °å¿¨Í¨µÀÊı
+	uint32_t Samplerate; // æ¿å¡é‡‡æ ·ç‡MHz
+	uint32_t ChannelCount; // æ¿å¡é€šé“æ•°
 
 
 
@@ -565,7 +565,7 @@ public:
 	NIDAQHub* GetNIDAQHubSafe();
 
 private:
-	std::string portName_;  // ÓÃÓÚ´æ´¢¶Ë¿ÚÃû
+	std::string portName_;  // ç”¨äºå­˜å‚¨ç«¯å£å
 
 	int TriggerAOSequence();
 	int StopAOSequence();
