@@ -1,4 +1,7 @@
 #include "TPM.h"
+#include "DeviceBase.h"
+#include "DeviceUtils.h"
+#include "MMDevice.h"
 
 #include "ModuleInterface.h"
 #include <boost/algorithm/string/classification.hpp>
@@ -16,7 +19,7 @@ const char* g_DeviceNameNIDAQHub = "NIDAQHub";
 const char* g_DeviceNameNIDAQAOPortPrefix = "NIDAQAO-";
 const char* g_DeviceNameNIDAQDOPortPrefix = "NIDAQDO-";
 const char* g_DeviceNameDAQ = "DAQ";
-const char* g_DeviceNameETL = "ETL";
+const char* g_DeviceNameoptotune = "optotune";
 
 const char* g_On = "On";
 const char* g_Off = "Off";
@@ -45,7 +48,7 @@ MODULE_API void InitializeModuleData()
     RegisterDevice(g_DeviceNameNIDAQHub, MM::HubDevice, "NIDAQHub");
     RegisterDevice(g_HubDeviceName, MM::HubDevice, "TPM");
     RegisterDevice(g_DeviceNameDAQ, MM::SignalIODevice, "DAQ");
-    RegisterDevice(g_DeviceNameETL, MM::StageDevice, "ETL");
+    RegisterDevice(g_DeviceNameoptotune, MM::GenericDevice, "optotune");
 }
 
 MODULE_API MM::Device* CreateDevice(const char* deviceName)
@@ -80,9 +83,9 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
     {
         return new DAQAnalogInputPort();
     }
-    else if (strcmp(deviceName, g_DeviceNameETL) == 0)
+    else if (strcmp(deviceName, g_DeviceNameoptotune) == 0)
     {
-        return new ETL();
+        return new optotune();
     }
 
     // ...supplied name not recognized
@@ -1311,12 +1314,12 @@ typedef struct {
     unsigned char* bufferAddr;      // 缓冲区地址
     size_t totalSize;      // 缓冲区总大小
     size_t currentSize;    // 当前已使用的大小
-} Buffer ;
+} Buffer;
 Buffer buffer;
 
 
-DAQAnalogInputPort::DAQAnalogInputPort():
-initialized_(false)
+DAQAnalogInputPort::DAQAnalogInputPort() :
+    initialized_(false)
 {
     QTXdmaOpenBoard(&pstCardInfo, 0);   //打开板卡
     QT_BoardGetCardInfo();              //获取板卡信息
@@ -1362,7 +1365,7 @@ int DAQAnalogInputPort::Initialize()
     err = CreateIntegerProperty("Pre Trig Length", length, false, pAct);
     if (err != DEVICE_OK)
         return err;
-    
+
     // 帧头设置
     pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_Frameheader);
     err = CreateIntegerProperty("Frameheader", Frameheader, false, pAct);
@@ -1438,7 +1441,7 @@ int DAQAnalogInputPort::Initialize()
         return err;
     AddAllowedValue("on Collection", "off");
     AddAllowedValue("on Collection", "on");
-    
+
 }
 
 int DAQAnalogInputPort::Shutdown()
@@ -1465,7 +1468,7 @@ int DAQAnalogInputPort::StopTask()
     {
         return DEVICE_OK;
     }
-    
+
 }
 
 void DAQAnalogInputPort::GetName(char* name) const
@@ -1557,7 +1560,7 @@ int DAQAnalogInputPort::set_clockmode(MM::PropertyBase* pProp, MM::ActionType eA
         {
             mode = 2;
         }
-        if(mode < 3)
+        if (mode < 3)
         {  // 检查channelID是否有效
             int err = QT_BoardSetClockMode(mode);
             if (err != DEVICE_OK)
@@ -1833,7 +1836,7 @@ int DAQAnalogInputPort::set_data1()
 
     LogMessage("单次中断数据量(单位:字节): " + std::to_string(data1.DMATotolbytes));
     data1.allbytes = data1.DMATotolbytes;
-    
+
     return DEVICE_OK;
 }
 
@@ -1973,7 +1976,7 @@ void* datacollect(void* lParam)
 
                     if (remain_size <= 0)
                     {
-                        
+
                         break;
                     }
                     iLoopCount++;
@@ -2045,108 +2048,162 @@ EXIT:
 ///   ETL 
 ///
 
-ETL::ETL() :
-    pos_um_(0.0),
-    initialized_(false),
-    sequenceable_(false)
+optotune::optotune() :
+    initialized_(false)
 {
-    //CPropertyAction* pAct = new CPropertyAction(this, &ETL::SelectCOM);
-    //CreateStringProperty("Serial Port", "COM3", false, pAct, true);
-    //pAct = new CPropertyAction(this, &ETL::Baudrate);
-    //CreateStringProperty("Baud rate", "115200", false, pAct, true);
+    // Port
+    CPropertyAction* pAct = new CPropertyAction(this, &optotune::OnPort);
+    CreateProperty(MM::g_Keyword_Port, "Undefined", MM::String, false, pAct, true);
 }
 
-ETL::~ETL()
+optotune::~optotune()
 {
     Shutdown();
 }
 
-int ETL::Initialize()
+int optotune::Initialize()
 {
     initialized_ = true;
-    ETLController etl;
-    etl.openPort(port,baudrate);
-    std::string FPMinS = etl.getFPMin();
-    FPMin = std::stof(FPMinS);
-    std::string FPMaxS = etl.getFPMax();
-    FPMax = std::stof(FPMaxS);
-    CPropertyAction* pAct = new CPropertyAction(this, &ETL::onSetFP);
-    CreateFloatProperty("Focal Power(dpt)", 0, false, pAct, true);
+    std::string answer = sendStart();
+    if (answer != "OK")
+    {
+        return DEVICE_ERR;
+    }
+    FPMin = getFPMin();
+    FPMax = getFPMax();
+    CPropertyAction* pAct = new CPropertyAction(this, &optotune::onSetFP);
+    int nRet = CreateProperty("Focal Power(dpt)", "0.00", MM::Float, false, pAct);
     SetPropertyLimits("Focal Power(dpt)", FPMin, FPMax);
 
     return DEVICE_OK;
 }
-int ETL::Shutdown()
+int optotune::Shutdown()
 {
     initialized_ = false;
     return DEVICE_OK;
 }
 
-void ETL::GetName(char* name) const
+void optotune::GetName(char* name) const
 {
-    CDeviceUtils::CopyLimitedString(name, g_DeviceNameETL);
-}
-
-int ETL::SetPositionUm(double pos)
-{
-    etl.Start();
-    etl.setFP((float)pos);
-    return DEVICE_OK;
-}
-
-int ETL::GetPositionUm(double& pos)
-{
-    etl.Start();
-    etl.getFP();
-    return DEVICE_OK;
-}
-
-int ETL::IsStageSequenceable(bool& isSequenceable) const
-{
-    isSequenceable = sequenceable_;
-    return DEVICE_OK;
+    CDeviceUtils::CopyLimitedString(name, g_DeviceNameoptotune);
 }
 
 
-int ETL::SelectCOM(MM::PropertyBase* pProp, MM::ActionType eAct)
-{
-    if (eAct == MM::AfterSet)
-    {
-        std::string s;
-        pProp->Get(s);
-        port = s;
-        return DEVICE_OK;
-   }
-}
-
-int ETL::Baudrate(MM::PropertyBase* pProp, MM::ActionType eAct)
-{
-    if (eAct == MM::AfterSet)
-    {
-        std::string s;
-        pProp->Get(s);
-        baudrate = std::stoi(s);
-        return DEVICE_OK;
-    }
-}
-
-int ETL::onSetFP(MM::PropertyBase* pProp, MM::ActionType eAct)
+int optotune::OnPort(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::BeforeGet)
     {
-        etl.Start();
-        float fp = etl.getFP();
-        pProp->Set(fp);
+        pProp->Set(port.c_str());
     }
     else if (eAct == MM::AfterSet)
     {
-        double fp;
-        pProp->Get(fp);
-        SetPositionUm(fp);
+        if (initialized_)
+        {
+            // revert
+            pProp->Set(port.c_str());
+            return DEVICE_ERR;
+        }
+
+        pProp->Get(port);
+    }
+
+    return DEVICE_OK;
+}
+
+int optotune::onSetFP(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        double FP = getFP();
+        pProp->Set(FP);
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        double FP;
+        std::ostringstream command;
+        pProp->Get(FP);
+        std::string fp = std::to_string(FP);
+        command << "SETFP=" << fp;
+        int result = SendSerialCommand(port.c_str(), command.str().c_str(), "\r\n");
+        std::string answer;
+        result = GetSerialAnswer(port.c_str(), "\r\n", answer);
+        PurgeComPort(port.c_str());
+        if (answer != "OK")
+        {
+            return DEVICE_ERR;
+        }
     }
     return DEVICE_OK;
 }
 
+std::string optotune::sendStart()
+{
+    int result = SendSerialCommand(port.c_str(), "start", "\r\n");
+
+    std::string answer;
+    result = GetSerialAnswer(port.c_str(), "\r\n", answer);
+    PurgeComPort(port.c_str());
+    if (result == DEVICE_OK) {
+        if (answer == "OK") {
+            // 处理接收到的"ready"信息
+            std::cout << "Device is ready." << std::endl;
+        }
+        else {
+            // 接收到的信息不是"ready"
+            std::cout << "Received unexpected response: " << answer << std::endl;
+        }
+    }
+    else {
+        // 错误处理
+        std::cerr << "Failed to receive answer: " << result << std::endl;
+    }
+
+    return answer;
+}
+
+float optotune::getFPMin()
+{
+    int result = SendSerialCommand(port.c_str(), "getfpmin", "\r\n");
+
+    std::string answer;
+    result = GetSerialAnswer(port.c_str(), "\r\n", answer);
+    PurgeComPort(port.c_str());
+    if (result == DEVICE_OK) {
+        return std::stof(answer);
+    }
+    else
+    {
+        return DEVICE_ERR;
+    }
+
+}
+
+float optotune::getFPMax()
+{
+    int result = SendSerialCommand(port.c_str(), "getfpmax", "\r\n");
+
+    std::string answer;
+    result = GetSerialAnswer(port.c_str(), "\r\n", answer);
+    PurgeComPort(port.c_str());
+    if (result == DEVICE_OK) {
+        return std::stof(answer);
+    }
+    else
+    {
+        return DEVICE_ERR;
+    }
+
+}
+
+float optotune::getFP()
+{
+    int result = SendSerialCommand(port.c_str(), "getfp", "\r\n");
+
+    std::string answer;
+    result = GetSerialAnswer(port.c_str(), "\r\n", answer);
+    PurgeComPort(port.c_str());
+    return std::stof(answer);
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///   TPM 
@@ -2254,12 +2311,12 @@ int TPM::TriggerAOSequence() {
     GetPortName(portName);  // 获取当前设置的端口名
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
-        std::vector<double> sequence = {-1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
+        std::vector<double> sequence = { -1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
     -0.36, -0.32, -0.28, -0.24, -0.2, -0.16, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28,
     0.32, 0.36, 0.4, 0.44, 0.48, 0.52, 0.56, 0.6, 0.64, 0.68, 0.72, 0.76, 0.8, 0.84, 0.88, 0.92, 0.96, 1.0,
     0.96, 0.92, 0.88, 0.84, 0.8, 0.76, 0.72, 0.68, 0.64, 0.6, 0.56, 0.52, 0.48, 0.44, 0.4, 0.36, 0.32, 0.28,
     0.24, 0.2, 0.16, 0.12, 0.08, 0.04, 0.0, -0.04, -0.08, -0.12, -0.16, -0.2, -0.24, -0.28, -0.32, -0.36, -0.4,
-    -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96};
+    -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96 };
         int result = nidaqHub->StartAOSequenceForPort(portName, sequence);
         if (result != DEVICE_OK) {
             // 处理错误

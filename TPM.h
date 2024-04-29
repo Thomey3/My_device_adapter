@@ -5,6 +5,8 @@
 #include "ImgBuffer.h"
 #include "DeviceThreads.h"
 #include "ModuleInterface.h"
+#include "MMDevice.h"
+#include "DeviceUtils.h"
 
 #include <string>
 #include <map>
@@ -500,72 +502,34 @@ private:
 // ETL
 //
 
-class ETL : public CStageBase<ETL>
+class optotune : public CGenericBase < optotune >
 {
 public:
-	ETL();
-	virtual ~ETL();
+	optotune();
+	virtual ~optotune();
 
 	virtual int Initialize();
 	virtual int Shutdown();
-
 	void GetName(char* name) const;
 	bool Busy() { return false; };
 
-	int 	SetPositionUm(double pos);
-	//int 	SetRelativePositionUm(double d);
-	//int 	Move(double velocity);
-	//int 	Stop();
-	//int 	Home();
-	//int 	SetAdapterOriginUm(double d);
-	int 	GetPositionUm(double& pos);
-	int SetPositionSteps(long steps)
-	{
-		pos_um_ = steps * stepSize_um_;
-		return  OnStagePositionChanged(pos_um_);
-	}
-	int GetPositionSteps(long& steps)
-	{
-		steps = (long)(pos_um_ / stepSize_um_);
-		return DEVICE_OK;
-	}
-	int 	SetOrigin() { return DEVICE_OK; };
-	int GetLimits(double& lower, double& upper)
-	{
-		lower = lowerLimit_;
-		upper = upperLimit_;
-		return DEVICE_OK;
-	}
-	int 	IsStageSequenceable(bool& isSequenceable) const;
-	//int 	IsStageLinearSequenceable(bool& isSequenceable);
-	bool 	IsContinuousFocusDrive() const { return true; };
-	//int 	GetStageSequenceMaxLength(long& nrEvents);
-	//int 	StartStageSequence();
-	//int 	StopStageSequence();
-	//int 	ClearStageSequence();
-	//int 	AddToStageSequence(double position);
-	//int 	SendStageSequence();
-	//int 	SetStageLinearSequence(double dZ_um, long nSlices);
-
 private:
-	int		SelectCOM(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int		OnPort(MM::PropertyBase* pProp, MM::ActionType eAct);
 	int		Baudrate(MM::PropertyBase* pProp, MM::ActionType eAct);
 	int		onSetFP(MM::PropertyBase* pProp, MM::ActionType eAct);
 
 private:
-	ETLController	etl;
-	double stepSize_um_;
-	double pos_um_;
+	std::string sendStart();
+	float	getFPMin();
+	float	getFPMax();
+	float	getFP();
+private:
 	bool initialized_;
-	double lowerLimit_;
-	double upperLimit_;
-	bool sequenceable_;
 
-	std::string port = "COM3";
-	int baudrate = 115200;
+	std::string port;
 
-	float FPMin;
-	float FPMax;
+	float FPMin = -293;
+	float FPMax = 293;
 };
 
 
