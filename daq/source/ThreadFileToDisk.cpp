@@ -498,6 +498,7 @@ UINT ThreadFileToDisk::SingleFilePing(LPVOID lParam)
 
 	while (ThreadFileToDisk::Ins().m_bIsRunPing)
 	{
+
 		if (ThreadFileToDisk::Ins().m_bInterrupt && ThreadFileToDisk::Ins().GetAvailSizePing() == 0)
 			break;
 
@@ -505,27 +506,48 @@ UINT ThreadFileToDisk::SingleFilePing(LPVOID lParam)
 			ThreadFileToDisk::Ins().PopAvailFromListPing(iBufferIndex);
 			if (iBufferIndex != -1)
 			{
-				// 获取 buffer 的指针和大小
-				unsigned char* buffer = ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr;
-				size_t bufferSize = ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize;
+				// 数据读取和处理
+				if (m_vectorBuffer[iBufferIndex]->m_iBufferSize % sizeof(int16_t) == 0) {
+					size_t numElements = m_vectorBuffer[iBufferIndex]->m_iBufferSize / sizeof(int16_t);
+					if (numElements % 4 != 0) {
+						std::cerr << "Number of elements is not a multiple of 4." << std::endl;
+					}
+					else {
+						size_t numSamples = numElements / 4;
+						std::vector<std::vector<int16_t>> channels(4);
 
-				// 将数据添加到 m_rawDataPing 容器中
-				int16_t* dataPtr = reinterpret_cast<int16_t*>(buffer);
-				size_t dataCount = bufferSize / sizeof(int16_t);
-				ThreadFileToDisk::Ins().m_rawDataPing.insert(
-					ThreadFileToDisk::Ins().m_rawDataPing.end(),
-					dataPtr,
-					dataPtr + dataCount
-				);
+						int16_t* data = reinterpret_cast<int16_t*>(m_vectorBuffer[iBufferIndex]->m_bufferAddr);
+						double scaleFactor = 2 / (2.0 * ((2) ^ 13));
 
-				if (ThreadFileToDisk::Ins().m_iToDiskType != 2)
+						for (size_t i = 0; i < numSamples; ++i) {
+							for (size_t j = 0; j < 4; ++j) {
+								channels[j].push_back(data[i * 4 + j] * scaleFactor);
+							}
+						}
+						// 将 local_channels 赋值给成员变量 channels
+						ThreadFileToDisk::Ins().m_rawDataPing = channels;
+					}
+				}
+				else {
+					std::cerr << "Buffer size is not a multiple of int16_t size." << std::endl;
+				}
+
+				//如果是单次写盘，不再释放空闲空间，写满为止
+				if (m_iToDiskType != 2)
 				{
-					ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bAvailable = false;
+					m_vectorBuffer[iBufferIndex]->m_bAvailable = false;
+					//ThreadFileToDisk::Ins().PushFreeToListPing(iBufferIndex);
+				}
+				else
+				{
+					//free(databuf.m_bufferAddr);
+					//databuf.m_bufferAddr = NULL;
 				}
 				file_wr_cnt++;
 			}
 			else
 			{
+				//printf("Threadid【%d】没有找到可用的缓冲区\n");
 				Sleep(1);
 			}
 		} while (file_wr_cnt < ThreadFileToDisk::Ins().filecount);
@@ -550,26 +572,47 @@ UINT ThreadFileToDisk::SingleFilePong(LPVOID lParam)
 		ThreadFileToDisk::Ins().PopAvailFromListPong(iBufferIndex);
 		if (iBufferIndex != -1)
 		{
-			// 获取 buffer 的指针和大小
-			unsigned char* buffer = ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr;
-			size_t bufferSize = ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize;
+			// 数据读取和处理
+			if (m_vectorBuffer[iBufferIndex]->m_iBufferSize % sizeof(int16_t) == 0) {
+				size_t numElements = m_vectorBuffer[iBufferIndex]->m_iBufferSize / sizeof(int16_t);
+				if (numElements % 4 != 0) {
+					std::cerr << "Number of elements is not a multiple of 4." << std::endl;
+				}
+				else {
+					size_t numSamples = numElements / 4;
+					std::vector<std::vector<int16_t>> channels(4);
 
-			// 将数据添加到 m_rawDataPong 容器中
-			int16_t* dataPtr = reinterpret_cast<int16_t*>(buffer);
-			size_t dataCount = bufferSize / sizeof(int16_t);
-			ThreadFileToDisk::Ins().m_rawDataPong.insert(
-				ThreadFileToDisk::Ins().m_rawDataPong.end(),
-				dataPtr,
-				dataPtr + dataCount
-			);
+					int16_t* data = reinterpret_cast<int16_t*>(m_vectorBuffer[iBufferIndex]->m_bufferAddr);
+					double scaleFactor = 2 / (2.0 * ((2) ^ 13));
 
-			iBufferCount += (uint64_t)bufferSize;
+					for (size_t i = 0; i < numSamples; ++i) {
+						for (size_t j = 0; j < 4; ++j) {
+							channels[j].push_back(data[i * 4 + j] * scaleFactor);
+						}
+					}
+					// 将 local_channels 赋值给成员变量 channels
+					ThreadFileToDisk::Ins().m_rawDataPong = channels;
+				}
+			}
+			else {
+				std::cerr << "Buffer size is not a multiple of int16_t size." << std::endl;
+			}
 
-			if (ThreadFileToDisk::Ins().m_iToDiskType != 2)
-				ThreadFileToDisk::Ins().PushFreeToListPong(iBufferIndex);
+			//如果是单次写盘，不再释放空闲空间，写满为止
+			if (m_iToDiskType != 2)
+			{
+				m_vectorBuffer[iBufferIndex]->m_bAvailable = false;
+				//ThreadFileToDisk::Ins().PushFreeToListPing(iBufferIndex);
+			}
+			else
+			{
+				//free(databuf.m_bufferAddr);
+				//databuf.m_bufferAddr = NULL;
+			}
 		}
 		else
 		{
+			//printf("Threadid【%d】没有找到可用的缓冲区\n");
 			Sleep(1);
 		}
 	}

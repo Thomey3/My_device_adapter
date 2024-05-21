@@ -116,8 +116,8 @@ public:
 
     static bool m_bInterrupt;
 
-	std::vector<int16_t> m_rawDataPing;
-	std::vector<int16_t> m_rawDataPong;
+	std::vector<std::vector<int16_t>> m_rawDataPing;
+	std::vector<std::vector<int16_t>> m_rawDataPong;
 
 
 };
