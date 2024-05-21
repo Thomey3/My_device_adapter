@@ -81,7 +81,7 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
     }
     else if (strcmp(deviceName, g_DeviceNameDAQ) == 0)
     {
-        return new DAQAnalogInputPort();
+        return new kcDAQ();
     }
     else if (strcmp(deviceName, g_DeviceNameoptotune) == 0)
     {
@@ -1280,229 +1280,257 @@ template class NIDAQDOHub<uInt32>;
 ///////////////////////////////////////////////////////////////////////////////////
 ///   DAQ 
 ///
-
-#define MB *1024*1024
-#define INTERRUPT 0
-#define POLLING 1
-#define WRITEFILE 1
-#define BASE_8MB 8*1024*1024
-#define single_interruption_duration 1000
-
-STXDMA_CARDINFO pstCardInfo;//å­˜æ”¾PCIEæ¿å¡ä¿¡æ¯ç»“æ„ä½“
-Log_TraceLog g_Log(std::string("./logs/KunchiUpperMonitor.log"));
-Log_TraceLog* pLog = &g_Log;
-static sem_t gvar_program_exit;	//å£°æ˜ä¸€ä¸ªä¿¡å·é‡
-sem_t c2h_ping;		//pingä¿¡å·é‡
-sem_t c2h_pong;		//pongä¿¡å·é‡
-long once_readbytes = 8 MB;
-long data_size = 0;
-uint32_t flag_ping = 0;
-uint32_t flag_pong = 0;
-
-//å‡½æ•°å£°æ˜
-void* PollIntr(void* lParam);
-void* datacollect(void* lParam);
-
-struct data
+kcDAQ::kcDAQ() :
+    initialized_(false),
+    gateOpen_(true),
+    gatedVoltage_(0.0),
+    sequenceRunning_(false),
+    maxSequenceLength_(1024),
+    minVolts_(0.0),
+    maxVolts_(0.2),
+    offset1(8064),
+    offset2(8088),
+    offset3(8072),
+    offset4(8092),
+    pretriglength(0.0),
+    frameheader(1),
+    clockmode(0),
+    triggermode(1),
+    triggercount(0.0),
+    pulseperiod(0.0),
+    pulsewidth(0.0),
+    armhysteresis(70.0),
+    triggerchannel(1),
+    rasingcodevalue(0),
+    fallingcodevalue(-0),
+    segmentduration(0),
+    once_trig_bytes(0),
+    smaplerate(1000.0),
+    channelcount(4.0),
+	data1({0,0})
 {
-    uint64_t DMATotolbytes;
-    uint64_t allbytes;
-};
-struct data data1;
-
-typedef struct {
-    unsigned char* bufferAddr;      // ç¼“å†²åŒºåœ°å€
-    size_t totalSize;      // ç¼“å†²åŒºæ€»å¤§å°
-    size_t currentSize;    // å½“å‰å·²ä½¿ç”¨çš„å¤§å°
-} Buffer;
-Buffer buffer;
-
-
-DAQAnalogInputPort::DAQAnalogInputPort() :
-    initialized_(false)
-{
-    QTXdmaOpenBoard(&pstCardInfo, 0);   //æ‰“å¼€æ¿å¡
-    QT_BoardGetCardInfo();              //è·å–æ¿å¡ä¿¡æ¯
-    QT_BoardSetADCStop();               //åœæ­¢é‡‡é›†  
-    QT_BoardSetTransmitMode(0, 0);      //DMAç½®0
-    QT_BoardSetInterruptClear();        //æ¸…é™¤ä¸­æ–­
-    QT_BoardSetSoftReset();             //æ‰§è¡Œä¸Šä½æœºè½¯ä»¶å¤ä½
+	InitializeDefaultErrorMessages();
 }
 
-DAQAnalogInputPort::~DAQAnalogInputPort()
+STXDMA_CARDINFO pstCardInfo;
+kcDAQ::~kcDAQ()
 {
-    Shutdown();
 }
 
-int DAQAnalogInputPort::Initialize()
+int kcDAQ::Initialize()
 {
-    //ä¿¡å·é‡åˆå§‹åŒ–
-    sem_init(&gvar_program_exit, 0, 0);
-    sem_init(&c2h_ping, 0, 0);
-    sem_init(&c2h_pong, 0, 0);
-
-    buffer.bufferAddr = (unsigned char*)malloc(1024 * 1024);  // åˆ†é… 1MB å¤§å°çš„ç¼“å†²åŒº
-    buffer.totalSize = 1024 * 1024;
-    buffer.currentSize = 0;
-
-    // è°ƒæ•´åç½®
-    CPropertyAction* pAct = new CPropertyAction(this, &DAQAnalogInputPort::change_bias_channal);
-    int err = CreateFloatProperty("Channel1 offset", offset, false, pAct);
+	if (initialized_)
+		return DEVICE_OK;
+    initializeTheadtoDisk();
+    int err = QTXdmaOpenBoard(&pstCardInfo, 0);
+    QT_BoardGetCardInfo();
+    QT_BoardSetADCStop();
+    QT_BoardSetTransmitMode(0, 0);
+    QT_BoardSetInterruptClear();
+    QT_BoardSetSoftReset();
+    // µ÷½ÚÍ¨µÀÆ«ÖÃ
+	CPropertyAction* pAct = new CPropertyAction(this, &kcDAQ::OnOffset);
+	err = CreateFloatProperty("Channel1 offset", offset1, false, pAct);
+	if (err != DEVICE_OK)
+		return err;
+    err = CreateFloatProperty("Channel2 offset", offset2, false, pAct);
     if (err != DEVICE_OK)
         return err;
-    err = CreateFloatProperty("Channel2 offset", offset, false, pAct);
+    err = CreateFloatProperty("Channel3 offset", offset3, false, pAct);
     if (err != DEVICE_OK)
         return err;
-    err = CreateFloatProperty("Channel3 offset", offset, false, pAct);
+    err = CreateFloatProperty("Channel4 offset", offset4, false, pAct);
     if (err != DEVICE_OK)
         return err;
-    err = CreateFloatProperty("Channel4 offset", offset, false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-
-    // é¢„è§¦å‘è®¾ç½®
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_pre_trig_length);
-    err = CreateIntegerProperty("Pre Trig Length", length, false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-
-    // å¸§å¤´è®¾ç½®
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_Frameheader);
-    err = CreateIntegerProperty("Frameheader", Frameheader, false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-
-    // è®¾ç½®æ—¶é’Ÿæ¨¡å¼
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_clockmode);
-    err = CreateStringProperty("Clockmode", "", false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-    AddAllowedValue("Clockmode", "å†…å‚è€ƒæ—¶é’Ÿ");
-    AddAllowedValue("Clockmode", "å¤–é‡‡æ ·æ—¶é’Ÿ");
-    AddAllowedValue("Clockmode", "å¤–å‚è€ƒæ—¶é’Ÿ");
-
-    // å¤–éƒ¨è§¦å‘çš„ä¸€äº›å˜é‡è®¾ç½®
-    // åªæ·»åŠ ä½ éœ€è¦åˆ›å»ºå±æ€§çš„å˜é‡
-    triggerSetupMap["Trigger Count"] = &triggercount;
-    triggerSetupMap["Pulse Period"] = &pulse_period;
-    triggerSetupMap["Pulse Width"] = &pulse_width;
-    triggerSetupMap["Trigger lag"] = &arm_hysteresis;
-    triggerSetupMap["Rasing Codevalue"] = &rasing_codevalue;
-    triggerSetupMap["Falling Codevalue"] = &falling_codevalue;
-
-    // ä¸ºæ¯ä¸ªå±æ€§åˆ›å»ºMicro-Managerå±æ€§
-    for (auto& it : triggerSetupMap) {
-        // Cast uint32_t to long for conversion to string
-        long valueAsLong = static_cast<long>(*(it.second));
-        CreateProperty(it.first.c_str(), CDeviceUtils::ConvertToString(valueAsLong), MM::Integer, false, new CPropertyAction(this, &DAQAnalogInputPort::OnUInt32Changed));
-    }
-
-    // è®¾ç½®è§¦å‘é€šé“
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_triggerchannel);
-    err = CreateStringProperty("triggerchannel", "", false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-    AddAllowedValue("triggerchannel", "1");
-    AddAllowedValue("triggerchannel", "2");
-    AddAllowedValue("triggerchannel", "3");
-    AddAllowedValue("triggerchannel", "4");
-
-    // è®¾ç½®è§¦å‘æ¨¡å¼
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::set_triggermode);
-    err = CreateStringProperty("triggermode", "", false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-    AddAllowedValue("triggermode", "0 è½¯ä»¶è§¦å‘");
-    AddAllowedValue("triggermode", "1 å†…éƒ¨è„‰å†²è§¦å‘");
-    AddAllowedValue("triggermode", "2 å¤–éƒ¨è„‰å†²ä¸Šå‡æ²¿è§¦å‘");
-    AddAllowedValue("triggermode", "3 å¤–éƒ¨è„‰å†²ä¸‹é™æ²¿è§¦å‘");
-    AddAllowedValue("triggermode", "4 é€šé“ä¸Šå‡æ²¿è§¦å‘");
-    AddAllowedValue("triggermode", "5 é€šé“ä¸‹é™æ²¿è§¦å‘");
-    AddAllowedValue("triggermode", "6 é€šé“åŒæ²¿è§¦å‘");
-    AddAllowedValue("triggermode", "7 å¤–éƒ¨è„‰å†²åŒæ²¿è§¦å‘");
-
-    ///////DMA è®¾ç½®
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::OnSegmentDurationChanged);
-    err = CreateFloatProperty("Segment Duration (us)", SegmentDuration, false, pAct);
-    SetPropertyLimits("Segment Duration (us)", 0, 536870.904);
-    if (err != DEVICE_OK)
-        return err;
-
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::OnTriggerFrequencyChanged);
-    err = CreateFloatProperty("Trigger Frequency (Hz)", TriggerFrequency, false, pAct);
-    SetPropertyLimits("Trigger Frequency (Hz)", 800, 1e6); // æ ¹æ®è®¾å®šè°ƒæ•´æœ€å¤§æœ€å°å€¼
-    if (err != DEVICE_OK)
-        return err;
-
-    // å¼€å§‹é‡‡é›†
-    pAct = new CPropertyAction(this, &DAQAnalogInputPort::onCollection);
-    err = CreateStringProperty("on Collection", "off", false, pAct);
-    if (err != DEVICE_OK)
-        return err;
-    AddAllowedValue("on Collection", "off");
-    AddAllowedValue("on Collection", "on");
-
+    // Ô¤´¥·¢
+    pAct = new CPropertyAction(this, &kcDAQ::OnPreTrigLength);
+    err = CreateFloatProperty("Pre Trigger Length", pretriglength, false, pAct);
+    // Ö¡Í·Ê¹ÄÜ
+    pAct = new CPropertyAction(this, &kcDAQ::OnFrameHeader);
+    err = CreateIntegerProperty("Frame header", frameheader, false, pAct);
+    SetPropertyLimits("Frame header", 0, 1);
+    // Ê±ÖÓÄ£Ê½
+    pAct = new CPropertyAction(this, &kcDAQ::OnClockMode);
+    err = CreateIntegerProperty("Clock Mode", clockmode, false, pAct);
+    SetPropertyLimits("Clock Mode", 0, 2);
+    // ´¥·¢Ä£Ê½
+    pAct = new CPropertyAction(this, &kcDAQ::OnTriggerMode);
+    err = CreateIntegerProperty("Trigger Mode", triggermode, false, pAct);
+    SetPropertyLimits("Trigger Mode", 0, 7);
+    // ÄÚ²¿Âö³å´¥·¢ÉèÖÃ
+    /// Âö³åÖÜÆÚ
+    pAct = new CPropertyAction(this, &kcDAQ::OnPulsePeriod);
+    err = CreateFloatProperty("Pulse Period", pulseperiod, false, pAct);
+    /// Âö³å¿í¶È
+    pAct = new CPropertyAction(this, &kcDAQ::OnPulseWidth);
+    err = CreateFloatProperty("Pulse Width", pulsewidth, false, pAct);
+    // Í¨µÀ´¥·¢ÉèÖÃ
+    /// ´¥·¢³ÙÖÍ
+    pAct = new CPropertyAction(this, &kcDAQ::OnArmHysteresis);
+    err = CreateFloatProperty("Arm Hysteresis", armhysteresis, true, pAct);
+    /// ´¥·¢Í¨µÀ
+    pAct = new CPropertyAction(this, &kcDAQ::OnTriggerChannel);
+    err = CreateFloatProperty("Trigger Channel", triggerchannel, true, pAct);
+    SetPropertyLimits("Trigger Channel", 1, 4);
+    /// ÉÏÉıÑØãĞÖµ
+    pAct = new CPropertyAction(this, &kcDAQ::OnRasingCodevalue);
+    err = CreateFloatProperty("Rasing Codevalue", rasingcodevalue, true, pAct);
+    /// ÏÂ½µÑØãĞÖµ
+    pAct = new CPropertyAction(this, &kcDAQ::OnFallingCodevalue);
+    err = CreateFloatProperty("Falling Codevalue", fallingcodevalue, true, pAct);
+    // µ¥´Î´¥·¢¶ÎÊ±³¤
+    pAct = new CPropertyAction(this, &kcDAQ::OnSegmentDuration);
+    err = CreateFloatProperty("Segment Duration", segmentduration, true, pAct);
+    SetPropertyLimits("Segment Duration", 0, 536870.904);
+    // ´¥·¢ÆµÂÊ
+    pAct = new CPropertyAction(this, &kcDAQ::OnRepetitionFrequency);
+    err = CreateFloatProperty("Repetition Frequency", repetitionfrequency, true, pAct);
+    SetPropertyLimits("Segment Duration", 800,99999999999);
+    initialized_ = true;
+    return DEVICE_OK;
 }
 
-int DAQAnalogInputPort::Shutdown()
+int kcDAQ::Shutdown()
 {
     if (!initialized_)
         return DEVICE_OK;
-
-    int err = StopTask();
-
+    int err = 0;
+    err = QT_BoardSetADCStop();
+    err = QT_BoardSetTransmitMode(0, 0);
+    err = QTXdmaCloseBoard(&pstCardInfo);
     initialized_ = false;
-    return err;
+    return DEVICE_OK;
 }
 
-int DAQAnalogInputPort::StopTask()
-{
-    QT_BoardSetADCStop();
-    QT_BoardSetTransmitMode(0, 0);
-    int err = QTXdmaCloseBoard(&pstCardInfo);
-    if (err != DEVICE_OK)
-    {
-        return err;
-    }
-    else
-    {
-        return DEVICE_OK;
-    }
-
-}
-
-void DAQAnalogInputPort::GetName(char* name) const
+void kcDAQ::GetName(char* name) const
 {
     CDeviceUtils::CopyLimitedString(name, g_DeviceNameDAQ);
 }
 
-int DAQAnalogInputPort::change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct)
+// ´Ö²Ú
+int kcDAQ::SetGateOpen(bool open)
 {
-    std::string propName = pProp->GetName();  // è·å–è§¦å‘å›è°ƒçš„å±æ€§åç§°
+    gateOpen_ = open;
+    return DEVICE_OK;
+}
+
+int kcDAQ::GetGateOpen(bool& open)
+{
+    open = gateOpen_;
+    return DEVICE_OK;
+}
+
+int kcDAQ::GetSignal(double& volts)
+{
+    volts = gatedVoltage_;
+    return DEVICE_OK;
+}
+
+int kcDAQ::GetLimits(double& minVolts, double& maxVolts)
+{
+    minVolts = minVolts_;
+    maxVolts = maxVolts_;
+    return DEVICE_OK;
+}
+
+int kcDAQ::IsDASequenceable(bool& isSequenceable) const
+{
+    isSequenceable = supportsTriggering_;
+    return DEVICE_OK;
+}
+
+int kcDAQ::GetDASequenceMaxLength(long& maxLength) const
+{
+    maxLength = static_cast<long>(maxSequenceLength_);
+    return DEVICE_OK;
+}
+
+int kcDAQ::StartDASequence()
+{
+    //DMA²ÎÊıÉèÖÃ
+    QT_BoardSetFifoMultiDMAParameter(once_trig_bytes, data1.DMATotolbytes);
+    //DMA´«ÊäÄ£Ê½ÉèÖÃ
+    QT_BoardSetTransmitMode(1, 0);
+    //Ê¹ÄÜPCIEÖĞ¶Ï
+    QT_BoardSetInterruptSwitch();
+    //Êı¾İ²É¼¯Ïß³Ì
+    pthread_t data_collect;
+    pthread_create(&data_collect, NULL, DatacollectEntry, &data1);
+
+    //ADC¿ªÊ¼²É¼¯
+    QT_BoardSetADCStart();
+
+    //µÈÖĞ¶ÏÏß³Ì
+    pthread_t wait_intr_c2h_0;
+    pthread_create(&wait_intr_c2h_0, NULL, PollIntrEntry, NULL);
+    sequenceRunning_ = true;
+    return DEVICE_OK;
+}
+
+int kcDAQ::StopDASequence()
+{
+    QT_BoardSetADCStop();
+    printf("set adc stop......\n");
+    QT_BoardSetTransmitMode(0, 0);
+    printf("set DMA stop......\n");
+    sequenceRunning_ = false;
+    return DEVICE_OK;
+}
+
+int kcDAQ::ClearDASequence()
+{
+    unsentSequence_.clear();
+    return DEVICE_OK;
+}
+
+int kcDAQ::AddToDASequence(double voltage)
+{
+    if (voltage < minVolts_ || voltage > maxVolts_)
+        return DEVICE_ERR;
+
+    unsentSequence_.push_back(voltage);
+    return DEVICE_OK;
+}
+
+int kcDAQ::SendDASequence()
+{
+    if (sequenceRunning_)
+        return DEVICE_ERR;
+
+    sentSequence_ = unsentSequence_;
+    // We don't actually "write" the sequence here, because writing
+    // needs to take place once the correct task has been set up for
+    // all of the AO channels.
+    return DEVICE_OK;
+}
+
+int kcDAQ::OnOffset(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    std::string propName = pProp->GetName();  // »ñÈ¡´¥·¢»Øµ÷µÄÊôĞÔÃû³Æ
     if (eAct == MM::AfterSet)
     {
         double offset;
-        pProp->Get(offset); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
+        pProp->Get(offset); // ´ÓÊôĞÔÖĞ»ñÈ¡ÓÃ»§ÉèÖÃµÄĞÂÆ«ÒÆÖµ
 
-        int channelID = 0;  // åˆå§‹åŒ–é€šé“ID
-        if (propName == "Channel1_offset")
+        int channelID = 0;  // ³õÊ¼»¯Í¨µÀID
+        if (propName == "Channel1 offset")
         {
             channelID = 1;
         }
-        else if (propName == "Channel2_offset")
+        else if (propName == "Channel2 offset")
         {
             channelID = 2;
         }
-        else if (propName == "Channel3_offset")
+        else if (propName == "Channel3 offset")
         {
             channelID = 3;
         }
-        else if (propName == "Channel4_offset")
+        else if (propName == "Channel4 offset")
         {
             channelID = 4;
         }
 
-        if (channelID > 0) {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
+        if (channelID > 0) {  // ¼ì²échannelIDÊÇ·ñÓĞĞ§
             int err = QT_BoardSetOffset(channelID, offset);
             if (err != DEVICE_OK)
                 return err;
@@ -1510,385 +1538,316 @@ int DAQAnalogInputPort::change_bias_channal(MM::PropertyBase* pProp, MM::ActionT
     }
     return DEVICE_OK;
 }
-
-int DAQAnalogInputPort::set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionType eAct)
+int kcDAQ::OnPreTrigLength(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::AfterSet)
     {
-        double length;
-        pProp->Get(length); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
-        if (length > -1) {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
-            int err = QT_BoardSetPerTrigger(length);
-            if (err != DEVICE_OK)
-                return err;
-        }
+        pProp->Get(pretriglength);
+        int err = QT_BoardSetPerTrigger(pretriglength);
+        return err;
     }
     return DEVICE_OK;
 }
-
-int DAQAnalogInputPort::set_Frameheader(MM::PropertyBase* pProp, MM::ActionType eAct)
+int kcDAQ::OnFrameHeader(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::AfterSet)
     {
-        double Frameheader;
-        pProp->Get(Frameheader); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
-        if (Frameheader > -1) {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
-            int err = QT_BoardSetFrameheader(Frameheader);
-            if (err != DEVICE_OK)
-                return err;
-        }
+        double fh;  // ÓÃÓÚ´æ´¢»ñÈ¡µ½µÄÊôĞÔÖµ
+        pProp->Get(fh);  // ÕıÈ·´«µİ²ÎÊı
+        frameheader = static_cast<int>(fh);
+        int err = QT_BoardSetFrameheader(frameheader);
+        return err;
     }
     return DEVICE_OK;
 }
-
-int DAQAnalogInputPort::set_clockmode(MM::PropertyBase* pProp, MM::ActionType eAct)
+int kcDAQ::OnClockMode(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::AfterSet)
     {
-        std::string clockmode;
-        int mode = 3;
-        pProp->Get(clockmode); // ä»å±æ€§ä¸­è·å–ç”¨æˆ·è®¾ç½®çš„æ–°åç§»å€¼
-        if (clockmode == "å†…å‚è€ƒæ—¶é’Ÿ")
-        {
-            mode = 0;
-        }
-        else if (clockmode == "å¤–é‡‡æ ·æ—¶é’Ÿ")
-        {
-            mode = 1;
-        }
-        else if (clockmode == "å¤–å‚è€ƒæ—¶é’Ÿ")
-        {
-            mode = 2;
-        }
-        if (mode < 3)
-        {  // æ£€æŸ¥channelIDæ˜¯å¦æœ‰æ•ˆ
-            int err = QT_BoardSetClockMode(mode);
-            if (err != DEVICE_OK)
-                return err;
-        }
+        double cm;  // ÓÃÓÚ´æ´¢»ñÈ¡µ½µÄÊôĞÔÖµ
+        pProp->Get(cm);  // ÕıÈ·´«µİ²ÎÊı
+        clockmode = static_cast<int>(cm);
+        int err = QT_BoardSetClockMode(clockmode);
+        return err;
     }
     return DEVICE_OK;
 }
-
-int DAQAnalogInputPort::OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct)
+int kcDAQ::OnTriggerMode(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
-    std::string propName = pProp->GetName();
-    auto it = triggerSetupMap.find(propName);
-
-    if (it != triggerSetupMap.end()) {
-        if (eAct == MM::BeforeGet) {
-            // Convert uint32_t to string by casting to long first
-            long valueAsLong = static_cast<long>(*(it->second));
-            pProp->Set(CDeviceUtils::ConvertToString(valueAsLong));
+    if (eAct == MM::AfterSet)
+    {
+        double tm;  // ÓÃÓÚ´æ´¢»ñÈ¡µ½µÄÊôĞÔÖµ
+        pProp->Get(tm);  // ÕıÈ·´«µİ²ÎÊı
+        triggermode = static_cast<int>(tm);
+        // ÉèÖÃreadonly
+        if (triggermode != 1)
+        {
+            SetPropertyReadOnly("Pulse Period", true);
+            SetPropertyReadOnly("Pulse Width", true);
+            SetPropertyReadOnly("Repetition Frequency", true);
         }
-        else if (eAct == MM::AfterSet) {
-            long temp;
-            pProp->Get(temp);
-            *(it->second) = static_cast<uint32_t>(temp);  // Cast back to uint32_t after getting as long
+        if (triggermode != 4 && triggermode != 6)
+        {
+            SetPropertyReadOnly("Arm Hysteresis", true);
+            SetPropertyReadOnly("Trigger Channel", true);
+            SetPropertyReadOnly("Rasing Codevalue", true);
         }
-    }
-    return DEVICE_OK;
-}
-
-int DAQAnalogInputPort::set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct)
-{
-    if (eAct == MM::BeforeGet) {
-        // å½“è¦è·å–å±æ€§å€¼æ—¶ï¼Œå°†trigchannelIDè½¬æ¢ä¸ºå­—ç¬¦ä¸²å¹¶è¿”å›
-        pProp->Set(CDeviceUtils::ConvertToString(static_cast<long>(trigchannelID)));
-    }
-    else if (eAct == MM::AfterSet) {
-        std::string valueAsString;
-        pProp->Get(valueAsString); // è·å–å±æ€§å€¼ï¼ˆå­—ç¬¦ä¸²å½¢å¼ï¼‰
-
-        // å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºuint32_tç±»å‹
-        try {
-            uint32_t value = static_cast<uint32_t>(std::stoul(valueAsString));
-
-            // æ£€æŸ¥æ˜¯å¦åœ¨å…è®¸çš„å€¼èŒƒå›´å†…
-            if (value >= 1 && value <= 4) {
-                trigchannelID = value; // æ›´æ–°trigchannelID
-            }
-            else {
-                // å¦‚æœä¸åœ¨å…è®¸èŒƒå›´å†…ï¼Œä½ å¯ä»¥æŠ›å‡ºé”™è¯¯æˆ–è€…å°†å…¶è®¾ç½®ä¸ºé»˜è®¤å€¼
-                return DEVICE_INVALID_PROPERTY_VALUE;
-            }
+        if (triggermode != 5 && triggermode != 6)
+        {
+            SetPropertyReadOnly("Arm Hysteresis", true);
+            SetPropertyReadOnly("Trigger Channel", true);
+            SetPropertyReadOnly("Falling Codevalue", true);
         }
-        catch (const std::exception&) {
-            // å¦‚æœè½¬æ¢å¤±è´¥ï¼Œè¿”å›é”™è¯¯
-            return DEVICE_INVALID_PROPERTY_VALUE;
+        // µ÷Õû´¥·¢Ä£Ê½
+        if (triggermode == 0)
+        {
+            int err = QT_BoardSoftTrigger(); //Èí¼ş´¥·¢
         }
-    }
-    return DEVICE_OK;
-}
-
-int DAQAnalogInputPort::set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct)
-{
-    if (eAct == MM::BeforeGet) {
-        // è·å–å½“å‰è®¾ç½®çš„è§¦å‘æ¨¡å¼å¹¶å°†å…¶è½¬æ¢ä¸ºå­—ç¬¦ä¸²å½¢å¼è¿”å›
-        pProp->Set(CDeviceUtils::ConvertToString(static_cast<long>(trigmode)));
-    }
-    else if (eAct == MM::AfterSet) {
-        std::string modeAsString;
-        pProp->Get(modeAsString); // è·å–å±æ€§å€¼ï¼ˆå­—ç¬¦ä¸²å½¢å¼ï¼‰
-        uint32_t mode = static_cast<uint32_t>(std::stoul(modeAsString.substr(0, 1))); // è§£ææ¨¡å¼ç¼–å·
-
-        // è®¾ç½®trigmodeå˜é‡ï¼Œå¹¶æ ¹æ®é€‰å®šçš„æ¨¡å¼è°ƒç”¨ç›¸åº”çš„ç¡¬ä»¶æ¥å£å‡½æ•°
-        trigmode = mode;
-        switch (trigmode) {
-        case 0:
-            QT_BoardSoftTrigger();
-            break;
-        case 1:
-            QT_BoardInternalPulseTrigger(triggercount, pulse_period, pulse_width);
-            break;
-        case 2:
+        else if (triggermode == 1)
+        {
+            SetPropertyReadOnly("Pulse Period", false);
+            SetPropertyReadOnly("Pulse Width", false);
+            SetPropertyReadOnly("Repetition Frequency", false);
+        }
+        else if (triggermode == 2)
+        {
             QT_BoardExternalTrigger(2, triggercount);
-            break;
-        case 3:
+        }
+        else if (triggermode == 3)
+        {
             QT_BoardExternalTrigger(3, triggercount);
-            break;
-        case 4:
-            QT_BoardChannelTrigger(4, triggercount, trigchannelID, rasing_codevalue, falling_codevalue);
-            break;
-        case 5:
-            QT_BoardChannelTrigger(5, triggercount, trigchannelID, rasing_codevalue, falling_codevalue);
-            break;
-        case 6:
-            QT_BoardChannelTrigger(6, triggercount, trigchannelID, rasing_codevalue, falling_codevalue);
-            break;
-        case 7:
+        }
+        else if (triggermode == 7)
+        {
             QT_BoardExternalTrigger(7, triggercount);
-            break;
-        default:
-            // å¦‚æœè§¦å‘æ¨¡å¼æ— æ•ˆï¼Œè®°å½•é”™è¯¯æˆ–è®¾ç½®ä¸ºé»˜è®¤å€¼
-            return DEVICE_INVALID_PROPERTY_VALUE;
         }
+        else if (triggermode == 4 || triggermode == 5 || triggermode == 6)
+        {
+            SetPropertyReadOnly("Arm Hysteresis", false);
+            SetPropertyReadOnly("Trigger Channel", false);
+            if (triggermode == 4)
+            {
+                SetPropertyReadOnly("Rasing Codevalue", false);
+                ChannelTriggerConfig();
+            }
+            else if (triggermode == 5)
+            {
+                SetPropertyReadOnly("Falling Codevalue", false);
+                ChannelTriggerConfig();
+            }
+            else if (triggermode == 6)
+            {
+                SetPropertyReadOnly("Rasing Codevalue", false);
+                SetPropertyReadOnly("Falling Codevalue", false);
+                ChannelTriggerConfig();
+            }
+        }
+
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnPulsePeriod(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(pulseperiod);  // ÕıÈ·´«µİ²ÎÊı
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnPulseWidth(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(pulsewidth);  // ÕıÈ·´«µİ²ÎÊı
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnArmHysteresis(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(armhysteresis);  // ÕıÈ·´«µİ²ÎÊı
+        QTXdmaApiInterface::Func_QTXdmaWriteRegister(&pstCardInfo, BASE_TRIG_CTRL, 0x3C, armhysteresis);
+        ChannelTriggerConfig();
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnTriggerChannel(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(triggerchannel);  // ÕıÈ·´«µİ²ÎÊı
+        ChannelTriggerConfig();
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnRasingCodevalue(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(rasingcodevalue);  // ÕıÈ·´«µİ²ÎÊı
+        ChannelTriggerConfig();
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnFallingCodevalue(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(fallingcodevalue);  // ÕıÈ·´«µİ²ÎÊı
+        ChannelTriggerConfig();
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnSegmentDuration(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(segmentduration);  // ÕıÈ·´«µİ²ÎÊı
+        dataConfig();
+    }
+    return DEVICE_OK;
+}
+int kcDAQ::OnRepetitionFrequency(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::AfterSet)
+    {
+        pProp->Get(repetitionfrequency);  // ÕıÈ·´«µİ²ÎÊı
+        dataConfig();
     }
     return DEVICE_OK;
 }
 
-int DAQAnalogInputPort::OnSegmentDurationChanged(MM::PropertyBase* pProp, MM::ActionType eAct)
+
+// ÆäËûº¯Êı
+int kcDAQ::ChannelTriggerConfig()
 {
-    if (eAct == MM::BeforeGet)
-    {
-        pProp->Set(SegmentDuration);
-    }
-    else if (eAct == MM::AfterSet)
-    {
-        pProp->Get(SegmentDuration);
-        int err = CalculateOnceTrigBytes();
-        if (err != DEVICE_OK)
-        {
-            return DEVICE_ERR;
-        }
-        CalculateTriggerFrequency();
-        CheckTriggerDuration();
-    }
-    return DEVICE_OK;
+    int err = QT_BoardChannelTrigger(triggermode, triggercount, triggerchannel, rasingcodevalue, fallingcodevalue);
+    return err;
 }
-
-int DAQAnalogInputPort::OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::ActionType eAct)
+int kcDAQ::dataConfig()
 {
-    if (eAct == MM::BeforeGet)
+    once_trig_bytes = segmentduration * smaplerate * channelcount * 2;
+    //ÅĞ¶Ïµ¥´Î´¥·¢µÄ×Ö½ÚÊıÊÇ·ñÂú×ã64×Ö½ÚµÄ±¶Êı
+    if (once_trig_bytes % 512 == 0)
     {
-        pProp->Set(TriggerFrequency);
-    }
-    else if (eAct == MM::AfterSet)
-    {
-        pProp->Get(TriggerFrequency);
-        CalculateTriggerFrequency();
-        CheckTriggerDuration();
-        CheckDataSpeed(); // æ£€æŸ¥æ•°æ®é€Ÿåº¦æ˜¯å¦è¶…æ ‡
-        set_data1();
-    }
-    return DEVICE_OK;
-}
-
-int DAQAnalogInputPort::onCollection(MM::PropertyBase* pProp, MM::ActionType eAct)
-{
-    if (eAct == MM::BeforeGet)
-    {
-        // å¯ä»¥æä¾›ä¸€äº›çŠ¶æ€ä¿¡æ¯
-    }
-    else if (eAct == MM::AfterSet)
-    {
-        std::string value;
-        pProp->Get(value); // è·å–å½“å‰å±æ€§çš„å€¼
-
-        if (value == "On")
-        {
-            //DMAå‚æ•°è®¾ç½®
-            QT_BoardSetFifoMultiDMAParameter(OnceTrigBytes, data1.DMATotolbytes);
-            //DMAä¼ è¾“æ¨¡å¼è®¾ç½®
-            QT_BoardSetTransmitMode(1, 0);
-
-            //ä½¿èƒ½PCIEä¸­æ–­
-            QT_BoardSetInterruptSwitch();
-
-            //æ•°æ®é‡‡é›†çº¿ç¨‹
-            pthread_t data_collect;
-            pthread_create(&data_collect, NULL, datacollect, &data1);
-
-            //ADCå¼€å§‹é‡‡é›†
-            QT_BoardSetADCStart();
-
-            //ç­‰ä¸­æ–­çº¿ç¨‹
-            pthread_t wait_intr_c2h_0;
-            pthread_create(&wait_intr_c2h_0, NULL, PollIntr, NULL);
-        }
-        else if (value == "Off")
-        {
-            QT_BoardSetADCStop();
-            QT_BoardSetTransmitMode(0, 0);
-            QTXdmaCloseBoard(&pstCardInfo);
-        }
-        sem_wait(&gvar_program_exit);
-        sem_destroy(&gvar_program_exit);
-    }
-    return DEVICE_OK;
-
-}
-
-int DAQAnalogInputPort::CalculateOnceTrigBytes()
-{
-    OnceTrigBytes = static_cast<uint64_t>(SegmentDuration * Samplerate * ChannelCount * 2);
-    if (OnceTrigBytes % 512 != 0)
-    {
-        OnceTrigBytes = (OnceTrigBytes / 512) * 512;
-    }
-    if (OnceTrigBytes > 4294967232)
-    {
-        LogMessage("å•æ¬¡è§¦å‘æ•°æ®é‡è¶…è¿‡DDRå¤§å°ï¼è¯·å‡å°è§¦å‘æ®µæ—¶é•¿æˆ–è€…é™ä½è§¦å‘é¢‘ç‡ï¼");
-        return DEVICE_ERR;
-    }
-    return DEVICE_OK;
-}
-
-void DAQAnalogInputPort::CalculateTriggerFrequency()
-{
-    if (trigmode != 0 && trigmode != 1)
-    {
-        uint64_t GB = 4000000000;
-        if (trigmode == 6 || trigmode == 7)
-        {
-            TriggerFrequency = (GB / OnceTrigBytes) / 2;
-        }
-        else
-        {
-            TriggerFrequency = GB / OnceTrigBytes;
-        }
-    }
-}
-
-void DAQAnalogInputPort::CheckTriggerDuration()
-{
-    if (trigmode == 1)
-    {
-        TriggerDuration = pulse_period / 1000.0 / 1000.0;
+        once_trig_bytes = once_trig_bytes;
     }
     else
     {
-        TriggerDuration = 1000.0 / TriggerFrequency;
+        once_trig_bytes = (once_trig_bytes / 512) * 512;
     }
-}
-
-int DAQAnalogInputPort::CheckDataSpeed()
-{
-    double dataspeed = (TriggerFrequency * OnceTrigBytes) / 1024.0 / 1024.0; // æ•°æ®é€Ÿåº¦è®¡ç®—ï¼Œå•ä½ä¸ºMB/s
-    if (trigmode == 6 || trigmode == 7) // å¦‚æœæ˜¯åŒè¾¹æ²¿è§¦å‘
+    if (once_trig_bytes > 4294967232)
     {
-        dataspeed *= 2; // æ•°æ®é€Ÿåº¦ç¿»å€
-    }
-    if (dataspeed > 4000) // è¶…è¿‡4GB/s
-    {
-        LogMessage("æµç›˜é€Ÿåº¦å¤§äº4GB/Sï¼å»ºè®®é™ä½è§¦å‘æ®µæ—¶é•¿æˆ–è€…æé«˜è§¦å‘å‘¨æœŸï¼", true); // è®°å½•é”™è¯¯æ¶ˆæ¯
-        // è¿™é‡Œå¯ä»¥è¿›è¡Œä¸€äº›æ¢å¤æˆ–å®‰å…¨è®¾ç½®çš„æ“ä½œ
-        // å¯ä»¥é€‰æ‹©åœæ­¢æ“ä½œï¼Œè®¾ç½®è§¦å‘é¢‘ç‡åˆ°ä¸€ä¸ªå®‰å…¨å€¼ï¼Œæˆ–è€…æç¤ºç”¨æˆ·è¿›è¡Œè°ƒæ•´
-        TriggerFrequency = 4000 / (OnceTrigBytes / 1024.0 / 1024.0); // è°ƒæ•´åˆ°æœ€å¤§å®‰å…¨é¢‘ç‡
+        printf("µ¥´Î´¥·¢Êı¾İÁ¿³¬¹ıDDR´óĞ¡£¡Çë¼õĞ¡´¥·¢¶ÎÊ±³¤»òÕß½µµÍ´¥·¢ÆµÂÊ£¡\n");
         return DEVICE_ERR;
     }
-    return DEVICE_OK;
-}
-
-int DAQAnalogInputPort::set_data1()
-{
-    if (TriggerDuration > single_interruption_duration) {
-        data1.DMATotolbytes = OnceTrigBytes;
+    //Í¨¹ıµ¥´Î´¥·¢¶ÎÊ±³¤¼ÆËãµÄ×î´ó´¥·¢ÆµÂÊµÄÀíÂÛÖµ
+    double TriggerFrequency = (1 / segmentduration) * 1000000;
+    uint64_t GB = 4000000000;
+    //ÒÀ¾İÁ÷ÅÌËÙ¶È²»´óÓÚ4GB/S¼ÆËã´¦ÍÆ¼öµÄ×î´ó´¥·¢ÆµÂÊ
+    if (triggermode != 0 && triggermode != 1)
+    {
+        if (triggermode == 6 || triggermode == 7)
+        {
+            TriggerFrequency = (GB / once_trig_bytes) / 2;
+        }
+        else
+        {
+            TriggerFrequency = GB / once_trig_bytes;
+        }
+        printf("×î´ó´¥·¢ÆµÂÊ(µ¥Î»:Hz): %f\n", TriggerFrequency);
     }
-    else {
-        double x = single_interruption_duration / TriggerDuration;
-        if (x - static_cast<int>(x) > 0.5) x += 1;
-        int frameCount = static_cast<int>(x); // å¸§å¤´ä¸ªæ•°
-        LogMessage("å¸§å¤´ä¸ªæ•° = " + std::to_string(frameCount));
-        data1.DMATotolbytes = OnceTrigBytes * frameCount;
+    double triggerduration = 0;
+    if (triggermode == 1)
+    {
+        triggerduration = pulseperiod;
+        triggerduration = triggerduration / 1000;//us
+        triggerduration = triggerduration / 1000;//ms
+    }
+    else
+    {
+        double dataspeed = (repetitionfrequency * once_trig_bytes) / 1024 / 1024;
+        if (triggermode == 6 || triggermode == 7)
+        {
+            dataspeed = dataspeed * 2;
+        }
+        if (dataspeed > 4000)
+        {
+            printf("Á÷ÅÌËÙ¶È´óÓÚ4GB/S£¡½¨Òé½µµÍ´¥·¢¶ÎÊ±³¤»òÕßÌá¸ß´¥·¢ÖÜÆÚ£¡\n");
+            return 0;
+        }
+
+        triggerduration = (1 / repetitionfrequency) * 1000;
+    }
+    printf("´¥·¢Ê±³¤(µ¥Î»:ms): %lf\n", triggerduration);
+    if (triggerduration > single_interruption_duration)
+    {
+        data1.DMATotolbytes = once_trig_bytes;
+    }
+    else
+    {
+        double x = single_interruption_duration / triggerduration;
+        if (x - int(x) > .5)x += 1;
+        int xx = x;
+        printf("Ö¡Í·¸öÊı = %d\n", xx);
+        data1.DMATotolbytes = once_trig_bytes * xx;
     }
 
-    // ä¿è¯æ•°æ®é‡ä¸º512å­—èŠ‚çš„å€æ•°
-    if (data1.DMATotolbytes % 512 != 0) {
+    if (data1.DMATotolbytes % 512 == 0)
+    {
+        data1.DMATotolbytes = data1.DMATotolbytes;
+    }
+    else
+    {
         data1.DMATotolbytes = (data1.DMATotolbytes / 512) * 512;
     }
 
-    // æ£€æŸ¥æ•°æ®é‡æ˜¯å¦è¶…è¿‡DDRå¤§å°
-    if (data1.DMATotolbytes > 4294967232) {
-        LogMessage("å•æ¬¡ä¸­æ–­æ•°æ®é‡è¶…è¿‡DDRå¤§å°ï¼è¯·å‡å°è§¦å‘æ®µæ—¶é•¿æˆ–è€…é™ä½è§¦å‘é¢‘ç‡ï¼", true);
-        return DEVICE_ERR;
+    if (data1.DMATotolbytes > 4294967232)
+    {
+        printf("µ¥´ÎÖĞ¶ÏÊı¾İÁ¿³¬¹ıDDR´óĞ¡£¡Çë¼õĞ¡´¥·¢¶ÎÊ±³¤»òÕß½µµÍ´¥·¢ÆµÂÊ£¡\n");
+        return 0;
     }
 
-    LogMessage("å•æ¬¡ä¸­æ–­æ•°æ®é‡(å•ä½:å­—èŠ‚): " + std::to_string(data1.DMATotolbytes));
+    printf("µ¥´ÎÖĞ¶ÏÊı¾İÁ¿(µ¥Î»:×Ö½Ú): %lld\n", data1.DMATotolbytes);
     data1.allbytes = data1.DMATotolbytes;
+}
+int kcDAQ::initializeTheadtoDisk()
+{
+    //¶ÓÁĞ³õÊ¼»¯²Ù×÷
+    //¶ÓÁĞ³õÊ¼»¯
+    int fifo_size = 16;
 
+    char filepath[128] = { "D:\program\Micro-Manager-2.0\data" };
+
+    ThreadFileToDisk::Ins().m_vectorBuffer.resize(10240);
+
+    //³õÊ¼»¯8GµÄpingÄÚ´æ¿é
+    for (int i = 0; i < 10240; i++)
+    {
+        ThreadFileToDisk::Ins().m_vectorBuffer[i] = new databuffer();
+
+        ThreadFileToDisk::Ins().m_vectorBuffer[i]->m_bufferAddr = NULL;
+        ThreadFileToDisk::Ins().m_vectorBuffer[i]->m_bAvailable = false;
+        ThreadFileToDisk::Ins().m_vectorBuffer[i]->m_bAllocateMem = false;
+        ThreadFileToDisk::Ins().m_vectorBuffer[i]->m_iBufferIndex = i;
+        ThreadFileToDisk::Ins().m_vectorBuffer[i]->m_iBufferSize = 0;
+    }
+
+    //1´¥·¢²É¼¯ 2µ¥´ÎĞ´ÅÌ 3Á¬ĞøĞ´ÅÌ
+    int iGatherDataType = 3;
+    ThreadFileToDisk::Ins().set_toDiskType(iGatherDataType);
+
+    int iToFileType = 2;		//Çø·ÖĞ´¶à¸öÎÄ¼ş»¹ÊÇµ¥¸öÎÄ¼ş   2ÊÇÉèÖÃ³Éµ¥¸öÎÄ¼şµÄÄ£Ê½
+    ThreadFileToDisk::Ins().initDataFileBufferPing(80, 200, fifo_size);	//³õÊ¼»¯buffer¿é£¬¸Ä³É5±¶µÄ8M
+    ThreadFileToDisk::Ins().set_filePath_Ping(filepath);				//ÉèÖÃÎÄ¼şÂ·¾¶
+    ThreadFileToDisk::Ins().set_fileBlockType(iToFileType);
+    ThreadFileToDisk::Ins().filecount = 10;
+    ThreadFileToDisk::Ins().StartPing();
     return DEVICE_OK;
 }
 
-int DAQAnalogInputPort::Start_Collection()
-{
-    //DMAå‚æ•°è®¾ç½®
-    int err = QT_BoardSetFifoMultiDMAParameter(OnceTrigBytes, data1.DMATotolbytes);
-    if (err != DEVICE_OK)
-    {
-        LogMessage("dma setup failed!");
-        return err;
-    }
-    //DMAä¼ è¾“æ¨¡å¼è®¾ç½®
-    QT_BoardSetTransmitMode(1, 0);
-    if (err != DEVICE_OK)
-    {
-        LogMessage("dma setup failed!");
-        return err;
-    }
-    //ä½¿èƒ½PCIEä¸­æ–­
-    QT_BoardSetInterruptSwitch();
-    if (err != DEVICE_OK)
-    {
-        LogMessage("PCIE setup failed!");
-        return err;
-    }
-    //æ•°æ®é‡‡é›†çº¿ç¨‹
-    pthread_t data_collect;
-    pthread_create(&data_collect, NULL, datacollect, &data1);
-    if (err != DEVICE_OK)
-    {
-        LogMessage("Thread_data_collect setup failed!");
-        return err;
-    }
-    //ADCå¼€å§‹é‡‡é›†
-    QT_BoardSetADCStart();
-    if (err != DEVICE_OK)
-    {
-        LogMessage("ADC setup failed!");
-        return err;
-    }
-    //ç­‰ä¸­æ–­çº¿ç¨‹
-    pthread_t wait_intr_c2h_0;
-    pthread_create(&wait_intr_c2h_0, NULL, PollIntr, NULL);
-    if (err != DEVICE_OK)
-    {
-        LogMessage("Thread_data_waitintr setup failed!");
-        return err;
-    }
-}
-
-void* PollIntr(void* lParam)
+void* kcDAQ::PollIntr(void* lParam)
 {
     pthread_detach(pthread_self());
     int intr_cnt = 1;
@@ -1928,23 +1887,22 @@ EXIT:
     pthread_exit(NULL);
     return 0;
 }
-
-void* datacollect(void* lParam)
+void* kcDAQ::datacollect(void* lParam)
 {
     pthread_detach(pthread_self());
 
     long ping_getdata = 0;
     long pong_getdata = 0;
 
-
     while (1)
     {
-        //pingæ•°æ®æ¬ç§»
+        //pingÊı¾İ°áÒÆ
         {
             sem_wait(&c2h_ping);
             int iBufferIndex = -1;
             int64_t remain_size = data1.DMATotolbytes;
             uint64_t offsetaddr_ping = 0x0;
+
 
             while (remain_size > 0)
             {
@@ -1956,18 +1914,18 @@ void* datacollect(void* lParam)
                     if (remain_size >= once_readbytes)
                     {
                         QTXdmaGetDataBuffer(offsetaddr_ping, &pstCardInfo,
-                            buffer.bufferAddr + buffer.currentSize, once_readbytes, 0);
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, once_readbytes, 0);
 
-                        buffer.currentSize += once_readbytes;
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)once_readbytes;
 
                         iWriteBytes += once_readbytes;
                     }
                     else if (remain_size > 0)
                     {
                         QTXdmaGetDataBuffer(offsetaddr_ping, &pstCardInfo,
-                            buffer.bufferAddr + buffer.currentSize, remain_size, 0);
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, remain_size, 0);
 
-                        buffer.currentSize += once_readbytes;
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)remain_size;
                         iWriteBytes += remain_size;
                     }
 
@@ -1976,17 +1934,25 @@ void* datacollect(void* lParam)
 
                     if (remain_size <= 0)
                     {
-
+                        LogMessage("no data");
                         break;
                     }
                     iLoopCount++;
-                } while (iWriteBytes < buffer.totalSize);
+                } while (iWriteBytes < ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iTotalSize);
+
+#ifdef WRITEFILE
+
+                //Ö´ĞĞĞ´ÎÄ¼şµÄ²Ù×÷
+                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bAvailable = true;
+
+                ThreadFileToDisk::Ins().PushAvailToListPing(iBufferIndex);
+#endif
 
             }
         }
         ping_getdata++;
 
-        //pongæ•°æ®æ¬ç§»å¼€å§‹
+        //pongÊı¾İ°áÒÆ¿ªÊ¼
         {
             sem_wait(&c2h_pong);
             int iBufferIndex = -1;
@@ -1995,6 +1961,19 @@ void* datacollect(void* lParam)
 
             while (remain_size > 0)
             {
+#ifdef WRITEFILE
+                //ThreadFileToDisk::Ins().PopFreeFromListPing(iBufferIndex);
+
+                ThreadFileToDisk::Ins().CheckFreeBuffer(iBufferIndex);
+
+                if (iBufferIndex == -1)		//ÅĞ¶ÏbufferÊÇ·ñ¿ÉÓÃ
+                {
+                    printf("buffer is null! %d\n", ThreadFileToDisk::Ins().GetFreeSizePing());
+                    LogMessage("pong buffer is null!");
+                    continue;
+                }
+
+                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize = 0;
 
                 int iLoopCount = 0;
                 int iWriteBytes = 0;
@@ -2004,18 +1983,18 @@ void* datacollect(void* lParam)
                     if (remain_size >= once_readbytes)
                     {
                         QTXdmaGetDataBuffer(offsetaddr_pong, &pstCardInfo,
-                            buffer.bufferAddr + buffer.currentSize, once_readbytes, 0);
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, once_readbytes, 0);
 
-                        buffer.currentSize += once_readbytes;
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)once_readbytes;
 
                         iWriteBytes += once_readbytes;
                     }
                     else if (remain_size > 0)
                     {
                         QTXdmaGetDataBuffer(offsetaddr_pong, &pstCardInfo,
-                            buffer.bufferAddr + buffer.currentSize, remain_size, 0);
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, remain_size, 0);
 
-                        buffer.currentSize += once_readbytes;
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)remain_size;
 
                         iWriteBytes += remain_size;
                     }
@@ -2030,7 +2009,15 @@ void* datacollect(void* lParam)
                         break;
                     }
 
-                } while (iWriteBytes < buffer.totalSize);
+                } while (iWriteBytes < ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iTotalSize);
+#endif
+
+#ifdef WRITEFILE
+                //Ö´ĞĞĞ´ÎÄ¼şµÄ²Ù×÷
+                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bAvailable = true;
+
+                ThreadFileToDisk::Ins().PushAvailToListPing(iBufferIndex);
+#endif
             }
         }
         pong_getdata++;
@@ -2042,6 +2029,25 @@ EXIT:
     sem_destroy(&c2h_ping);
     sem_destroy(&c2h_pong);
     return 0;
+}
+
+Log_TraceLog g_Log(std::string("./logs/KunchiUpperMonitor.log"));
+Log_TraceLog* pLog = &g_Log;
+
+void printfLog(int nLevel, const char* fmt, ...)
+{
+    if (nLevel == 0)
+        return;
+
+    if (pLog == NULL)
+        return;
+
+    char buf[1024];
+    va_list list;
+    va_start(list, fmt);
+    vsprintf(buf, fmt, list);
+    va_end(list);
+    pLog->Trace(nLevel, buf);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -2145,16 +2151,16 @@ std::string optotune::sendStart()
     PurgeComPort(port.c_str());
     if (result == DEVICE_OK) {
         if (answer == "OK") {
-            // å¤„ç†æ¥æ”¶åˆ°çš„"ready"ä¿¡æ¯
+            // ´¦Àí½ÓÊÕµ½µÄ"ready"ĞÅÏ¢
             std::cout << "Device is ready." << std::endl;
         }
         else {
-            // æ¥æ”¶åˆ°çš„ä¿¡æ¯ä¸æ˜¯"ready"
+            // ½ÓÊÕµ½µÄĞÅÏ¢²»ÊÇ"ready"
             std::cout << "Received unexpected response: " << answer << std::endl;
         }
     }
     else {
-        // é”™è¯¯å¤„ç†
+        // ´íÎó´¦Àí
         std::cerr << "Failed to receive answer: " << result << std::endl;
     }
 
@@ -2211,21 +2217,21 @@ float optotune::getFP()
 
 int TPM::Initialize()
 {
-    // è¾“å‡ºAOSequenceçš„æµ‹è¯•å±æ€§
+    // Êä³öAOSequenceµÄ²âÊÔÊôĞÔ
     initialized_ = true;
     CPropertyAction* pAct = new CPropertyAction(this, &TPM::OnTriggerAOSequence);
     CreateProperty("TriggerAOSequence", "Off", MM::String, false, pAct);
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
 
-    // æ·»åŠ  portName å±æ€§
+    // Ìí¼Ó portName ÊôĞÔ
     CPropertyAction* pActPort = new CPropertyAction(this, &TPM::OnPortName);
     CreateProperty("PortName", "Dev2/ao0", MM::String, false, pActPort);
     AddAllowedValue("PortName", "Dev2/ao0");
     AddAllowedValue("PortName", "Dev2/ao1");
-    AddAllowedValue("PortName", "Dev2/ao2");  // æ ¹æ®å®é™…ç«¯å£è¿›è¡Œæ·»åŠ 
+    AddAllowedValue("PortName", "Dev2/ao2");  // ¸ù¾İÊµ¼Ê¶Ë¿Ú½øĞĞÌí¼Ó
 
-    // ... å…¶å®ƒåˆå§‹åŒ–ä»£ç  ...
+    // ... ÆäËü³õÊ¼»¯´úÂë ...
 
     return DEVICE_OK;
 }
@@ -2261,7 +2267,7 @@ NIDAQHub* TPM::GetNIDAQHubSafe() {
     NIDAQHub* hub = static_cast<NIDAQHub*>(GetDevice(g_DeviceNameNIDAQHub));
     if (!hub) {
         std::cerr << "Error: NIDAQHub not found or not properly initialized." << std::endl;
-        return nullptr; // æˆ–å¤„ç†é”™è¯¯çš„å…¶ä»–æ–¹å¼
+        return nullptr; // »ò´¦Àí´íÎóµÄÆäËû·½Ê½
     }
     return hub;
 }
@@ -2271,14 +2277,14 @@ int TPM::OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct)
     if (eAct == MM::BeforeGet)
     {
         std::string portName;
-        GetPortName(portName);  // è·å–å½“å‰è®¾ç½®çš„ç«¯å£å
+        GetPortName(portName);  // »ñÈ¡µ±Ç°ÉèÖÃµÄ¶Ë¿ÚÃû
         pProp->Set(portName.c_str());
     }
     else if (eAct == MM::AfterSet)
     {
         std::string portName;
         pProp->Get(portName);
-        SetPortName(portName);  // ä¿å­˜æ–°è®¾ç½®çš„ç«¯å£å
+        SetPortName(portName);  // ±£´æĞÂÉèÖÃµÄ¶Ë¿ÚÃû
     }
     return DEVICE_OK;
 }
@@ -2287,20 +2293,20 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
     if (eAct == MM::BeforeGet)
     {
-        // å¯ä»¥æä¾›ä¸€äº›çŠ¶æ€ä¿¡æ¯
+        // ¿ÉÒÔÌá¹©Ò»Ğ©×´Ì¬ĞÅÏ¢
     }
     else if (eAct == MM::AfterSet)
     {
         std::string value;
-        pProp->Get(value); // è·å–å½“å‰å±æ€§çš„å€¼
+        pProp->Get(value); // »ñÈ¡µ±Ç°ÊôĞÔµÄÖµ
 
         if (value == "On")
         {
-            return TriggerAOSequence(); // å¦‚æœæ˜¯"On"ï¼Œåˆ™æ‰§è¡ŒTriggerAOSequence
+            return TriggerAOSequence(); // Èç¹ûÊÇ"On"£¬ÔòÖ´ĞĞTriggerAOSequence
         }
         else if (value == "Off")
         {
-            return StopAOSequence(); // å¦‚æœæ˜¯"Off"ï¼Œåˆ™æ‰§è¡ŒStopAOSequenceæˆ–å…¶ä»–ä½ å¸Œæœ›çš„å‡½æ•°
+            return StopAOSequence(); // Èç¹ûÊÇ"Off"£¬ÔòÖ´ĞĞStopAOSequence»òÆäËûÄãÏ£ÍûµÄº¯Êı
         }
     }
     return DEVICE_OK;
@@ -2308,7 +2314,7 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 
 int TPM::TriggerAOSequence() {
     std::string portName;
-    GetPortName(portName);  // è·å–å½“å‰è®¾ç½®çš„ç«¯å£å
+    GetPortName(portName);  // »ñÈ¡µ±Ç°ÉèÖÃµÄ¶Ë¿ÚÃû
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         std::vector<double> sequence = { -1.0, -0.96, -0.92, -0.88, -0.84, -0.8, -0.76, -0.72, -0.68, -0.64, -0.6, -0.56, -0.52, -0.48, -0.44, -0.4,
@@ -2319,7 +2325,7 @@ int TPM::TriggerAOSequence() {
     -0.44, -0.48, -0.52, -0.56, -0.6, -0.64, -0.68, -0.72, -0.76, -0.8, -0.84, -0.88, -0.92, -0.96 };
         int result = nidaqHub->StartAOSequenceForPort(portName, sequence);
         if (result != DEVICE_OK) {
-            // å¤„ç†é”™è¯¯
+            // ´¦Àí´íÎó
             std::cerr << "Error starting AO sequence on port " << portName << std::endl;
             return result;
         };
@@ -2329,7 +2335,7 @@ int TPM::TriggerAOSequence() {
 
 int TPM::StopAOSequence() {
     std::string portName;
-    GetPortName(portName);  // è·å–å½“å‰è®¾ç½®çš„ç«¯å£å
+    GetPortName(portName);  // »ñÈ¡µ±Ç°ÉèÖÃµÄ¶Ë¿ÚÃû
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         int result = nidaqHub->StopAOSequenceForPort(portName);

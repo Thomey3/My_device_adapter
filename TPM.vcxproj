@@ -11,23 +11,34 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3rd\include\QTXdmaApi.h" />
+    <ClInclude Include="daq\include\configdata.h" />
+    <ClInclude Include="daq\include\databuffer.h" />
+    <ClInclude Include="daq\include\lock_free_queue.h" />
+    <ClInclude Include="daq\include\Log_CallLog.h" />
+    <ClInclude Include="daq\include\Log_Lock.h" />
+    <ClInclude Include="daq\include\Log_SingleLock.h" />
+    <ClInclude Include="daq\include\Mutex.h" />
+    <ClInclude Include="daq\include\pingpong_example.h" />
+    <ClInclude Include="daq\include\pthread.h" />
+    <ClInclude Include="daq\include\pub.h" />
+    <ClInclude Include="daq\include\qtpciexdma.h" />
+    <ClInclude Include="daq\include\QTXdmaApi.h" />
+    <ClInclude Include="daq\include\qtxdmaapiinterface.h" />
+    <ClInclude Include="daq\include\sched.h" />
+    <ClInclude Include="daq\include\semaphore.h" />
+    <ClInclude Include="daq\include\ThreadFileToDisk.h" />
+    <ClInclude Include="daq\include\TraceLog.h" />
     <ClInclude Include="ETL.h" />
-    <ClInclude Include="fifo_multi\configdata.h" />
-    <ClInclude Include="fifo_multi\databuffer.h" />
-    <ClInclude Include="fifo_multi\Mutex.h" />
-    <ClInclude Include="fifo_multi\pingpong_example.h" />
-    <ClInclude Include="fifo_multi\qtpciexdma.h" />
-    <ClInclude Include="fifo_multi\qtxdmaapiinterface.h" />
     <ClInclude Include="TPM.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fifo_multi\databuffer.cpp" />
-    <ClCompile Include="fifo_multi\MutexWin.cpp" />
-    <ClCompile Include="fifo_multi\pingpong_function.cpp" />
-    <ClCompile Include="fifo_multi\pub.cpp" />
-    <ClCompile Include="fifo_multi\qtxdmaapiinterface.cpp" />
-    <ClCompile Include="fifo_multi\TraceLog.cpp" />
+    <ClCompile Include="daq\source\databuffer.cpp" />
+    <ClCompile Include="daq\source\MutexWin.cpp" />
+    <ClCompile Include="daq\source\pingpong_function.cpp" />
+    <ClCompile Include="daq\source\pub.cpp" />
+    <ClCompile Include="daq\source\qtxdmaapiinterface.cpp" />
+    <ClCompile Include="daq\source\ThreadFileToDisk.cpp" />
+    <ClCompile Include="daq\source\TraceLog.cpp" />
     <ClCompile Include="NIAnalogOutputPort.cpp" />
     <ClCompile Include="NIDigitalOutputPort.cpp" />
     <ClCompile Include="TPM.cpp" />
@@ -78,16 +89,14 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;TPM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\TPM\logclass;..\TPM\3rd\include;..\TPM\fifo_multi;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-
+      <AdditionalIncludeDirectories>..\TPM\daq\include;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>true</EnableUAC>
-      <AdditionalLibraryDirectories>..\TPM\3rd\lib\x64;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-
+      <AdditionalLibraryDirectories>..\TPM\daq\lib;$(MM_3RDPARTYPRIVATE)\NationalInstruments\DAQmx_9.2\lib64\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>nidaqmx.lib;QTXdmaApi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -18,28 +18,58 @@
     <ClInclude Include="TPM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fifo_multi\configdata.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fifo_multi\databuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fifo_multi\Mutex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fifo_multi\pingpong_example.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fifo_multi\qtpciexdma.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fifo_multi\qtxdmaapiinterface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="3rd\include\QTXdmaApi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ETL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\QTXdmaApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\configdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\databuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\lock_free_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\Log_CallLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\Log_Lock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\Log_SingleLock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\Mutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\pingpong_example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\pthread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\pub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\qtpciexdma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\qtxdmaapiinterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\sched.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\semaphore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\ThreadFileToDisk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="daq\include\TraceLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,22 +83,25 @@
     <ClCompile Include="NIDigitalOutputPort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fifo_multi\pingpong_function.cpp">
+    <ClCompile Include="daq\source\pingpong_function.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fifo_multi\databuffer.cpp">
+    <ClCompile Include="daq\source\databuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fifo_multi\MutexWin.cpp">
+    <ClCompile Include="daq\source\MutexWin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fifo_multi\pub.cpp">
+    <ClCompile Include="daq\source\pub.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fifo_multi\qtxdmaapiinterface.cpp">
+    <ClCompile Include="daq\source\qtxdmaapiinterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fifo_multi\TraceLog.cpp">
+    <ClCompile Include="daq\source\ThreadFileToDisk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="daq\source\TraceLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

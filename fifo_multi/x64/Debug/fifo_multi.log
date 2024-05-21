@@ -1,2 +1,0 @@
-﻿D:\Program\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (pingpong_example.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  fifo_multi.vcxproj -> D:\graduate\software\DAQ\kcDAQ_SDK\C&C++\无限点多次触发采集\fifo_multi\x64\Debug\fifo_multi.exe

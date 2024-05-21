@@ -23,6 +23,21 @@
 #include <boost/utility.hpp>
 #include "ETL.h"
 
+#include "QTXdmaApi.h"
+#include "pingpong_example.h"
+#include "pthread.h"
+#include "semaphore.h"
+#include "ThreadFileToDisk.h"
+#include "TraceLog.h"
+#include "databuffer.h"
+#include "Mutex.h"
+
+//////////////////////////////////////////////////////////////////////////////
+// DAQ define
+//
+#define single_interruption_duration 1000
+#define MB *1024*1024
+#define WRITEFILE 1
 // NIDAQ
 // 
 // 
@@ -394,107 +409,118 @@ private:
 // DAQ
 //
 
-class DAQAnalogInputPort : public CSignalIOBase<DAQAnalogInputPort>
+
+class kcDAQ : public CSignalIOBase<kcDAQ>
 {
 public:
-	DAQAnalogInputPort();
-	virtual ~DAQAnalogInputPort();
+	kcDAQ();
+	~kcDAQ();
 
 	virtual int Initialize();
 	virtual int Shutdown();
 
-
 	virtual void GetName(char* name) const;
 	virtual bool Busy() { return false; }
 
-	int SetGateOpen(bool open)
-	{
-		return DEVICE_OK;
-	}
-	int GetGateOpen(bool& open)
-	{
-		return DEVICE_OK;
-	}
-	int SetSignal(double volts)
-	{
-		return DEVICE_OK;
-	}
-	int GetSignal(double& volts)
-	{
-		return DEVICE_OK;
-	}
+	virtual int SetGateOpen(bool open);
+	virtual int GetGateOpen(bool& open);
+	virtual int SetSignal(double /*volts*/) { return DEVICE_UNSUPPORTED_COMMAND; }
+	virtual int GetSignal(double& volts);
+	virtual int GetLimits(double& minVolts, double& maxVolts);
 
-	int IsDASequenceable(bool& isSequenceable) const
-	{
-		isSequenceable = true;
-		return DEVICE_OK;
-	};
-
-	int GetLimits(double& minVolts, double& maxVolts)
-	{
-		return DEVICE_OK;
-	}
-
-	virtual int StopTask();
-private:
-	int change_bias_channal(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int set_pre_trig_length(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int set_Frameheader(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int set_clockmode(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int set_triggerchannel(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int set_triggermode(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int set_SegmentDuration(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int OnSegmentDurationChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int OnTriggerFrequencyChanged(MM::PropertyBase* pProp, MM::ActionType eAct);
-	int onCollection(MM::PropertyBase* pProp, MM::ActionType eAct);
-
-	int CalculateOnceTrigBytes();
-	int CheckDataSpeed();
-	// 通用的属性回调函数
-	int OnUInt32Changed(MM::PropertyBase* pProp, MM::ActionType eAct);
-
-	int Start_Collection();
-	// 其他辅助函数
-
-	void CalculateTriggerFrequency();
-	void CheckTriggerDuration();
-	int set_data1();
-
-
+	virtual int IsDASequenceable(bool& isSequenceable) const;
+	virtual int GetDASequenceMaxLength(long& maxLength) const;
+	virtual int StartDASequence();
+	virtual int StopDASequence();
+	virtual int ClearDASequence();
+	virtual int AddToDASequence(double voltage);
+	virtual int SendDASequence();
 
 private:
 	bool initialized_;
 
-	double offset;
-	int length;
-	int Frameheader;
+	bool gateOpen_;
+	double gatedVoltage_;
+	bool sequenceRunning_;
+	bool supportsTriggering_ = true;
+	size_t maxSequenceLength_;
 
-	// 触发变量设置
-	// 成员变量
-	uint32_t triggercount = 0;            // 触发次数
-	uint32_t pulse_period = 0;          // 内部脉冲周期
-	uint32_t pulse_width = 0;           // 内部脉冲脉宽
-	uint32_t arm_hysteresis = 70;       // 触发迟滞
-	uint32_t rasing_codevalue = 0;      // 双边沿触发上升沿阈值
-	uint32_t falling_codevalue = 0;    // 双边沿触发下降沿阈值
+	double minVolts_;
+	double maxVolts_;
 
-	// 映射属性名到成员变量指针
-	std::map<std::string, uint32_t*> triggerSetupMap;
+	double offset1;
+	double offset2;
+	double offset3;
+	double offset4;
+	double pretriglength;
+	int frameheader;
+	int clockmode;
+	int triggermode;
+	double triggercount;
 
-	uint32_t trigchannelID = 1;         // 触发通道
-	uint32_t trigmode;                  // 添加触发模式变量
+	double pulseperiod;
+	double pulsewidth;
 
-	// 设置DMA参数
-	double SegmentDuration; // 单次触发段时长（微秒）
-	uint64_t OnceTrigBytes; // 单次触发的字节数
-	double TriggerFrequency; // 触发频率（Hz）
-	double TriggerDuration; // 触发时长（毫秒）
+	double armhysteresis;
+	double triggerchannel;
+	double rasingcodevalue;
+	double fallingcodevalue;
 
-	uint32_t Samplerate; // 板卡采样率MHz
-	uint32_t ChannelCount; // 板卡通道数
+	double segmentduration;
+	uint64_t once_trig_bytes;
+	double smaplerate;
+	double channelcount;
+	double repetitionfrequency;
+
+	std::vector<double> unsentSequence_;
+	std::vector<double> sentSequence_;
+
+	sem_t c2h_ping;		//ping�ź���
+	sem_t c2h_pong;		//pong�ź���
+	long once_readbytes = 8 MB;
 
 
+private:
+	int OnOffset(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnPreTrigLength(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnFrameHeader(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnClockMode(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnTriggerMode(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnPulsePeriod(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnPulseWidth(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnArmHysteresis(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnTriggerChannel(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnRasingCodevalue(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnFallingCodevalue(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnSegmentDuration(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnRepetitionFrequency(MM::PropertyBase* pProp, MM::ActionType eAct);
 
+	//int initializeBoard();
+	int ChannelTriggerConfig();
+	int dataConfig();
+	static void* PollIntrEntry(void* arg) {
+		kcDAQ* self = static_cast<kcDAQ*>(arg);
+		self->PollIntr(nullptr);
+		return nullptr;
+	}
+	static void* DatacollectEntry(void* arg) {
+		kcDAQ* self = static_cast<kcDAQ*>(arg);
+		self->datacollect(nullptr);
+		return nullptr;
+	}
+	void* PollIntr(void* lParam);
+	void* datacollect(void* lParam);
+	int initializeTheadtoDisk();
+	void printfLog(int nLevel, const char* fmt, ...);
+private:
+
+
+	struct data
+	{
+		uint64_t DMATotolbytes;
+		uint64_t allbytes;
+	};
+	struct data data1;
 
 };
 
@@ -565,7 +591,7 @@ public:
 	NIDAQHub* GetNIDAQHubSafe();
 
 private:
-	std::string portName_;  // 用于存储端口名
+	std::string portName_;  // ���ڴ洢�˿���
 
 	int TriggerAOSequence();
 	int StopAOSequence();
