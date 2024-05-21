@@ -713,6 +713,11 @@ int NIDAQHub::StartDOBlankingAndOrSequence(const std::string& port, const uInt32
     return ERR_UNKNOWN_PINS_PER_PORT;
 }
 
+int NIDAQHub::StartDOBlankingAndOrSequenceWithoutTrigger(const std::string& port, const bool blankingOn, const bool sequenceOn,
+    const long& pos, const bool blankOnLow, int32 num)
+{
+    return doHub32_->StartDOBlankingAndOrSequenceWithoutTrigger(port, blankingOn, sequenceOn, pos, blankOnLow, num);
+}
 
 int NIDAQHub::StopDOBlankingAndSequence(const uInt32 portWidth)
 {
@@ -987,6 +992,83 @@ inline void NIDAQDOHub<Tuint>::RemoveDOPortFromSequencing(const std::string& por
             doChannelSequences_.erase(doChannelSequences_.begin() + i);
         }
     }
+}
+
+
+template<class Tuint>
+int NIDAQDOHub<Tuint>::StartDOBlankingAndOrSequenceWithoutTrigger(const std::string& port, const bool blankingOn, const bool sequenceOn,
+    const long& pos, const bool blankOnLow, int32 num)
+{
+    if (!blankingOn && !sequenceOn)
+    {
+        return ERR_INVALID_REQUEST;
+    }
+
+    int err = hub_->SetDOPortState(port, portWidth_, blankOnLow ? 0 : pos);
+    if (err != DEVICE_OK)
+        return err;
+
+    err = hub_->StopTask(doTask_);
+    if (err != DEVICE_OK)
+        return err;
+
+    int32 nierr = DAQmxCreateTask("DOBlankTask", &doTask_);
+    if (nierr != 0)
+    {
+        return hub_->TranslateNIError(nierr);
+    }
+    hub_->LogMessage("Created DO task", true);
+
+    nierr = DAQmxCreateDOChan(doTask_, port.c_str(), "DOSeqChan", DAQmx_Val_ChanForAllLines);
+    if (nierr != 0)
+    {
+        return HandleTaskError(nierr);
+    }
+    hub_->LogMessage("Created DO channel for: " + port, true);
+
+    int32 number = num * 2; // 每个上升沿对应两个样本点
+    boost::scoped_array<Tuint> samples;
+    samples.reset(new Tuint[number]);
+
+    // 生成信号序列
+    for (int i = 0; i < num; ++i)
+    {
+        samples.get()[2 * i] = blankOnLow ? pos : 0;       // 第一个样本点
+        samples.get()[2 * i + 1] = blankOnLow ? 0 : pos;  // 第二个样本点，产生上升沿
+    }
+
+    double sampleRateHz = hub_->sampleRateHz_;  // 这里设置内部时钟的频率
+    nierr = DAQmxCfgSampClkTiming(doTask_, "", sampleRateHz, DAQmx_Val_Rising, DAQmx_Val_ContSamps, number);
+    if (nierr != 0)
+    {
+        return HandleTaskError(nierr);
+    }
+    hub_->LogMessage("Configured sample clock timing to use internal clock with frequency: " + std::to_string(sampleRateHz) + " Hz", true);
+
+
+    int32 numWritten = 0;
+    nierr = DaqmxWriteDigital(doTask_, static_cast<int32>(number), samples.get(), &numWritten);
+
+
+    if (nierr != 0)
+    {
+        return HandleTaskError(nierr);
+    }
+    if (numWritten != static_cast<int32>(number))
+    {
+        hub_->LogMessage("Failed to write complete sequence");
+        return HandleTaskError(nierr);
+    }
+    hub_->LogMessage("Wrote samples", true);
+
+    nierr = DAQmxStartTask(doTask_);
+    if (nierr != 0)
+    {
+        return HandleTaskError(nierr);
+    }
+    hub_->LogMessage("Started DO task", true);
+
+    return DEVICE_OK;
 }
 
 
@@ -2224,12 +2306,24 @@ int TPM::Initialize()
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
 
+    pAct = new CPropertyAction(this, &TPM::OnTriggerDOSequence);
+    CreateProperty("TriggerDOSequence", "Off", MM::String, false, pAct);
+    AddAllowedValue("TriggerDOSequence", "Off");
+    AddAllowedValue("TriggerDOSequence", "On");
+
     // 添加 portName 属性
     CPropertyAction* pActPort = new CPropertyAction(this, &TPM::OnPortName);
-    CreateProperty("PortName", "Dev2/ao0", MM::String, false, pActPort);
-    AddAllowedValue("PortName", "Dev2/ao0");
-    AddAllowedValue("PortName", "Dev2/ao1");
-    AddAllowedValue("PortName", "Dev2/ao2");  // 根据实际端口进行添加
+    CreateProperty("PortName", "Dev1/ao0", MM::String, false, pActPort);
+    AddAllowedValue("PortName", "Dev1/ao0");
+    AddAllowedValue("PortName", "Dev1/ao1");
+    AddAllowedValue("PortName", "Dev1/ao2");  // 根据实际端口进行添加
+
+    // 添加 portName 属性
+    pActPort = new CPropertyAction(this, &TPM::OnDOPortName);
+    CreateProperty("DOPortName", "Dev1/port0/line0", MM::String, false, pActPort);
+    AddAllowedValue("DOPortName", "Dev1/port0/line0");
+    AddAllowedValue("DOPortName", "Dev1/port0/line1");
+    AddAllowedValue("DOPortName", "Dev1/port0/line2");  // 根据实际端口进行添加
 
     // ... 其它初始化代码 ...
 
@@ -2312,6 +2406,29 @@ int TPM::OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
     return DEVICE_OK;
 }
 
+int TPM::OnTriggerDOSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        // 可以提供一些状态信息
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        std::string value;
+        pProp->Get(value); // 获取当前属性的值
+
+        if (value == "On")
+        {
+            return TriggerDOSequence(); // 如果是"On"，则执行TriggerAOSequence
+        }
+        else if (value == "Off")
+        {
+            return StopDOSequence(); // 如果是"Off"，则执行StopAOSequence或其他你希望的函数
+        }
+    }
+    return DEVICE_OK;
+}
+
 int TPM::TriggerAOSequence() {
     std::string portName;
     GetPortName(portName);  // 获取当前设置的端口名
@@ -2339,6 +2456,54 @@ int TPM::StopAOSequence() {
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         int result = nidaqHub->StopAOSequenceForPort(portName);
+        if (result != DEVICE_OK) {
+            std::cerr << "Error starting AO sequence on port " << portName << std::endl;
+            return result;
+        }
+        return DEVICE_OK;
+    }
+    return DEVICE_ERR;
+}
+
+int TPM::OnDOPortName(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    if (eAct == MM::BeforeGet)
+    {
+        std::string portName;
+        GetDOPortName(portName);  // 获取当前设置的端口名
+        pProp->Set(portName.c_str());
+    }
+    else if (eAct == MM::AfterSet)
+    {
+        std::string portName;
+        pProp->Get(portName);
+        SetDOPortName(portName);  // 保存新设置的端口名
+    }
+    return DEVICE_OK;
+}
+
+int TPM::TriggerDOSequence() {
+    std::string portName;
+    GetDOPortName(portName);  // 获取当前设置的端口名
+    NIDAQHub* nidaqHub = GetNIDAQHubSafe();
+    if (nidaqHub) {
+        int result = nidaqHub->StartDOBlankingAndOrSequenceWithoutTrigger(portName, true, false,
+            1, false, 512*512);
+        if (result != DEVICE_OK) {
+            // 处理错误
+            std::cerr << "Error starting AO sequence on port " << portName << std::endl;
+            return result;
+        };
+        return DEVICE_OK;
+    }
+}
+
+int TPM::StopDOSequence() {
+    std::string portName;
+    GetDOPortName(portName);  // 获取当前设置的端口名
+    NIDAQHub* nidaqHub = GetNIDAQHubSafe();
+    if (nidaqHub) {
+        int result = nidaqHub->StopDOBlankingAndSequence(32);
         if (result != DEVICE_OK) {
             std::cerr << "Error starting AO sequence on port " << portName << std::endl;
             return result;

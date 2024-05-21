@@ -148,6 +148,8 @@ public:
 
 	int StartDOBlankingAndOrSequence(const std::string& port, const bool blankingOn,
 		const bool sequenceOn, const long& pos, const bool blankingDirection, const std::string triggerPort);
+	int StartDOBlankingAndOrSequenceWithoutTrigger(const std::string& port, const bool blankingOn,
+		const bool sequenceOn, const long& pos, const bool blankingDirection, int32 num);
 	int StopDOBlankingAndSequence();
 	int AddDOPortToSequencing(const std::string& port, const std::vector<Tuint> sequence);
 	void RemoveDOPortFromSequencing(const std::string& port);
@@ -204,6 +206,8 @@ public:
 
 	int StartDOBlankingAndOrSequence(const std::string& port, const uInt32 portWidth, const bool blankingOn, const bool sequenceOn,
 		const long& pos, const bool blankingDirection, const std::string triggerPort);
+	int StartDOBlankingAndOrSequenceWithoutTrigger(const std::string& port, const bool blankingOn,
+		const bool sequenceOn, const long& pos, const bool blankingDirection, int32 num);
 	int StopDOBlankingAndSequence(const uInt32 portWidth);
 
 	int SetDOPortState(const std::string port, uInt32 portWidth, long state);
@@ -584,17 +588,25 @@ public:
 	int DetectInstalledDevices();
 
 	int OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnDOPortName(MM::PropertyBase* pProp, MM::ActionType eAct);
 	void SetPortName(const std::string& portName) { portName_ = portName; }
 	void GetPortName(std::string& portName) const { portName = portName_; }
+	void SetDOPortName(const std::string& portName) { DOportName_ = portName; }
+	void GetDOPortName(std::string& portName) const { portName = DOportName_; }
 
 	int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnTriggerDOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
 	NIDAQHub* GetNIDAQHubSafe();
 
 private:
 	std::string portName_;  // 用于存储端口名
+	std::string DOportName_;  // 用于存储端口名
 
 	int TriggerAOSequence();
 	int StopAOSequence();
+
+	int TriggerDOSequence();
+	int StopDOSequence();
 
 	void GetPeripheralInventory();
 
