@@ -94,7 +94,16 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
 
 MODULE_API void DeleteDevice(MM::Device* pDevice)
 {
-    delete pDevice;
+    if (pDevice != nullptr) {
+        // 仅当指针指向 kcDAQ 类型的对象时才删除
+        if (dynamic_cast<kcDAQ*>(pDevice) != nullptr) {
+            std::cout << "kcDAQ Device don't deleted" << std::endl;
+        }
+        else {
+            delete pDevice;
+            std::cout << "Pointer is not pointing to kcDAQ, skipping delete." << std::endl;
+        }
+    }
 }
 
 
@@ -1038,7 +1047,7 @@ int NIDAQDOHub<Tuint>::StartDOBlankingAndOrSequenceWithoutTrigger(const std::str
     }
 
     double sampleRateHz = hub_->sampleRateHz_;  // 这里设置内部时钟的频率
-    nierr = DAQmxCfgSampClkTiming(doTask_, "", sampleRateHz, DAQmx_Val_Rising, DAQmx_Val_ContSamps, number);
+    nierr = DAQmxCfgSampClkTiming(doTask_, "", 2 * sampleRateHz, DAQmx_Val_Rising, DAQmx_Val_ContSamps, number);
     if (nierr != 0)
     {
         return HandleTaskError(nierr);
@@ -1359,6 +1368,8 @@ template class NIDAQDOHub<uInt8>;
 template class NIDAQDOHub<uInt16>;
 template class NIDAQDOHub<uInt32>;
 
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///   DAQ 
 ///
@@ -1389,20 +1400,23 @@ kcDAQ::kcDAQ() :
     once_trig_bytes(0),
     smaplerate(1000.0),
     channelcount(4.0),
-	data1({0,0})
+    data1({ 0,0 }),
+    repetitionfrequency(800)
 {
-	InitializeDefaultErrorMessages();
+    InitializeDefaultErrorMessages();
+    pthread_mutex_init(&mutex_, NULL);  // 初始化互斥锁
 }
 
 STXDMA_CARDINFO pstCardInfo;
 kcDAQ::~kcDAQ()
 {
+    pthread_mutex_destroy(&mutex_);  // 销毁互斥锁
 }
 
 int kcDAQ::Initialize()
 {
-	if (initialized_)
-		return DEVICE_OK;
+    if (initialized_)
+        return DEVICE_OK;
     initializeTheadtoDisk();
     int err = QTXdmaOpenBoard(&pstCardInfo, 0);
     QT_BoardGetCardInfo();
@@ -1411,10 +1425,10 @@ int kcDAQ::Initialize()
     QT_BoardSetInterruptClear();
     QT_BoardSetSoftReset();
     // 调节通道偏置
-	CPropertyAction* pAct = new CPropertyAction(this, &kcDAQ::OnOffset);
-	err = CreateFloatProperty("Channel1 offset", offset1, false, pAct);
-	if (err != DEVICE_OK)
-		return err;
+    CPropertyAction* pAct = new CPropertyAction(this, &kcDAQ::OnOffset);
+    err = CreateFloatProperty("Channel1 offset", offset1, false, pAct);
+    if (err != DEVICE_OK)
+        return err;
     err = CreateFloatProperty("Channel2 offset", offset2, false, pAct);
     if (err != DEVICE_OK)
         return err;
@@ -1462,12 +1476,12 @@ int kcDAQ::Initialize()
     err = CreateFloatProperty("Falling Codevalue", fallingcodevalue, true, pAct);
     // 单次触发段时长
     pAct = new CPropertyAction(this, &kcDAQ::OnSegmentDuration);
-    err = CreateFloatProperty("Segment Duration", segmentduration, true, pAct);
+    err = CreateFloatProperty("Segment Duration", segmentduration, false, pAct);
     SetPropertyLimits("Segment Duration", 0, 536870.904);
     // 触发频率
     pAct = new CPropertyAction(this, &kcDAQ::OnRepetitionFrequency);
-    err = CreateFloatProperty("Repetition Frequency", repetitionfrequency, true, pAct);
-    SetPropertyLimits("Segment Duration", 800,99999999999);
+    err = CreateFloatProperty("Repetition Frequency", repetitionfrequency, false, pAct);
+    SetPropertyLimits("Repetition Frequency", 800, 99999999999);
     initialized_ = true;
     return DEVICE_OK;
 }
@@ -1535,16 +1549,27 @@ int kcDAQ::StartDASequence()
     QT_BoardSetTransmitMode(1, 0);
     //使能PCIE中断
     QT_BoardSetInterruptSwitch();
-    //数据采集线程
-    pthread_t data_collect;
-    pthread_create(&data_collect, NULL, DatacollectEntry, &data1);
+    ////数据采集线程
+    //pthread_t data_collect;
+    //pthread_create(&data_collect, NULL, DatacollectEntry, &data1);
+
+
 
     //ADC开始采集
     QT_BoardSetADCStart();
 
-    //等中断线程
+    // 等中断线程
     pthread_t wait_intr_c2h_0;
-    pthread_create(&wait_intr_c2h_0, NULL, PollIntrEntry, NULL);
+    ThreadParams* params = new ThreadParams{ this };
+    int ret = pthread_create(&wait_intr_c2h_0, NULL, PollIntrEntry, static_cast<void*>(params));
+    if (ret != 0) {
+        delete params;  // 如果线程创建失败，释放参数
+        return DEVICE_ERR;
+    }
+
+    ////等中断线程
+    //pthread_t wait_intr_c2h_0;
+    //pthread_create(&wait_intr_c2h_0, NULL, PollIntrEntry, NULL);
     sequenceRunning_ = true;
     return DEVICE_OK;
 }
@@ -1931,6 +1956,9 @@ int kcDAQ::initializeTheadtoDisk()
 
 void* kcDAQ::PollIntr(void* lParam)
 {
+    ThreadParams* params = static_cast<ThreadParams*>(lParam);
+    kcDAQ* instance = params->instance;
+
     pthread_detach(pthread_self());
     int intr_cnt = 1;
     int intr_ping = 0;
@@ -1949,21 +1977,156 @@ void* kcDAQ::PollIntr(void* lParam)
         printf("intr time is %f\n", time1);
         start = finish;
 
+        // 使用互斥锁保护对实例变量的访问
+        pthread_mutex_lock(&instance->mutex_);
+
         if (intr_cnt % 2 == 0)
         {
-            sem_post(&c2h_pong);
-            intr_pong++;
-            //printf("pong is %d free list size %d\n", intr_pong, ThreadFileToDisk::Ins().GetFreeSizePing());
+            int iBufferIndex = -1;
+            int64_t remain_size = instance->data1.DMATotolbytes;
+            uint64_t offsetaddr_pong = 0x100000000;
+
+            while (remain_size > 0)
+            {
+#ifdef WRITEFILE
+                //ThreadFileToDisk::Ins().PopFreeFromListPing(iBufferIndex);
+
+                ThreadFileToDisk::Ins().CheckFreeBuffer(iBufferIndex);
+
+                if (iBufferIndex == -1)		//判断buffer是否可用
+                {
+                    printf("buffer is null! %d\n", ThreadFileToDisk::Ins().GetFreeSizePing());
+                    LogMessage("pong buffer is null!");
+                    continue;
+                }
+
+                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize = 0;
+
+                int iLoopCount = 0;
+                int iWriteBytes = 0;
+
+                do
+                {
+                    if (remain_size >= once_readbytes)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_pong, &pstCardInfo,
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, once_readbytes, 0);
+
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)once_readbytes;
+
+                        iWriteBytes += once_readbytes;
+                    }
+                    else if (remain_size > 0)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_pong, &pstCardInfo,
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, remain_size, 0);
+
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)remain_size;
+
+                        iWriteBytes += remain_size;
+                    }
+
+                    iLoopCount++;
+
+                    offsetaddr_pong += once_readbytes;
+                    remain_size -= once_readbytes;
+
+                    if (remain_size <= 0)
+                    {
+                        break;
+                    }
+
+                } while (iWriteBytes < ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iTotalSize);
+#endif
+                //sem_post(&c2h_pong);
+                intr_pong++;
+                //printf("pong is %d free list size %d\n", intr_pong, ThreadFileToDisk::Ins().GetFreeSizePing());
+            }
         }
         else
         {
-            sem_post(&c2h_ping);
-            intr_ping++;
-            //printf("ping is %d free list size %d\n", intr_ping, ThreadFileToDisk::Ins().GetFreeSizePing());
-        }
+            int iBufferIndex = -1;
+            int64_t remain_size = instance->data1.DMATotolbytes;
+            uint64_t offsetaddr_ping = 0x0;
 
+
+            while (remain_size > 0)
+            {
+#ifdef WRITEFILE
+                //ThreadFileToDisk::Ins().PopFreeFromListPing(iBufferIndex);
+                ThreadFileToDisk::Ins().CheckFreeBuffer(iBufferIndex);
+
+                if (iBufferIndex == -1)		//判断buffer是否可用
+                {
+                    printf("buffer is null %d!\n", ThreadFileToDisk::Ins().GetFreeSizePing());
+                    continue;
+                }
+
+                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize = 0;
+#endif
+                int iLoopCount = 0;
+                int iWriteBytes = 0;
+
+                do
+                {
+                    if (remain_size >= once_readbytes)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_ping, &pstCardInfo,
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, once_readbytes, 0);
+
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)once_readbytes;
+
+                        iWriteBytes += once_readbytes;
+                    }
+                    else if (remain_size > 0)
+                    {
+                        QTXdmaGetDataBuffer(offsetaddr_ping, &pstCardInfo,
+                            ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr + iLoopCount * once_readbytes, remain_size, 0);
+
+                        ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize += (unsigned int)remain_size;
+                        iWriteBytes += remain_size;
+                    }
+
+                    offsetaddr_ping += once_readbytes;
+                    remain_size -= once_readbytes;
+
+                    if (remain_size <= 0)
+                    {
+                        LogMessage("no data");
+                        break;
+                    }
+                    iLoopCount++;
+                } while (iWriteBytes < ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iTotalSize);
+                // 数据读取和处理
+                if (ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize % sizeof(int16_t) == 0) {
+                    size_t numElements = ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize / sizeof(int16_t);
+                    if (numElements % 4 != 0) {
+                        std::cerr << "Number of elements is not a multiple of 4." << std::endl;
+                    }
+                    else {
+                        size_t numSamples = numElements / 4;
+                        std::vector<std::vector<int16_t>> channels(4);
+
+                        int16_t* data = reinterpret_cast<int16_t*>(ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr);
+                        double scaleFactor = 2 / (2.0 * ((2) ^ 13));
+
+                        for (size_t i = 0; i < numSamples; ++i) {
+                            for (size_t j = 0; j < 4; ++j) {
+                                channels[j].push_back(data[i * 4 + j] * scaleFactor);
+                            }
+                        }
+
+                    }
+                }
+                //sem_post(&c2h_ping);
+                intr_ping++;
+                //printf("ping is %d free list size %d\n", intr_ping, ThreadFileToDisk::Ins().GetFreeSizePing());
+            }
+        }
+        pthread_mutex_unlock(&instance->mutex_);
         intr_cnt++;
     }
+
 
 EXIT:
     pthread_exit(NULL);
@@ -2021,14 +2184,35 @@ void* kcDAQ::datacollect(void* lParam)
                     }
                     iLoopCount++;
                 } while (iWriteBytes < ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iTotalSize);
+                // 数据读取和处理
+                if (ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize % sizeof(int16_t) == 0) {
+                    size_t numElements = ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_iBufferSize / sizeof(int16_t);
+                    if (numElements % 4 != 0) {
+                        std::cerr << "Number of elements is not a multiple of 4." << std::endl;
+                    }
+                    else {
+                        size_t numSamples = numElements / 4;
+                        std::vector<std::vector<int16_t>> channels(4);
 
-#ifdef WRITEFILE
+                        int16_t* data = reinterpret_cast<int16_t*>(ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bufferAddr);
+                        double scaleFactor = 2 / (2.0 * ((2) ^ 13));
 
-                //执行写文件的操作
-                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bAvailable = true;
+                        for (size_t i = 0; i < numSamples; ++i) {
+                            for (size_t j = 0; j < 4; ++j) {
+                                channels[j].push_back(data[i * 4 + j] * scaleFactor);
+                            }
+                        }
 
-                ThreadFileToDisk::Ins().PushAvailToListPing(iBufferIndex);
-#endif
+                    }
+                }
+//
+//#ifdef WRITEFILE
+//
+//                //执行写文件的操作
+//                ThreadFileToDisk::Ins().m_vectorBuffer[iBufferIndex]->m_bAvailable = true;
+//
+//                ThreadFileToDisk::Ins().PushAvailToListPing(iBufferIndex);
+//#endif
 
             }
         }
@@ -2305,26 +2489,41 @@ int TPM::Initialize()
     CreateProperty("TriggerAOSequence", "Off", MM::String, false, pAct);
     AddAllowedValue("TriggerAOSequence", "Off");
     AddAllowedValue("TriggerAOSequence", "On");
-
+    // DO
     pAct = new CPropertyAction(this, &TPM::OnTriggerDOSequence);
     CreateProperty("TriggerDOSequence", "Off", MM::String, false, pAct);
     AddAllowedValue("TriggerDOSequence", "Off");
     AddAllowedValue("TriggerDOSequence", "On");
 
-    // 添加 portName 属性
-    CPropertyAction* pActPort = new CPropertyAction(this, &TPM::OnPortName);
-    CreateProperty("PortName", "Dev1/ao0", MM::String, false, pActPort);
+    // AO port
+    pAct = new CPropertyAction(this, &TPM::OnPortName);
+    CreateProperty("PortName", "Dev1/ao0", MM::String, false, pAct);
     AddAllowedValue("PortName", "Dev1/ao0");
     AddAllowedValue("PortName", "Dev1/ao1");
     AddAllowedValue("PortName", "Dev1/ao2");  // 根据实际端口进行添加
 
-    // 添加 portName 属性
-    pActPort = new CPropertyAction(this, &TPM::OnDOPortName);
-    CreateProperty("DOPortName", "Dev1/port0/line0", MM::String, false, pActPort);
+    // DO port
+    pAct = new CPropertyAction(this, &TPM::OnDOPortName);
+    CreateProperty("DOPortName", "Dev1/port0/line0", MM::String, false, pAct);
     AddAllowedValue("DOPortName", "Dev1/port0/line0");
     AddAllowedValue("DOPortName", "Dev1/port0/line1");
     AddAllowedValue("DOPortName", "Dev1/port0/line2");  // 根据实际端口进行添加
 
+    // resonant / galvo
+    pAct = new CPropertyAction(this, &TPM::OnScanMode);
+    CreateProperty("ScanMode", "Resonant", MM::String, false, pAct);
+    AddAllowedValue("ScanMode", "Resonant");
+    AddAllowedValue("ScanMode", "Galvo");
+
+    // frequency
+    pAct = new CPropertyAction(this, &TPM::OnFrequency);
+    CreateFloatProperty("Fps(Hz)", 2, false, pAct);
+
+    // frequency
+    pAct = new CPropertyAction(this, &TPM::OnDAQAcquisition);
+    CreateProperty("StartAcquision", "Off", MM::String, false, pAct);
+    AddAllowedValue("StartAcquision", "Off");
+    AddAllowedValue("StartAcquision", "On");
     // ... 其它初始化代码 ...
 
     return DEVICE_OK;
@@ -2364,6 +2563,15 @@ NIDAQHub* TPM::GetNIDAQHubSafe() {
         return nullptr; // 或处理错误的其他方式
     }
     return hub;
+}
+
+kcDAQ* TPM::GetkcDAQSafe() {
+    kcDAQ* daq = static_cast<kcDAQ*>(GetDevice(g_DeviceNameDAQ));
+    if (!daq) {
+        std::cerr << "Error: NIDAQHub not found or not properly initialized." << std::endl;
+        return nullptr; // 或处理错误的其他方式
+    }
+    return daq;
 }
 
 int TPM::OnPortName(MM::PropertyBase* pProp, MM::ActionType eAct)
@@ -2482,13 +2690,40 @@ int TPM::OnDOPortName(MM::PropertyBase* pProp, MM::ActionType eAct)
     return DEVICE_OK;
 }
 
+int TPM::OnScanMode(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    pProp->Get(ScanMode);
+    return DEVICE_OK;
+}
+
+int TPM::OnFrequency(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    pProp->Get(Frequency);
+    return DEVICE_OK;
+}
+
+int TPM::OnDAQAcquisition(MM::PropertyBase* pProp, MM::ActionType eAct)
+{
+    std::string start;
+    pProp->Get(start);
+    if (start == "On")
+    {
+        StartAcquisition();
+    }
+    else if (start == "Off")
+    {
+        StopAcquisition();
+    }
+    return DEVICE_OK;
+}
+
 int TPM::TriggerDOSequence() {
     std::string portName;
     GetDOPortName(portName);  // 获取当前设置的端口名
     NIDAQHub* nidaqHub = GetNIDAQHubSafe();
     if (nidaqHub) {
         int result = nidaqHub->StartDOBlankingAndOrSequenceWithoutTrigger(portName, true, false,
-            1, false, 512*512);
+            1, false, 512 * 512);
         if (result != DEVICE_OK) {
             // 处理错误
             std::cerr << "Error starting AO sequence on port " << portName << std::endl;
@@ -2511,4 +2746,32 @@ int TPM::StopDOSequence() {
         return DEVICE_OK;
     }
     return DEVICE_ERR;
+}
+
+int TPM::StartAcquisition()
+{
+    kcDAQ* kcDAQ = GetkcDAQSafe();
+    if (kcDAQ)
+    {
+        int result = kcDAQ->StartDASequence();
+        if (result != DEVICE_OK)
+        {
+            return result;
+        }
+    }
+    return DEVICE_OK;
+}
+
+int TPM::StopAcquisition()
+{
+    kcDAQ* kcDAQ = GetkcDAQSafe();
+    if (kcDAQ)
+    {
+        int result = kcDAQ->StopDASequence();
+        if (result != DEVICE_OK)
+        {
+            return result;
+        }
+    }
+    return DEVICE_OK;
 }

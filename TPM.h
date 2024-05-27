@@ -75,6 +75,8 @@ extern const int ERR_NONUNIFORM_CHANNEL_VOLTAGE_RANGES;
 extern const int ERR_VOLTAGE_RANGE_EXCEEDS_DEVICE_LIMITS;
 extern const int ERR_UNKNOWN_PINS_PER_PORT;
 
+
+
 inline std::string GetNIError(int32 nierr)
 {
 	char buf[1024];
@@ -483,6 +485,12 @@ private:
 	sem_t c2h_pong;		//pong信号量
 	long once_readbytes = 8 MB;
 
+	// 新增互斥锁和线程参数
+	pthread_mutex_t mutex_;
+	struct ThreadParams {
+		kcDAQ* instance;
+	};
+
 
 private:
 	int OnOffset(MM::PropertyBase* pProp, MM::ActionType eAct);
@@ -503,8 +511,10 @@ private:
 	int ChannelTriggerConfig();
 	int dataConfig();
 	static void* PollIntrEntry(void* arg) {
-		kcDAQ* self = static_cast<kcDAQ*>(arg);
-		self->PollIntr(nullptr);
+		kcDAQ::ThreadParams* params = static_cast<kcDAQ::ThreadParams*>(arg);
+		kcDAQ* self = params->instance;
+		self->PollIntr(params);
+		delete params;  // 确保参数在使用完后释放
 		return nullptr;
 	}
 	static void* DatacollectEntry(void* arg) {
@@ -518,14 +528,12 @@ private:
 	void printfLog(int nLevel, const char* fmt, ...);
 private:
 
-
 	struct data
 	{
 		uint64_t DMATotolbytes;
 		uint64_t allbytes;
 	};
 	struct data data1;
-
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -597,16 +605,26 @@ public:
 	int OnTriggerAOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
 	int OnTriggerDOSequence(MM::PropertyBase* pProp, MM::ActionType eAct);
 	NIDAQHub* GetNIDAQHubSafe();
+	kcDAQ* GetkcDAQSafe();
 
+	int OnScanMode(MM::PropertyBase* pProp, MM::ActionType eAct);
+	int OnFrequency(MM::PropertyBase* pProp, MM::ActionType eAct);
+
+	int OnDAQAcquisition(MM::PropertyBase* pProp, MM::ActionType eAct);
 private:
 	std::string portName_;  // 用于存储端口名
 	std::string DOportName_;  // 用于存储端口名
+	std::string ScanMode;  // 用于存储端口名
+	double Frequency;
 
 	int TriggerAOSequence();
 	int StopAOSequence();
 
 	int TriggerDOSequence();
 	int StopDOSequence();
+
+	int StartAcquisition();
+	int StopAcquisition();
 
 	void GetPeripheralInventory();
 
