@@ -570,6 +570,193 @@ private:
 	float FPMax = 293;
 };
 
+//////////////////////////////////////////////////////////////////////////////
+// Camera
+//
+
+class TPMCamera : public CCameraBase<TPMCamera>
+{
+public:
+	TPMCamera();
+	~TPMCamera();
+
+	// MMDevice API
+	int Initialize();
+	int Shutdown();
+
+//	void GetName(char* pszName) const;
+//	bool Busy() { return m_bBusy; }
+//	void WriteLog(char* message, int err);
+//
+//	// MMCamera API
+	int SnapImage();
+//	const unsigned char* GetImageBuffer();
+//	const unsigned char* GetBuffer(int ibufnum);
+//	const unsigned int* GetImageBufferAsRGB32();
+//	unsigned GetImageWidth() const { return img_.Width(); }
+//	unsigned GetImageHeight() const { return img_.Height(); }
+//	unsigned GetImageBytesPerPixel() const;
+//	unsigned GetBitDepth() const;
+//	unsigned int GetNumberOfComponents() const;
+//	int GetBinning() const;
+//	int SetBinning(int binSize);
+//	int IsExposureSequenceable(bool& isSequenceable) const { isSequenceable = false; return DEVICE_OK; }
+//
+//	long GetImageBufferSize() const { return img_.Width() * img_.Height() * GetImageBytesPerPixel(); }
+//	double GetExposure() const { return m_dExposure; }
+//	void SetExposure(double dExp);
+//	int SetROI(unsigned uX, unsigned uY, unsigned uXSize, unsigned uYSize);
+//	int GetROI(unsigned& uX, unsigned& uY, unsigned& uXSize, unsigned& uYSize);
+//	int ClearROI();
+//	int PrepareSequenceAcqusition();
+//	int StartSequenceAcquisition(long numImages, double /*interval_ms*/, bool stopOnOverflow);
+//	int StopSequenceAcquisition();
+//	int StoppedByThread();
+//	bool IsCapturing();
+//	void SetSizes(int iw, int ih, int ib);
+//	int InitHWIO();
+//	int InitLineTiming();
+//	int InitFlim();
+//	int SetupFlim();
+//	int InitFanLED();
+//	int SetupFanLED();
+//
+//private:
+//	int ResizeImageBuffer();
+//	int SetupCamera(bool bStopRecording, bool bSizeChanged);
+//	int CleanupSequenceAcquisition();
+//	int SetNCheckROI(int* Roix0, int* Roix1, int* Roiy0, int* Roiy1);
+//	int GetSignalNum(std::string szSigName);
+//	int CheckLineTime(DWORD* ptime);
+//
+//	bool m_bDotPhotonFilterAvailable;
+//	bool m_bDoDotPhoton;
+//	int InitDotPhoton();
+//	int UnInitDotPhoton();
+//	int InitDotPhotonCamera(HANDLE hcamera);
+//	int CalcImageDotphoton(WORD* pb16, int iImageSize, HANDLE hCam);
+//
+	TPM* GetHub() const
+	{
+		return static_cast<TPM*>(GetParentHub());
+	}
+	class SequenceThread : public MMDeviceThreadBase
+	{
+	public:
+		SequenceThread(TPMCamera* pCam) : stop_(false), numImages_(0) { camera_ = pCam; }
+		~SequenceThread() {}
+
+		int svc(void);
+
+		void Stop() { stop_ = true; }
+
+		void Start(int width, int height, int ibyteperpixel)
+		{
+			m_svcWidth = width;
+			m_svcHeight = height;
+			m_svcBytePP = ibyteperpixel;
+			stop_ = false;
+			activate();
+		}
+
+		void SetLength(long images) { numImages_ = images; }
+
+	private:
+		TPMCamera* camera_;
+		bool stop_;
+		long numImages_;
+		int m_svcWidth, m_svcHeight, m_svcBytePP;
+
+	};
+//
+	SequenceThread* sthd_;
+//	bool m_bStopOnOverflow;
+//
+//	int InsertImage();
+//
+//	ImgBuffer img_;
+//	int pixelDepth_;
+//	float pictime_;
+	bool m_bSequenceRunning;
+//
+//	//CCameraWrapper* m_pCamera;
+//	int m_bufnr;
+//	WORD* m_pic;
+//	bool m_bDemoMode;
+//	bool m_bStartStopMode;
+//	bool m_bSoftwareTriggered;
+//	bool m_bRecording;
+//	bool m_bCMOSLineTiming;
+//
+//	double m_dExposure;
+//	double m_dFps;
+//
+//	WORD m_wCMOSParameter;
+//	WORD m_wCMOSTimeBase;
+//	DWORD m_dwCMOSLineTime;
+//	DWORD m_dwCMOSExposureLines;
+//	DWORD m_dwCMOSDelayLines;
+//	DWORD m_dwCMOSLineTimeMin;
+//	DWORD m_dwCMOSLineTimeMax;
+//	DWORD m_dwCMOSFlags;
+//
+//	WORD m_wFlimSourceSelect, m_wFlimOutputWaveform;
+//	WORD m_wFlimPhaseNumber, m_wFlimPhaseSymmetry, m_wFlimPhaseOrder, m_wFlimTapSelect;
+//	WORD m_wFlimAsymmetryCorrection, m_wFlimCalculationMode, m_wFlimReferencingMode, m_wFlimThresholdLow, m_wFlimThresholdHigh, m_wFlimOutputMode;
+//	DWORD m_dwFlimFrequency, m_dwFlimPhaseMilliDeg;
+//	BOOL m_bFlimMasterFrequencyMHz;
+//
+//	WORD m_wFanControl;
+//	WORD m_wFanSpeed;
+//	DWORD m_dwLEDControl;
+//
+//	int    m_iFpsMode;
+//	int    m_iNoiseFilterMode;
+//	int    m_iPixelRate;
+//	int    m_iDoubleShutterMode;
+//	int    m_iIRMode;
+	bool m_bBusy;
+	bool m_bInitialized;
+//	bool m_bDoAutoBalance;
+//
+//	// pco generic data
+//	int m_iCameraNum;
+//	int m_iInterFace;
+//	int m_iCameraNumAtInterface;
+//	int m_nCameraType;
+//	//char m_pszTimes[MM_PCO_GENERIC_MAX_STRLEN];
+//	int m_nTimesLen;
+//	int m_nSubMode;
+//	int m_nMode;
+//	int m_nTrig;
+//	int m_iWidth, m_iHeight, m_iBytesPerPixel;
+//	int m_nRoiXMax;
+//	int m_nRoiXMin;
+//	int m_nRoiYMax;
+//	int m_nRoiYMin;
+//	int m_nHBin;
+//	int m_nVBin;
+//	int m_nCCDType;
+//	int roiXMaxFull_;
+//	int roiYMaxFull_;
+//	int m_iGain;
+//	int m_iEMGain;
+//	int m_iGainCam;
+//	short m_sCoolSet;
+//	int m_iOffset;
+//	int m_iTimestamp;
+//	unsigned int m_uiFlags;
+//	bool m_bSettingsChanged;
+//	int m_iNextBufferToUse[4];
+//	int m_iLastBufferUsed[4];
+//	int m_iNextBuffer;
+//	HANDLE mxMutex;
+//	int m_iNumImages;
+//	int m_iNumImagesInserted;
+//	double dIntervall;
+//	int m_iAcquireMode;
+};
+
 
 
 //////////////////////////////////////////////////////////////////////////////

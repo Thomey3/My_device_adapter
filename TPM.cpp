@@ -20,6 +20,7 @@ const char* g_DeviceNameNIDAQAOPortPrefix = "NIDAQAO-";
 const char* g_DeviceNameNIDAQDOPortPrefix = "NIDAQDO-";
 const char* g_DeviceNameDAQ = "DAQ";
 const char* g_DeviceNameoptotune = "optotune";
+const char* g_DeviceNameTPMCamera = "TPMCamera";
 
 const char* g_On = "On";
 const char* g_Off = "Off";
@@ -49,6 +50,7 @@ MODULE_API void InitializeModuleData()
     RegisterDevice(g_HubDeviceName, MM::HubDevice, "TPM");
     RegisterDevice(g_DeviceNameDAQ, MM::SignalIODevice, "DAQ");
     RegisterDevice(g_DeviceNameoptotune, MM::GenericDevice, "optotune");
+    RegisterDevice(g_DeviceNameTPMCamera, MM::CameraDevice, "Camera");
 }
 
 MODULE_API MM::Device* CreateDevice(const char* deviceName)
@@ -86,6 +88,10 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
     else if (strcmp(deviceName, g_DeviceNameoptotune) == 0)
     {
         return new optotune();
+    }
+    else if (strcmp(deviceName, g_DeviceNameTPMCamera) == 0)
+    {
+        return new TPMCamera();
     }
 
     // ...supplied name not recognized
@@ -2476,6 +2482,59 @@ float optotune::getFP()
     PurgeComPort(port.c_str());
     return std::stof(answer);
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+///   TPM Camera
+///
+
+TPMCamera::TPMCamera():
+m_bSequenceRunning(false),
+m_bInitialized(false),
+m_bBusy(false),
+sthd_(0)
+{
+    InitializeDefaultErrorMessages();
+    sthd_ = new SequenceThread(this);
+}
+
+TPMCamera::~TPMCamera()
+{
+    if (m_bInitialized)
+    {
+        Shutdown();
+    }
+    m_bInitialized = false;
+
+    delete(sthd_);
+}
+
+int TPMCamera::Initialize()
+{
+    //MM::Device* hubDevice = GetHub();
+    m_bInitialized = true;
+    return DEVICE_OK;
+}
+
+int TPMCamera::Shutdown()
+{
+    if (m_bInitialized = true)
+    {
+        m_bInitialized = false;
+
+    }
+    return DEVICE_OK;
+}
+
+// 控制曝光的启停
+int TPMCamera::SnapImage()
+{
+    // 换算电压 或者 
+    return DEVICE_OK;
+}
+
+int TPMCamera::
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///   TPM 
